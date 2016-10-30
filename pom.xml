@@ -12,6 +12,12 @@
 			<artifactId>spark-core</artifactId>
 			<version>2.5</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -23,6 +29,23 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>Main</mainClass>
+					<arguments>
+					</arguments>
 				</configuration>
 			</plugin>
 		</plugins>
