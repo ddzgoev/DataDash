@@ -1,40 +1,46 @@
 import static spark.Spark.*;
 
 public class Main {
-    public static void main(String[] args) {
-    	port(50001);
-    	staticFiles.location("/public");
-        get("/hello", (req, res) -> "Hello World");
-      
-        
-        post("/hello", (request, response) ->
-        "Hello World: " + request.body()
-    );
+	public static void main(String[] args) {
+		port(50001);
+		staticFiles.location("/public");
+		get("/hello", (req, res) -> "Hello World");
 
-    get("/private", (request, response) -> {
-        response.status(401);
-        return "Go Away!!!";
-    });
+		post("/hello", (request, response) -> "Hello World: " + request.body());
 
-    get("/users/:name", (request, response) -> "Selected user: " + request.params(":name"));
+		get("/private", (request, response) -> {
+			response.status(401);
+			return "Go Away!!!";
+		});
 
-    get("/news/:section", (request, response) -> {
-        response.type("text/xml");
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><news>" + request.params("section") + "</news>";
-    });
+		get("/users/:name",
+				(request, response) -> "Selected user: "
+						+ request.params(":name"));
 
-    get("/protected", (request, response) -> {
-        halt(403, "I don't think so!!!");
-        return null;
-    });
+		get("/news/:section",
+				(request, response) -> {
+					response.type("text/xml");
+					return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><news>"
+							+ request.params("section") + "</news>";
+				});
 
-    get("/redirect", (request, response) -> {
-        response.redirect("/news/world");
-        return null;
-    });
+		get("/protected", (request, response) -> {
+			halt(403, "I don't think so!!!");
+			return null;
+		});
 
-    get("/", (request, response) -> "root");
-        
-        
-    }
+		get("/redirect", (request, response) -> {
+			response.redirect("/news/world");
+			return null;
+		});
+
+		get("/", (request, response) -> "root");
+		
+		get("/stop", (request, response) -> {
+			stop();
+			return null;
+		});
+		
+
+	}
 }
