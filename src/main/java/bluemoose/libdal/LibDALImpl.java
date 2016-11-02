@@ -49,5 +49,11 @@ public class LibDALImpl implements LibDALInterface {
 		return null;
 	}
 
+	@Override
+	public List<MacroDescription> getMacros() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
