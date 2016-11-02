@@ -1,13 +1,29 @@
-package bluemoose.sharedtypes;
+package bluemoose.idal;
 
 import java.util.Date;
 import java.util.List;
 
+import bluemoose.libdal.MacroType;
+
 /*
- * Base class for a macro, an internal representation of all it means to be a macro.
- * Written to be easily extendible with new or even dynamic macros.
+ * Class for a macro, an internal representation of all it means to be a macro,
+ * from the point of view of modules that don't have to execute them.
  */
-public abstract class Macro {
+public class Macro {
+	public Macro(String uniqueID, String creatorFname, String creatorLname, String reviewerFname, String reviewerLname,
+			boolean wasPeerReviewed, Date runDate, Date creationDate, String macroType, List<String> parameters) {
+		this.uniqueID = uniqueID;
+		this.creatorFname = creatorFname;
+		this.creatorLname = creatorLname;
+		this.reviewerFname = reviewerFname;
+		this.reviewerLname = reviewerLname;
+		this.wasPeerReviewed = wasPeerReviewed;
+		this.runDate = runDate;
+		this.creationDate = creationDate;
+		this.macroType = macroType;
+		this.parameters = parameters;
+	}
+
 	String uniqueID = null;
 	String creatorFname = null;
 	String creatorLname = null;
@@ -16,11 +32,22 @@ public abstract class Macro {
 	boolean wasPeerReviewed = false;
 	Date runDate = null;
 	Date creationDate = null;
+	String macroType = null;
+	List<String> parameters = null;
 	
-	public abstract List<String> getParameters();
-	public abstract MacroType getMacroType();
-	public abstract String getSQL();
-	public abstract void setParameter(int index, String parameter);
+	public List<String> getParameters() {
+		return parameters;
+	}
+	public void setParameter(int index, String parameter) {
+		parameters.set(index, parameter);
+	}
+	
+	public String getMacroType() {
+		return macroType;
+	}
+	public void setMacroType(String macroType) {
+		this.macroType = macroType;
+	}
 	
 	public String getCreatorFname() {
 		return creatorFname;

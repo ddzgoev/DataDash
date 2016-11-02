@@ -1,7 +1,11 @@
 package bluemoose.libdal;
 
+import java.time.Duration;
+import java.time.Period;
+import java.util.List;
+
 import bluemoose.ModuleFactoryImpl;
-import bluemoose.sharedtypes.Macro;
+import bluemoose.idal.Macro;
 
 /*
  * Out implementation of the Liberty Data Access Layer
@@ -17,9 +21,34 @@ public class LibDALImpl implements LibDALInterface {
 	}
 
 	@Override
-	public void runMacro(Macro macro) {
+	public RunMacroResult runMacro(String macroType, List<String> paramaters) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
+	@Override
+	public ParameterPossibilities getAllParameterPossibilities(String parameterType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DriverStep> getRunningDriverSteps() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DriverStep> getPastDriverSteps(Period timePeriod) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Duration getRuntimeAverage(Period timePeriod, String stepID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
