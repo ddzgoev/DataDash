@@ -1,7 +1,11 @@
 package bluemoose.translators.web;
 
 import bluemoose.ModuleFactoryInterface;
+
 import bluemoose.translators.Translator;
+import spark.Spark;
+
+import static spark.Spark.*;
 
 /*
  * The WebTranslator provides restful services to the web UI.
@@ -15,14 +19,12 @@ public class WebTranslator implements Translator {
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-		
+		// TODO This is where the spark-java application should start.
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-		
+		Spark.stop();
 	}
 
 }
