@@ -9,7 +9,8 @@ import java.util.List;
  */
 public class Macro {
 	public Macro(String uniqueID, String creatorFname, String creatorLname, String reviewerFname, String reviewerLname,
-			boolean wasPeerReviewed, Date runDate, Date creationDate, String macroType, List<String> parameters) {
+			boolean wasPeerReviewed, Date runDate, Date creationDate, String macroType, List<String> parameters,
+			List<String> originalParameters) {
 		this.uniqueID = uniqueID;
 		this.creatorFname = creatorFname;
 		this.creatorLname = creatorLname;
@@ -20,6 +21,7 @@ public class Macro {
 		this.creationDate = creationDate;
 		this.macroType = macroType;
 		this.parameters = parameters;
+		this.originalParameters = originalParameters;
 	}
 
 	String uniqueID = null;
@@ -32,12 +34,20 @@ public class Macro {
 	Date creationDate = null;
 	String macroType = null;
 	List<String> parameters = null;
+	/*
+	 * null except for peer reviewed macros.
+	 */
+	List<String> originalParameters = null;
 	
 	public List<String> getParameters() {
 		return parameters;
 	}
 	public void setParameter(int index, String parameter) {
 		parameters.set(index, parameter);
+	}
+	
+	public List<String> getOriginalParameters() {
+		return originalParameters;
 	}
 	
 	public String getMacroType() {
@@ -109,18 +119,11 @@ public class Macro {
 		this.uniqueID = uniqueID;
 	}
 	
-	public Macro(String uniqueID, String creatorFname, String creatorLname, String reviewerFname, String reviewerLname,
-			boolean wasPeerReviewed, Date runDate, Date creationDate) {
-		this.uniqueID = uniqueID;
-		this.creatorFname = creatorFname;
-		this.creatorLname = creatorLname;
-		this.reviewerFname = reviewerFname;
-		this.reviewerLname = reviewerLname;
-		this.wasPeerReviewed = wasPeerReviewed;
-		this.runDate = runDate;
-		this.creationDate = creationDate;
+	public boolean getFailed(){
+		return false;
 	}
 	
-	public Macro() {
+	public String getFailureReason(){
+		return null;
 	}
 }
