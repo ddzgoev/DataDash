@@ -3,8 +3,6 @@ package bluemoose.idal;
 import java.util.Date;
 import java.util.List;
 
-import bluemoose.libdal.MacroType;
-
 /*
  * Class for a macro, an internal representation of all it means to be a macro,
  * from the point of view of modules that don't have to execute them.

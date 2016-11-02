@@ -9,6 +9,12 @@ import java.util.List;
  * related to accessing the Liberty Mutual environment.
  */
 public interface LibDALInterface {
+	
+	/*
+	 * Returns a list of all macros the LibDAL implementation supports.
+	 */
+	List<MacroDescription> getMacros();
+	
 	/*
 	 * Submits a macro to be executed.
 	 * Returns a result including a list of invalid parameters if the macro should

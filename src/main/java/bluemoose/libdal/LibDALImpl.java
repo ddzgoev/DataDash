@@ -5,7 +5,6 @@ import java.time.Period;
 import java.util.List;
 
 import bluemoose.ModuleFactoryImpl;
-import bluemoose.idal.Macro;
 
 /*
  * Out implementation of the Liberty Data Access Layer
