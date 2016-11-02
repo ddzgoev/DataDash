@@ -6,5 +6,11 @@ package bluemoose.adal;
  * tokens, and validate authentication tokens.
  */
 public interface ADALInterface {
-
+	public AuthUser login(String username, String password);
+	/*
+	 * Checks that a token is valid,
+	 * ensures token has not expired, if expiration is a thing,
+	 * and returns info about the logged in user
+	 */
+	public AuthUser checkToken(String authToken);
 }

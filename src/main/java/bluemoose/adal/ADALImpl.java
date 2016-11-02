@@ -13,4 +13,16 @@ public class ADALImpl implements ADALInterface {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public AuthUser login(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AuthUser checkToken(String authToken) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
