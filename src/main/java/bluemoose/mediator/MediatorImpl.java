@@ -17,13 +17,19 @@ public class MediatorImpl implements MediatorInterface {
 	}
 
 	@Override
-	public MacroListResult getPendingMacros(AuthenticatedRequest request) {
+	public StoredMacroListResult getPendingMacros(AuthenticatedRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public SimpleResultWithFailMessage reviewMacro(PeerReviewRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MacroTypeListResult getAllMacroTypes(AuthenticatedRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}

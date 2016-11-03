@@ -6,8 +6,9 @@ package bluemoose.mediator;
  * correct data access component. It deals entirely with java objects.
  */
 public interface MediatorInterface {
+	MacroTypeListResult getAllMacroTypes(AuthenticatedRequest request);
 	SimpleResultWithFailMessage submitMacro(RunMacroRequest request);
-	MacroListResult getPendingMacros(AuthenticatedRequest request);
+	StoredMacroListResult getPendingMacros(AuthenticatedRequest request);
 	SimpleResultWithFailMessage reviewMacro(PeerReviewRequest request);
 	//TODO the rest 
 }
