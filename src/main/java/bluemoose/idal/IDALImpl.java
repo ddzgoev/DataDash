@@ -21,25 +21,25 @@ public class IDALImpl implements IDALInterface {
 	}
 
 	@Override
-	public Macro getPendingMacro(String ID) {
+	public MacroInterface getPendingMacro(String ID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Macro storeMacro(String creatorFname, String creatorLname, String macroType, List<String> parameters) {
+	public MacroInterface storeMacro(String creatorFname, String creatorLname, String macroType, List<String> parameters) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Macro reviewMacro(String ID, String reviewerLname, String reviewerFname, List<String> parameters) {
+	public MacroInterface reviewMacro(String ID, String reviewerLname, String reviewerFname, List<String> parameters) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Macro markRan(String ID) {
+	public MacroInterface markRan(String ID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

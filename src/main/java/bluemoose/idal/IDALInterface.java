@@ -20,22 +20,22 @@ public interface IDALInterface {
 	/*
 	 * Returns a macro pending for peer review.
 	 */
-	public Macro getPendingMacro(String ID);
+	public MacroInterface getPendingMacro(String ID);
 	
 	/*
 	 * Persist macro, return formatted data, including generated macro unique id.
 	 */
-	public Macro storeMacro(String creatorFname, String creatorLname, String macroType, List<String> parameters);
+	public MacroInterface storeMacro(String creatorFname, String creatorLname, String macroType, List<String> parameters);
 	
 	/*
 	 * Persist a peer review of a macro, return formatted data.
 	 */
-	public Macro reviewMacro(String ID, String reviewerLname, String reviewerFname, List<String> parameters);
+	public MacroInterface reviewMacro(String ID, String reviewerLname, String reviewerFname, List<String> parameters);
 	
 	/*
 	 * Moves a pending macro or peer reviewed macro to past macros.
 	 */
-	public Macro markRan(String ID);
+	public MacroInterface markRan(String ID);
 	
 	/*
 	 * returns all past macros.

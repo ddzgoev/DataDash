@@ -9,5 +9,5 @@ public interface MediatorInterface {
 	SimpleResultWithFailMessage submitMacro(RunMacroRequest request);
 	MacroListResult getPendingMacros(AuthenticatedRequest request);
 	SimpleResultWithFailMessage reviewMacro(PeerReviewRequest request);
-	//TODO the rest
+	//TODO the rest 
 }
