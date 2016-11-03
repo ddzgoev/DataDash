@@ -33,4 +33,40 @@ public class MediatorImpl implements MediatorInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public LoginResult login(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ParameterExplanationResult getParameterExplanation(ParameterListRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StoredMacroListResult getJournal(TimedRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StoredMacroListResult getMacroFailures(TimedRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StepListResult getRunningSteps(AuthenticatedRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StepListResult getPastSteps(TimedRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
