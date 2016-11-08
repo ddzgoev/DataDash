@@ -16,5 +16,6 @@ public interface MediatorInterface {
 	StoredMacroListResult getMacroFailures(TimedRequest request);
 	StepListResult getRunningSteps(AuthenticatedRequest request);
 	StepListResult getPastSteps(TimedRequest request);
+	
 	//TODO the rest 
 }
