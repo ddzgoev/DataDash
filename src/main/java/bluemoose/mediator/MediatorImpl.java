@@ -17,7 +17,7 @@ public class MediatorImpl implements MediatorInterface {
 	}
 
 	@Override
-	public StoredMacroListResult getPendingMacros(AuthenticatedRequest request) {
+	public StoredMacroListResultInterface getPendingMacros(AuthenticatedRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -29,7 +29,7 @@ public class MediatorImpl implements MediatorInterface {
 	}
 
 	@Override
-	public MacroTypeListResult getAllMacroTypes(AuthenticatedRequest request) {
+	public MacroTypeListResultInterface getAllMacroTypes(AuthenticatedRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -41,31 +41,31 @@ public class MediatorImpl implements MediatorInterface {
 	}
 
 	@Override
-	public ParameterExplanationResult getParameterExplanation(ParameterListRequest request) {
+	public ParameterExplanationResultInterface getParameterExplanation(ParameterListRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StoredMacroListResult getJournal(TimedRequest request) {
+	public StoredMacroListResultInterface getJournal(TimedRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StoredMacroListResult getMacroFailures(TimedRequest request) {
+	public StoredMacroListResultInterface getMacroFailures(TimedRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StepListResult getRunningSteps(AuthenticatedRequest request) {
+	public StepListResultInterface getRunningSteps(AuthenticatedRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StepListResult getPastSteps(TimedRequest request) {
+	public StepListResultInterface getPastSteps(TimedRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -4,9 +4,13 @@ import java.util.List;
 
 import bluemoose.libdal.PossibilityType;
 
-public class ParameterExplanationResult extends MediatorResult {
+public class ParameterExplanationResult extends MediatorResult implements ParameterExplanationResultInterface {
 	final List<PossibilityType> parameters;
 
+	/* (non-Javadoc)
+	 * @see bluemoose.mediator.ParameterExplanationResultInterface#getParameters()
+	 */
+	@Override
 	public List<PossibilityType> getParameters() {
 		return parameters;
 	}

@@ -7,15 +7,15 @@ package bluemoose.mediator;
  */
 public interface MediatorInterface {
 	LoginResult login(String username, String password);
-	MacroTypeListResult getAllMacroTypes(AuthenticatedRequest request);
-	ParameterExplanationResult getParameterExplanation(ParameterListRequest request);
+	MacroTypeListResultInterface getAllMacroTypes(AuthenticatedRequest request);
+	ParameterExplanationResultInterface getParameterExplanation(ParameterListRequest request);
 	SimpleResultWithFailMessage submitMacro(RunMacroRequest request);
-	StoredMacroListResult getPendingMacros(AuthenticatedRequest request);
+	StoredMacroListResultInterface getPendingMacros(AuthenticatedRequest request);
 	SimpleResultWithFailMessage reviewMacro(PeerReviewRequest request);
-	StoredMacroListResult getJournal(TimedRequest request);
-	StoredMacroListResult getMacroFailures(TimedRequest request);
-	StepListResult getRunningSteps(AuthenticatedRequest request);
-	StepListResult getPastSteps(TimedRequest request);
+	StoredMacroListResultInterface getJournal(TimedRequest request);
+	StoredMacroListResultInterface getMacroFailures(TimedRequest request);
+	StepListResultInterface getRunningSteps(AuthenticatedRequest request);
+	StepListResultInterface getPastSteps(TimedRequest request);
 	
 	//TODO the rest 
 }

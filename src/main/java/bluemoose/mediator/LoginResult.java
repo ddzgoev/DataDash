@@ -2,6 +2,7 @@ package bluemoose.mediator;
 
 import bluemoose.adal.AuthUser;
 
+//result is null when login failed.
 public class LoginResult extends MediatorResult {
 	final AuthUser result;
 
