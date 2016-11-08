@@ -1,6 +1,10 @@
 package bluemoose.mediator;
 
-//Doesn't need an interface, always the same.
+/**
+ * A response form the mediator indicating success or failure, and why.
+ * @author Ethan
+ *
+ */
 public class SimpleResultWithFailMessage extends MediatorResult {
 	public SimpleResultWithFailMessage(MediatorStatus status, String message) {
 		super(status);
@@ -9,6 +13,10 @@ public class SimpleResultWithFailMessage extends MediatorResult {
 
 	final String message;
 
+	/**
+	 * 
+	 * @return The success or failure message. Probably only interesting in the case of failure. Can be "" if success.
+	 */
 	public String getMessage() {
 		return message;
 	}

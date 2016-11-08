@@ -1,6 +1,6 @@
 package bluemoose.mediator;
 
-import java.sql.Time;
+import java.time.Duration;
 
 /**
  * A mediator result containing the average time of something
@@ -12,5 +12,5 @@ public interface AverageTimeResultInterface extends MediatorResultInterface {
 	 * 
 	 * @return the averaqge time
 	 */
-	Time getTime();
+	Duration getTime();
 }
