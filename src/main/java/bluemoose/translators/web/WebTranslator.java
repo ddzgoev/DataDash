@@ -7,7 +7,7 @@ import spark.Spark;
 
 import static spark.Spark.*;
 
-/*
+/**
  * The WebTranslator provides restful services to the web UI.
  * The WebTranslator does not provide services to other java modules.
  */
