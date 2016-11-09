@@ -2,10 +2,23 @@ package bluemoose.mediator;
 
 import java.util.List;
 
+/**
+ * A request to peer review and run a macro.
+ * @author Ethan
+ *
+ */
 public class PeerReviewRequest extends AuthenticatedRequest {
+	/**
+	 * 
+	 * @return The unique unchanging ID of the macro in the system, not the macro type.
+	 */
 	public String getMacroID() {
 		return macroID;
 	}
+	/**
+	 * 
+	 * @return The ordered list of parameters used to execute the macro. null if no parameters are changed.
+	 */
 	public List<String> getParamaters() {
 		return paramaters;
 	}

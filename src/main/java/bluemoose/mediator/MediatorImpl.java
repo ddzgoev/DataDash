@@ -69,4 +69,10 @@ public class MediatorImpl implements MediatorInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public AverageTimeResultInterface getStepAverage(TimedRequest request, String stepID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

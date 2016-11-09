@@ -1,5 +1,14 @@
 package bluemoose.libdal;
 
+/**
+ * enum for a type of parameter.
+ * ALthough Strings are always taken as input, some interface methods
+ * return ParameterType's for convenience.
+ * The canonical string ID is obtained with the name() method inherited
+ * from enum, not to be confuse with getName()
+ * @author Ethan
+ *
+ */
 public enum ParameterType {
 	RUN_NAME("Run Name"),
 	AUDIT_ID("Audit ID"),
@@ -12,11 +21,15 @@ public enum ParameterType {
 	DESCRIPTION("Description?")
 	//TODO the rest
 	;
+	/**
+	 * Not to be confused with name()
+	 * @return The human readable name.
+	 */
 	public String getName() {
-		return name;
+		return readableName;
 	}
-	final String name;
+	final String readableName;
 	ParameterType(String name){
-		this.name = name;
+		this.readableName = name;
 	}
 }

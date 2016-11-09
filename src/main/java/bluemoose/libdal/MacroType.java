@@ -5,8 +5,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/*
- * represents a type of macro
+/**
+ * enum for a type of parameter. Although Strings are always taken as input,
+ * sometimes MacroTypes are given as ouput for convenience.
+ * All MacroType's can be converted to a string with {@link name}
  */
 public enum MacroType {
 	DRIVER_SCHEDULE_DELETE_BY_RUN_NAME(ParameterType.RUN_NAME),
@@ -26,6 +28,9 @@ public enum MacroType {
 	
 	private ArrayList<ParameterType> parameterTypes;
 	
+	/**
+	 * @return List of parameter types used for this macro type.
+	 */
 	public List<ParameterType> getParameterList(){
 		return Collections.unmodifiableList(parameterTypes);
 	}

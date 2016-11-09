@@ -1,5 +1,10 @@
 package bluemoose.libdal;
 
+/**
+ * Data structure representing a driver step.
+ * @author Ethan
+ *
+ */
 public class DriverStep {
 	public DriverStep(String driverStepDetailID, String auditID, String driverStepID, String appName, String runName,
 			String groupNumber, String runOrderNumber, String runStatusCode, String errorProccessNumber,
