@@ -14,7 +14,7 @@ public interface RunMacroResult {
 	 */
 	public MacroResultType wasSuccesful();
 	/**
-	 * If wasSeccesful is INVALID_PARAMETERS, problems is a list of bad parameters.
+	 * @return If wasSeccesful is INVALID_PARAMETERS, problems is a list of bad parameters.
 	 */
 	public List<ParameterType> problems();
 }
