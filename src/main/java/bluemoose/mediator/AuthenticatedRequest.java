@@ -3,7 +3,7 @@ package bluemoose.mediator;
 /**
  * Base class for all requests to the mediator that require the user to be logged in.
  */
-class AuthenticatedRequest {
+public class AuthenticatedRequest {
 	/**
 	 * 
 	 * @return the authentication string
