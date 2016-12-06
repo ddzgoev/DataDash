@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import bluemoose.adal.ADALImpl;
 import bluemoose.adal.ADALInterface;
+import bluemoose.adal.MockAdal;
 import bluemoose.idal.IDALImpl;
 import bluemoose.idal.IDALInterface;
 import bluemoose.libdal.LibDALImpl;
@@ -21,7 +21,7 @@ import bluemoose.translators.web.WebTranslator;
 public class ModuleFactoryImpl implements ModuleFactoryInterface {
 
 	private IDALInterface iDAL = new IDALImpl(this);
-	private ADALInterface aDAL = new ADALImpl(this);
+	private ADALInterface aDAL = new MockAdal();
 	private LibDALInterface libDAL = new LibDALImpl(this);
 	private MediatorInterface mediator = new MediatorImpl(this);
 	private List<Translator> translators = Collections.singletonList(new WebTranslator(this));
