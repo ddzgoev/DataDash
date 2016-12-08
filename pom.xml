@@ -61,7 +61,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>Main</mainClass>
+					<mainClass>bluemoose.Main</mainClass>
 					<arguments>
 					</arguments>
 				</configuration>

@@ -50,8 +50,12 @@ public class WebTranslator implements Translator {
 	
 	private String loginRoute(Request req, Response res){
 		try {
+			System.out.println(req.contentType());
 			System.out.println(req.body());
-			LoginRequestJSON logreq = mapper.readValue(req.body(), LoginRequestJSON.class);
+			
+			String body = getBody(req);
+			
+			LoginRequestJSON logreq = mapper.readValue(body, LoginRequestJSON.class);
 			LoginResult logres = factory.getMediator().login(logreq.username, logreq.password);
 			switch(logres.getStatus()){
 			case AUTHENTICATION_ERROR:
@@ -76,6 +80,22 @@ public class WebTranslator implements Translator {
 		}
 		return internalError;
 		
+	}
+	
+	private static String getBody(Request req){
+		if(req.contentType() == "application/x-www-form-urlencoded"){
+			return paramJson(req.body());
+		}
+		else{
+			return req.body();
+		}
+	}
+	
+	//http://stackoverflow.com/questions/29381446/convert-parse-url-parameteres-to-json-in-java
+	private static String paramJson(String paramIn) {
+	    paramIn = paramIn.replaceAll("=", "\":\"");
+	    paramIn = paramIn.replaceAll("&", "\",\"");
+	    return "{\"" + paramIn + "\"}";
 	}
 
 }
