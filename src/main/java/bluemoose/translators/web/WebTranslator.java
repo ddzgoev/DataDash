@@ -5,16 +5,20 @@ import static spark.Spark.post;
 import static spark.Spark.staticFiles;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bluemoose.ModuleFactoryInterface;
 import bluemoose.adal.AuthUser;
+import bluemoose.idal.Macro;
+import bluemoose.mediator.AuthenticatedRequest;
 import bluemoose.mediator.LoginResult;
 import bluemoose.mediator.MediatorStatus;
 import bluemoose.mediator.PeerReviewRequest;
 import bluemoose.mediator.SimpleResultWithFailMessage;
+import bluemoose.mediator.StoredMacroListResultInterface;
 import bluemoose.translators.Translator;
 import spark.Request;
 import spark.Response;
@@ -46,7 +50,9 @@ public class WebTranslator implements Translator {
 		staticFiles.location("/public");
 		
 		post("/login",this::loginRoute);
+		post("/peerreview", this::getPendingMacrosRoute);
 		post("/peerreview/review", this::reviewMacroRoute);
+		
 	}
 
 	@Override
@@ -54,6 +60,54 @@ public class WebTranslator implements Translator {
 		Spark.stop();
 	}
 	
+	private String getPendingMacrosRoute(Request req, Response res){
+		try {
+			res.type("application/json");
+			String body = getBody(req);
+			
+			SimpleRequestJSON simreq = mapper.readValue(body, SimpleRequestJSON.class);
+			StoredMacroListResultInterface simres = factory.getMediator().getPendingMacros(new AuthenticatedRequest(simreq.authentication));
+			switch(simres.getStatus()){
+			case AUTHENTICATION_ERROR:
+				return write(authenticationError);
+			case AUTHENTICATION_EXPIRATION:
+				return write(authenticationExpiration);
+			case BAD_REQUEST://fallthrough
+			case FAILURE: //fallthrough
+				//Should never happen. If it does something has gone horribly wrong.
+				return write(returnError);
+			case INTERNAL_ERROR:
+				return write(mediatorError);
+			case SUCCESS:
+				return write(translate(simres));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			res.status(400);
+			return write(parseError);
+		}
+		return write(internalError);
+	}
+	
+	private MacroListJSON translate(StoredMacroListResultInterface smlr) {
+		ArrayList<MacroJSON> forReturn = new ArrayList<>();
+		smlr.getResult().forEach(macro -> forReturn.add(translate(macro)));
+		return new MacroListJSON(forReturn);
+	}
+
+	private MacroJSON translate(Macro macro) {
+		return new MacroJSON(macro.getUniqueID(),
+				macro.getCreatorFname(),
+				macro.getCreatorLname(),
+				macro.getReviewerFname(),
+				macro.getReviewerLname(),
+				macro.getWasPeerReviewed(),
+				String.valueOf(macro.getRunDate().getTime()),
+				String.valueOf(macro.getCreationDate().getTime()),
+				macro.getMacroType(),macro.getParameters(),
+				macro.getOriginalParameters());
+	}
+
 	private String reviewMacroRoute(Request req, Response res){
 		try {
 			res.type("application/json");
@@ -84,7 +138,7 @@ public class WebTranslator implements Translator {
 	private String loginRoute(Request req, Response res){
 		try {
 			String body = getBody(req);
-			
+			res.type("application/json");
 			LoginRequestJSON logreq = mapper.readValue(body, LoginRequestJSON.class);
 			LoginResult logres = factory.getMediator().login(logreq.username, logreq.password);
 			switch(logres.getStatus()){
@@ -99,7 +153,6 @@ public class WebTranslator implements Translator {
 			case INTERNAL_ERROR:
 				return write(mediatorError);
 			case SUCCESS:
-				res.type("application/json");
 				AuthUser result = logres.getResult();
 				return write(new LoginResponseJSON(result.getAuthToken(),result.getFname(),result.getLname()));
 			}
