@@ -120,6 +120,21 @@ public class WebTranslator implements Translator {
 		}
 		return write(internalError);
 	}
+
+	private MacroTypeListJSON translate(MacroTypeListResultInterface mtlr) {
+		ArrayList<MacroTypeJSON> forReturn = new ArrayList<>();
+		mtlr.getResult().forEach(macroType -> forReturn.add(translate(macroType)));
+		return new MacroTypeListJSON(forReturn);
+	}
+
+	private MacroTypeJSON translate(MacroType macroType) {
+		return new MacroTypeJSON(
+				macroType.getMacroID(),
+				macroType.getMacroName(),
+				macroType.getMacroDescription(),
+				macroType.getParameterIDs(),
+				macroType.getParameterNames());
+	}
 	
 	private MacroListJSON translate(StoredMacroListResultInterface smlr) {
 		ArrayList<MacroJSON> forReturn = new ArrayList<>();
