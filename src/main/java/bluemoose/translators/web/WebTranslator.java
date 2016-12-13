@@ -15,6 +15,7 @@ import bluemoose.adal.AuthUser;
 import bluemoose.idal.Macro;
 import bluemoose.mediator.AuthenticatedRequest;
 import bluemoose.mediator.LoginResult;
+import bluemoose.mediator.MacroType;
 import bluemoose.mediator.MediatorStatus;
 import bluemoose.mediator.PeerReviewRequest;
 import bluemoose.mediator.SimpleResultWithFailMessage;
@@ -50,6 +51,7 @@ public class WebTranslator implements Translator {
 		staticFiles.location("/public");
 		
 		post("/login",this::loginRoute);
+		post("/macro", this::getAllMacroTypesRoute);
 		post("/peerreview", this::getPendingMacrosRoute);
 		post("/peerreview/review", this::reviewMacroRoute);
 		
@@ -58,6 +60,35 @@ public class WebTranslator implements Translator {
 	@Override
 	public void stop() {
 		Spark.stop();
+	}
+
+	private String getAllMacroTypesRoute(Request req, Response res) {
+		try {
+			res.type("application/json");
+			String body = getBody(req);
+
+			SimpleRequestJSON simreq = mapper.readValue(body, SimpleRequestJSON.class);
+			MacroTypeListResultInterface simres = factory.getMediator().getAllMacroTypes(new AuthenticatedRequest(simreq.authentication));
+			switch(simres.getStatus()) {
+			case AUTHENTICATION_ERROR:
+				return write(authenticationError);
+			case AUTHENTICATION_EXPIRATION:
+				return write(authenticationExpiration);
+			case BAD_REQUEST://fallthrough
+			case FAILURE: //fallthrough
+				//Should never happen. If it does something has gone horribly wrong.
+				return write(returnError);
+			case INTERNAL_ERROR:
+				return write(mediatorError);
+			case SUCCESS:
+				return write(translate(simres));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			res.status(400);
+			return write(parseError);
+		}
+		return write(internalError);
 	}
 	
 	private String getPendingMacrosRoute(Request req, Response res){
