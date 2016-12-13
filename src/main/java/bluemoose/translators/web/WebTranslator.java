@@ -16,6 +16,7 @@ import bluemoose.idal.Macro;
 import bluemoose.mediator.AuthenticatedRequest;
 import bluemoose.mediator.LoginResult;
 import bluemoose.mediator.MacroType;
+import bluemoose.mediator.MacroTypeListResultInterface;
 import bluemoose.mediator.MediatorStatus;
 import bluemoose.mediator.PeerReviewRequest;
 import bluemoose.mediator.SimpleResultWithFailMessage;
