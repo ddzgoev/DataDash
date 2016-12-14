@@ -30,11 +30,13 @@ public enum PossibilityType {
 	 */
 	DECIMAL,
 	/**
-	 * The parameter is a string representing an SQL Date literal.
+	 * The parameter is a string containing an int representing
+	 * a number of milliseconds since the start of 1970
 	 */
 	DATE,
 	/**
-	 * The parameter is a string representing an SQL Time literal.
+	 * The parameter is a string containing an int representing
+	 * a number of milliseconds.
 	 */
 	TIME
 }
