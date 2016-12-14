@@ -123,7 +123,7 @@ public class WebTranslator implements Translator {
 
 	private MacroTypeListJSON translate(MacroTypeListResultInterface mtlr) {
 		ArrayList<MacroTypeJSON> forReturn = new ArrayList<>();
-		mtlr.getResult().forEach(macroType -> forReturn.add(translate(macroType)));
+		mtlr.getMacroTypes().forEach(macroType -> forReturn.add(translate(macroType)));
 		return new MacroTypeListJSON(forReturn);
 	}
 
