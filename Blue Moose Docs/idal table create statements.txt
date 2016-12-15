@@ -1,0 +1,3 @@
+CREATE TABLE Macros( uniqueID VARCHAR(30), creatorFname VARCHAR(30), creatorLname VARCHAR(30), reviewerFname VARCHAR(30), reviewerLname VARCHAR(30), wasPeerReviewed VARCHAR(30), runDate VARCHAR(30), creationDate VARCHAR(30),macroType VARCHAR(30), PRIMARY KEY(uniqueID) )
+CREATE TABLE originalParameters( uniqueID VARCHAR(30), originalParameters VARCHAR(30))
+CREATE TABLE parameters( uniqueID VARCHAR(30), parameters VARCHAR(30) )

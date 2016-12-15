@@ -1,7 +1,13 @@
 package bluemoose.mediator;
 
+import java.util.List;
+
 import bluemoose.ModuleFactoryInterface;
 import bluemoose.adal.AuthUser;
+import bluemoose.idal.Macro;
+import bluemoose.idal.MacroInterface;
+import bluemoose.libdal.ParameterType;
+import bluemoose.libdal.RunMacroResult;
 
 /*
  * Our implementation of the Mediator Interface for production usage.
@@ -16,14 +22,61 @@ public class MediatorImpl implements MediatorInterface {
 
 	@Override
 	public SimpleResultWithFailMessage submitMacro(RunMacroRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		AuthUser user = authenticate(request.getAuthentication());
+		switch(user.success()){
+		case EXPIRED:
+			return new SimpleResultWithFailMessage(MediatorStatus.AUTHENTICATION_EXPIRATION, "");
+		case FAILURE:
+			return new SimpleResultWithFailMessage(MediatorStatus.AUTHENTICATION_ERROR, "");
+		default:
+			break;
+		}
+		MacroInterface macro = factory.getIDAL().storeMacro(user.getFname(), user.getLname(), request.getMacroType(), request.getParameters());
+
+		if(request.isSkipReview()){
+			RunMacroResult result = factory.getLibDAL().runMacro(macro.getMacroType(), macro.getParameters());
+			factory.getIDAL().markRan(macro.getUniqueID());
+			switch(result.wasSuccesful()){
+			case FAILURE:
+				//Never happens under normal circumstances.
+				factory.getIDAL().markFailed(macro.getUniqueID(), "Macro failed at runtime.");
+				return new SimpleResultWithFailMessage(MediatorStatus.FAILURE, "Macro failed at runtime, probably because database could not be accessed");
+			case INCORRECT_NUMBER_OF_PARAMETERS:
+				factory.getIDAL().markFailed(macro.getUniqueID(), "Incorrect number of parameters.");
+				return new SimpleResultWithFailMessage(MediatorStatus.BAD_REQUEST, "Macro failed at runtime, probably because database could not be accessed");
+			case INVALID_PARAMETERS:
+				String problemString = "";
+				for(ParameterType problem : result.problems()){
+					problemString+=problem.name() + " ";
+				}
+				factory.getIDAL().markFailed(macro.getUniqueID(), "Some parameters were invalid, invalid parameters were: " + problemString);
+				return new SimpleResultWithFailMessage(MediatorStatus.BAD_REQUEST, "Some parameters were invalid, invalid parameters were: " + problemString);
+			case SUCCESS:
+				return new SimpleResultWithFailMessage(MediatorStatus.SUCCESS, "");
+			case UNSUPPORTED_MACRO_TYPE:
+				factory.getIDAL().markFailed(macro.getUniqueID(), "Unsupported macro type");
+				return new SimpleResultWithFailMessage(MediatorStatus.BAD_REQUEST, "Unsupported macro type");
+			default: return new SimpleResultWithFailMessage(MediatorStatus.INTERNAL_ERROR, "Invalid return value from LibDAL");
+			}
+		} else{
+			return new SimpleResultWithFailMessage(MediatorStatus.SUCCESS, "");
+		}
 	}
 
 	@Override
 	public StoredMacroListResultInterface getPendingMacros(AuthenticatedRequest request) {
 		// TODO Auto-generated method stub
-		return null;
+		AuthUser user = authenticate(request.getAuthentication());
+		switch(user.success()){
+		case EXPIRED:
+			return new FailedStoredMacroListResult(MediatorStatus.AUTHENTICATION_EXPIRATION);
+		case FAILURE:
+			return new FailedStoredMacroListResult(MediatorStatus.AUTHENTICATION_ERROR);
+		default:
+			break;
+		}
+		List<Macro> pending = factory.getIDAL().getAllPendingMacros();
+		return new StoredMacroListResult(MediatorStatus.SUCCESS,pending);
 	}
 
 	@Override
@@ -92,5 +145,9 @@ public class MediatorImpl implements MediatorInterface {
 	public AverageTimeResultInterface getStepAverage(TimedRequest request, String stepID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private AuthUser authenticate(String authentication){
+		return factory.getADAL().checkToken(authentication);
 	}
 }
