@@ -82,6 +82,15 @@ div.dropdown{
     margin-left: 188px;
 }
 #notificationTitle {
+<<<<<<< HEAD
+z-index: 1000;
+font-weight: bold;
+padding: 4px;
+font-size: 13px;
+background-color: #ffffff;
+width: 299px;
+border-bottom: px solid #dddddd;
+=======
     z-index: 1000;
     font-weight: bold;
     padding: 4px;
@@ -89,6 +98,7 @@ div.dropdown{
     background-color: #ffffff;
     width: 300px;
     border-bottom: px solid #dddddd;
+>>>>>>> 1ceb9f663d49f1dbc06da835827f53438456d143
 }
 #notificationsBody {
     padding: 33px 0px 0px 0px !important;
