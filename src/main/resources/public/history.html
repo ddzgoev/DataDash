@@ -13,11 +13,34 @@
             $('.dropdown-toggle').dropdown();
         });
     </script>
+    <script type="text/javascript" >
+        $(document).ready(function()
+                          {
+            $("#notificationLink").click(function()
+                                         {
+                $("#notificationContainer").fadeToggle(300);
+                $("#notification_count").fadeOut("slow");
+                return false;
+            });
+
+            //Document Click
+            $(document).click(function()
+                              {
+                $("#notificationContainer").hide();
+            });
+            //Popup Click
+            $("#notificationContainer").click(function()
+                                              {
+                return false
+            });
+
+        });
+    </script>
     <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
     <div>
-        <a href="index.html">
+        <a href="homepage.html">
             <img class="resize" src="liberty.jpeg" width="30%"/>
         </a>
     </div>
@@ -33,19 +56,28 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html" color="#172A62">LM</a>
+                    <a class="navbar-brand" href="homepage.html" color="#172A62">LM</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="runMacro.html">Run Macro </a></li>
-                        <li><a href="#">Peer Review </a></li>
-                        <li><a href="#">Macro History </a></li>
+                        <li><a href="peerReview.html">Peer Review </a></li>
+                        <li><a href="history.html">Macro History </a></li>
                         <li><a href="#">Failures </a></li>
                         <li><a href="#">View Run Names </a></li>
                         <li><a href="#">Historical Trending </a></li>
                         <li><a href="#">Dependencies </a></li>
+                        <li id="notification_li">
+                            <span id="notification_count">3</span>
+                            <a href="#" id="notificationLink">Notifications</a>
+                            <div id="notificationContainer">
+                                <div id="notificationTitle">Notifications</div>
+                                <div id="notificationsBody" class="notifications">
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
