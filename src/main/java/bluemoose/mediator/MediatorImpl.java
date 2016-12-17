@@ -92,15 +92,19 @@ public class MediatorImpl implements MediatorInterface {
 		default:
 			break;
 		}
-		
+
 		List<MacroDescription> descriptions = factory.getLibDAL().getMacros();
-		
+
 		MacroTypeListResult result = new MacroTypeListResult();
-		
-		for(MacroDescription description: descriptions){
-			result.addType(new MacroType(description.getType().name(),description.getName(),description.getDescription(),description.getParameters().stream().map((type) -> type.name()).collect(Collectors.toList()),description.getParameters().stream().map((type) -> type.getName()).collect(Collectors.toList())));
+
+		for (MacroDescription description : descriptions) {
+			result.addType(
+					new MacroType(description.getType().name(), description.getName(), description.getDescription(),
+							description.getParameters().stream().map((type) -> type.name())
+									.collect(Collectors.toList()),
+					description.getParameters().stream().map((type) -> type.getName()).collect(Collectors.toList())));
 		}
-		
+
 		return result;
 	}
 
@@ -125,38 +129,95 @@ public class MediatorImpl implements MediatorInterface {
 
 	@Override
 	public ParameterExplanationResultInterface getParameterExplanation(ParameterListRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		AuthUser user = authenticate(request.getAuthentication());
+		switch (user.success()) {
+		case EXPIRED:
+			return new ParameterExplanationResult(MediatorStatus.AUTHENTICATION_EXPIRATION, null);
+		case FAILURE:
+			return new ParameterExplanationResult(MediatorStatus.AUTHENTICATION_ERROR, null);
+		default:
+			break;
+		}
+		return new ParameterExplanationResult(MediatorStatus.SUCCESS,
+				request.getParameterIDs().stream()
+						.map((parameter) -> factory.getLibDAL().getAllParameterPossibilities(parameter))
+						.collect(Collectors.toList()));
 	}
 
 	@Override
 	public StoredMacroListResultInterface getJournal(TimedRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		AuthUser user = authenticate(request.getAuthentication());
+		switch (user.success()) {
+		case EXPIRED:
+			return new StoredMacroListResult(MediatorStatus.AUTHENTICATION_EXPIRATION, null);
+		case FAILURE:
+			return new StoredMacroListResult(MediatorStatus.AUTHENTICATION_ERROR, null);
+		default:
+			break;
+		}
+
+		return new StoredMacroListResult(MediatorStatus.SUCCESS, factory.getIDAL().viewJournal(request.getPeriod()));
 	}
 
 	@Override
 	public StoredMacroListResultInterface getMacroFailures(TimedRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		AuthUser user = authenticate(request.getAuthentication());
+		switch (user.success()) {
+		case EXPIRED:
+			return new StoredMacroListResult(MediatorStatus.AUTHENTICATION_EXPIRATION, null);
+		case FAILURE:
+			return new StoredMacroListResult(MediatorStatus.AUTHENTICATION_ERROR, null);
+		default:
+			break;
+		}
+
+		return new StoredMacroListResult(MediatorStatus.SUCCESS, factory.getIDAL().getFailures());
 	}
 
 	@Override
 	public StepListResultInterface getRunningSteps(AuthenticatedRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		AuthUser user = authenticate(request.getAuthentication());
+		switch (user.success()) {
+		case EXPIRED:
+			return new StepListResult(MediatorStatus.AUTHENTICATION_EXPIRATION, null);
+		case FAILURE:
+			return new StepListResult(MediatorStatus.AUTHENTICATION_ERROR, null);
+		default:
+			break;
+		}
+
+		return new StepListResult(MediatorStatus.SUCCESS, factory.getLibDAL().getRunningDriverSteps());
 	}
 
 	@Override
 	public StepListResultInterface getPastSteps(TimedRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		AuthUser user = authenticate(request.getAuthentication());
+		switch (user.success()) {
+		case EXPIRED:
+			return new StepListResult(MediatorStatus.AUTHENTICATION_EXPIRATION, null);
+		case FAILURE:
+			return new StepListResult(MediatorStatus.AUTHENTICATION_ERROR, null);
+		default:
+			break;
+		}
+
+		return new StepListResult(MediatorStatus.SUCCESS, factory.getLibDAL().getPastDriverSteps(request.getPeriod()));
 	}
 
 	@Override
 	public AverageTimeResultInterface getStepAverage(TimedRequest request, String stepID) {
-		// TODO Auto-generated method stub
-		return null;
+		AuthUser user = authenticate(request.getAuthentication());
+		switch (user.success()) {
+		case EXPIRED:
+			return new AverageTimeResult(MediatorStatus.AUTHENTICATION_EXPIRATION, null);
+		case FAILURE:
+			return new AverageTimeResult(MediatorStatus.AUTHENTICATION_ERROR, null);
+		default:
+			break;
+		}
+
+		return new AverageTimeResult(MediatorStatus.SUCCESS,
+				factory.getLibDAL().getRuntimeAverage(request.getPeriod(), stepID));
 	}
 
 	private AuthUser authenticate(String authentication) {
