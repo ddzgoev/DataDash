@@ -1,15 +1,22 @@
 {
+<<<<<<< Updated upstream
   "name": "first-webapp-react",
   "version": "1.0.0",
   "description": "",
   "main": "js/app.js",
   "private": true,
+=======
+  "name": "react",
+  "version": "1.0.0",
+  "main": "app.js",
+>>>>>>> Stashed changes
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "watchify -v -d -t [ reactify --es6 ] main.js -o compiled.js",
     "build": "NODE_ENV=production browserify -t [ reactify --es6 ] main.js | uglifyjs > compiled.js"
   },
-  "author": "Tutorialzine",
+<<<<<<< Updated upstream
+  "author": "Blue Moose",
   "license": "MIT",
   "dependencies": {
     "moment": "^2.10.2",
@@ -22,5 +29,17 @@
     "reactify": "^1.1.0",
     "uglify-js": "^2.4.20",
     "watchify": "^3.1.2"
+=======
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "moment": "^2.17.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-env": "^1.1.4"
+>>>>>>> Stashed changes
   }
 }
