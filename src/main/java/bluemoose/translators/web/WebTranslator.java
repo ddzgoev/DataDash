@@ -22,6 +22,7 @@ import bluemoose.mediator.MacroTypeListResultInterface;
 import bluemoose.mediator.MediatorStatus;
 import bluemoose.mediator.PeerReviewRequest;
 import bluemoose.mediator.SimpleResultWithFailMessage;
+import bluemoose.mediator.StepListResultInterface;
 import bluemoose.mediator.StoredMacroListResultInterface;
 import bluemoose.mediator.TimedRequest;
 import bluemoose.translators.Translator;
@@ -68,12 +69,42 @@ public class WebTranslator implements Translator {
 		post("/peerreview/review", this::reviewMacroRoute);
 		post("/journal", this::getJournalRoute);
 		post("/step/average", this::getStepAverageRoute);
+		post("/step/past", this::getPastStepsRoute);
 
 	}
 
 	@Override
 	public void stop() {
 		Spark.stop();
+	}
+	
+	private String getPastStepsRoute(Request req, Response res) {
+		try {
+			res.type("application/json");
+			String body = getBody(req);
+
+			TimedRequestJSON stepreq = mapper.readValue(body, TimedRequestJSON.class);
+			StepListResultInterface stepres = factory.getMediator().getPastSteps(new TimedRequest(stepreq.authentication,new Period(stepreq.startDate,stepreq.endDate)));
+			switch (stepres.getStatus()) {
+			case AUTHENTICATION_ERROR:
+				return write(authenticationError);
+			case AUTHENTICATION_EXPIRATION:
+				return write(authenticationExpiration);
+			case BAD_REQUEST:
+				return write(illegalCharacters);
+			case FAILURE:
+				return write(returnError);
+			case INTERNAL_ERROR:
+				return write(mediatorError);
+			case SUCCESS:
+				return write(new StepListJSON(stepres.getSteps()));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			res.status(400);
+			return write(parseError);
+		}
+		return write(internalError);
 	}
 
 	private String getStepAverageRoute(Request req, Response res) {
