@@ -1,0 +1,26 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "watchify -v -d -t [ reactify --es6 ] main.js -o compiled.js",
+    "build": "NODE_ENV=production browserify -t [ reactify --es6 ] main.js | uglifyjs > compiled.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "browserify": "^13.1.1",
+    "moment": "^2.17.1",
+    "react-dom": "^15.4.1",
+    "reactify": "^1.1.1",
+    "uglify-js": "^2.7.5",
+    "watchify": "^3.8.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-env": "^1.1.4"
+  }
+}
