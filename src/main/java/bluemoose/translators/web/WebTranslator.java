@@ -5,6 +5,7 @@ import static spark.Spark.post;
 import static spark.Spark.staticFiles;
 
 import java.io.IOException;
+import java.time.Period;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,6 +22,7 @@ import bluemoose.mediator.MediatorStatus;
 import bluemoose.mediator.PeerReviewRequest;
 import bluemoose.mediator.SimpleResultWithFailMessage;
 import bluemoose.mediator.StoredMacroListResultInterface;
+import bluemoose.mediator.TimedRequest;
 import bluemoose.translators.Translator;
 import spark.Request;
 import spark.Response;
@@ -71,6 +73,35 @@ public class WebTranslator implements Translator {
 			SimpleRequestJSON simreq = mapper.readValue(body, SimpleRequestJSON.class);
 			MacroTypeListResultInterface simres = factory.getMediator().getAllMacroTypes(new AuthenticatedRequest(simreq.authentication));
 			switch(simres.getStatus()) {
+			case AUTHENTICATION_ERROR:
+				return write(authenticationError);
+			case AUTHENTICATION_EXPIRATION:
+				return write(authenticationExpiration);
+			case BAD_REQUEST://fallthrough
+			case FAILURE: //fallthrough
+				//Should never happen. If it does something has gone horribly wrong.
+				return write(returnError);
+			case INTERNAL_ERROR:
+				return write(mediatorError);
+			case SUCCESS:
+				return write(translate(simres));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			res.status(400);
+			return write(parseError);
+		}
+		return write(internalError);
+	}
+	
+	private String getJournalRoute(Request req, Response res){
+		try {
+			res.type("application/json");
+			String body = getBody(req);
+			
+			TimedRequestJSON simreq = mapper.readValue(body, TimedRequestJSON.class);
+			StoredMacroListResultInterface simres = factory.getMediator().getJournal(new TimedRequest(simreq.authentication, null)); //TODO
+			switch(simres.getStatus()){
 			case AUTHENTICATION_ERROR:
 				return write(authenticationError);
 			case AUTHENTICATION_EXPIRATION:
