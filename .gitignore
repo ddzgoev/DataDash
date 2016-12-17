@@ -4,3 +4,4 @@
 *.properties
 *.script
 src/main/resources/node/node_modules/
+src/main/resources/public/js/node/
