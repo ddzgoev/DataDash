@@ -3,3 +3,4 @@
 .project
 *.properties
 *.script
+src/main/resources/node/node_modules/
