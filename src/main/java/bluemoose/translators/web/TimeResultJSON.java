@@ -10,6 +10,9 @@ public class TimeResultJSON {
 	@JsonProperty
 	public String time;
 	
+	@JsonProperty
+	public String status = "SUCCESS";
+	
 	public TimeResultJSON(Duration duration){
 		time = Long.toString(duration.toMillis());
 	}

@@ -11,6 +11,9 @@ public class MacroListJSON {
 	public MacroListJSON(ArrayList<MacroJSON> macros) {
 		this.macros = macros;
 	}
+	
+	@JsonProperty
+	public String status = "SUCCESS";
 
 	@JsonProperty
 	public List<MacroJSON> macros;
