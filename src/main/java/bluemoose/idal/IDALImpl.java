@@ -1,17 +1,22 @@
 package bluemoose.idal;
 
-import bluemoose.Period;
 import java.util.List;
 
-import bluemoose.ModuleFactoryImpl;
+import bluemoose.ModuleFactoryInterface;
+import bluemoose.Period;
 
 /*
  * An Internal Data Access Layer using an SQL database.
  */
 public class IDALImpl implements IDALInterface {
 
-	public IDALImpl(ModuleFactoryImpl moduleFactoryImpl) {
-		// TODO Auto-generated constructor stub
+	ModuleFactoryInterface factory;
+	
+	dddb database;
+	
+	public IDALImpl(ModuleFactoryInterface factory) {
+		this.factory = factory;
+		database = dddb.StartDB();
 	}
 
 	@Override

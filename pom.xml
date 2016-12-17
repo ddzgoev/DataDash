@@ -19,6 +19,13 @@
 			<version>1.6.2</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.querydsl/querydsl-core -->
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-core</artifactId>
+			<version>4.1.4</version>
+		</dependency>
+
 
 
 		<!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
@@ -116,7 +123,7 @@
 				</executions>
 				<configuration>
 					<workingDirectory>src/main/resources/public/js</workingDirectory>
-				
+
 					<nodeVersion>v4.6.0</nodeVersion>
 				</configuration>
 			</plugin>
