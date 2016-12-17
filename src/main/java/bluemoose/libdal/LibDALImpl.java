@@ -25,10 +25,15 @@ public class LibDALImpl implements LibDALInterface {
 		return null;
 	}
 
+	
 	@Override
 	public ParameterPossibilities getAllParameterPossibilities(String parameterType) {
-		// TODO Auto-generated method stub
-		return null;
+		for(ParameterType pt : ParameterType.values()) {
+			if(pt.readableName.equals(parameterType)) {
+				return pt.getPossibilities();
+			}
+		}
+		return new PP_UNSUPPORTED_PARAMETER();
 	}
 
 	@Override

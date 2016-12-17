@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * enum for a type of parameter. Although Strings are always taken as input,
- * sometimes MacroTypes are given as ouput for convenience.
+ * sometimes MacroTypes are given as output for convenience.
  * All MacroType's can be converted to a string with {@link name}
  */
 public enum MacroType {
@@ -16,7 +16,7 @@ public enum MacroType {
 	DRIVER_SCHEDULE_UPDATE_STATUS_BY_RUN_NAME_AND_AUDIT_ID(ParameterType.RUN_NAME,ParameterType.AUDIT_ID,ParameterType.STATUS),
 	DRIVER_SCHEDULE_UPDATE_VALUATION_END_DATE_BY_RUN_NAME_AND_AUDIT_ID(ParameterType.RUN_NAME,ParameterType.AUDIT_ID,ParameterType.VALUATION_END_DATE),
 	DRIVER_SCHEDULE_UPDATE_VALUATION_START_DATE_BY_RUN_NAME_AND_AUDIT_ID(ParameterType.RUN_NAME,ParameterType.AUDIT_ID,ParameterType.VALUATION_START_DATE),
-	DRIVER_SCHEDULE_UPDATE_SLA_DATE_AND_TIME_BY_AUIDIT_ID(ParameterType.SLA_DATE,ParameterType.SLA_TIME,ParameterType.AUDIT_ID,ParameterType.DESCRIPTION),
+	DRIVER_SCHEDULE_UPDATE_SLA_DATE_AND_TIME_BY_AUDIT_ID(ParameterType.SLA_DATE,ParameterType.SLA_TIME,ParameterType.AUDIT_ID,ParameterType.DESCRIPTION),
 	DRIVER_SCHEDULE_UPDATE_SLA_TIME_BY_RUN_NAME(ParameterType.SLA_TIME,ParameterType.RUN_NAME),
 	DRIVER_SCHEDULE_H_UPDATE_SLA_TIME_BY_RUN_NAME(ParameterType.SLA_TIME,ParameterType.RUN_NAME),
 	//TODO, the rest.

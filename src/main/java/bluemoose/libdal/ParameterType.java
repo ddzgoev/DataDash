@@ -10,16 +10,16 @@ package bluemoose.libdal;
  *
  */
 public enum ParameterType {
-	RUN_NAME("Run Name"),
-	AUDIT_ID("Audit ID"),
-	SCHEDULED_START("Scheduled Start date/time"),
-	STATUS("status"),
-	VALUATION_END_DATE("Validation end date"),
-	VALUATION_START_DATE("Validation start date"),
-	SLA_DATE("SLA date"),
-	SLA_TIME("SLA time"),
-	DESCRIPTION("Description?")
-	//TODO the rest
+	RUN_NAME("Run Name", new PP_STRING(30)),
+	AUDIT_ID("Audit ID", new PP_STRING(30)),
+	SCHEDULED_START("Scheduled Start date/time", new PP_TIME(30)),
+	STATUS("status", new PP_STRING(30)),
+	VALUATION_END_DATE("Validation end date", new PP_DATE(30)),
+	VALUATION_START_DATE("Validation start date", new PP_DATE(30)),
+	SLA_DATE("SLA date", new PP_DATE(30)),
+	SLA_TIME("SLA time", new PP_TIME(30)),
+	DESCRIPTION("Description?", new PP_STRING(30))
+	//TODO the rest, and correct lengths once we know the actual values
 	;
 	/**
 	 * Not to be confused with name()
@@ -28,8 +28,19 @@ public enum ParameterType {
 	public String getName() {
 		return readableName;
 	}
+	
+	/**
+	 * @return The Parameter Possibilities for this ParameterType
+	 */
+	public ParameterPossibilities getPossibilities() {
+		return possibilities;
+	}
+	
 	final String readableName;
-	ParameterType(String name){
+	final ParameterPossibilities possibilities;
+	
+	ParameterType(String name, ParameterPossibilities possibilities){
 		this.readableName = name;
+		this.possibilities = possibilities;
 	}
 }
