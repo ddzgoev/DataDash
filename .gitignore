@@ -3,3 +3,7 @@
 .project
 *.properties
 *.script
+src/main/resources/node/node_modules/
+src/main/resources/public/js/node/
+src/main/resources/public/node_modules
+src/main/resources/public/node/node_modules

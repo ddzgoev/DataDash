@@ -1,6 +1,6 @@
 package bluemoose.idal;
 
-import java.time.Period;
+import bluemoose.Period;
 import java.util.List;
 
 import bluemoose.ModuleFactoryImpl;

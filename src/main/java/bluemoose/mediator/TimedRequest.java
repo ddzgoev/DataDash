@@ -1,6 +1,6 @@
 package bluemoose.mediator;
 
-import java.time.Period;
+import bluemoose.Period;
 
 /**
  * A request to the mediator that relates to a period of time.

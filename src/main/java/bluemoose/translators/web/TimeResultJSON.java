@@ -1,20 +1,19 @@
 package bluemoose.translators.web;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Duration;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MacroListJSON {
-	public MacroListJSON(ArrayList<MacroJSON> macros) {
-		this.macros = macros;
-	}
+public class TimeResultJSON {
+	@JsonProperty
+	public String time;
 	
 	@JsonProperty
 	public String status = "SUCCESS";
-
-	@JsonProperty
-	public List<MacroJSON> macros;
+	
+	public TimeResultJSON(Duration duration){
+		time = Long.toString(duration.toMillis());
+	}
 }

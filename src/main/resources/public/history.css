@@ -47,12 +47,64 @@ div.dropdown{
 .container{
     width: 100%;
 }
-.logout{
-    position:relative;
-    float:right;
-    margin: 0px 0px 0px;
-    top: 20px;
-    right: 10px;
+
+.macro {
+    position: relative;
+    margin: 0 auto;
+    padding: 20px 20px 20px;
+    width: 1100px;
+    background: white;
+    border-radius: 3px;
+    @include box-shadow(0 0 200px rgba(white, .5), 0 1px 2px rgba(black, .3));
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: -8px; right: -8px; bottom: -8px; left: -8px;
+        z-index: -1;
+        background: rgba(black, .08);
+        border-radius: 4px;
+    }
+
+    h1 {
+        margin: -20px -20px 21px;
+        line-height: 40px;
+        font-size: 15px;
+        font-weight: bold;
+        color: #555;
+        text-align: center;
+        text-shadow: 0 1px white;
+        background: #f3f3f3;
+        border-bottom: 1px solid #cfcfcf;
+        border-radius: 3px 3px 0 0;
+        @include linear-gradient(top, whiteffd, #eef2f5);
+        @include box-shadow(0 1px #f5f5f5);
+    }
+
+    p { margin: 20px 0 0; }
+    p:first-child { margin-top: 0; }
+
+    input[type=text], input[type=password] { width: 278px; }
+
+    p.remember_me {
+        float: left;
+        line-height: 31px;
+
+        label {
+            font-size: 12px;
+            color: #777;
+            cursor: pointer;
+        }
+
+        input {
+            position: relative;
+            bottom: 1px;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+    }
+
+    p.submit { text-align: right; }
 }
 
 #notification_li{position:relative}
@@ -82,15 +134,6 @@ div.dropdown{
     margin-left: 188px;
 }
 #notificationTitle {
-<<<<<<< HEAD
-z-index: 1000;
-font-weight: bold;
-padding: 4px;
-font-size: 13px;
-background-color: #ffffff;
-width: 299px;
-border-bottom: px solid #dddddd;
-=======
     z-index: 1000;
     font-weight: bold;
     padding: 4px;
@@ -98,7 +141,6 @@ border-bottom: px solid #dddddd;
     background-color: #ffffff;
     width: 300px;
     border-bottom: px solid #dddddd;
->>>>>>> 1ceb9f663d49f1dbc06da835827f53438456d143
 }
 #notificationsBody {
     padding: 33px 0px 0px 0px !important;
@@ -124,14 +166,13 @@ border-bottom: px solid #dddddd;
     font-size: 11px;
 }
 
-.macro {
+.peerreview {
     position: relative;
     margin: 0 auto;
     padding: 20px 20px 20px;
-    text-align: center;
-    width: 900px;
+    width: 1100px;
     background: white;
-    border-radius: 5px;
+    border-radius: 3px;
     @include box-shadow(0 0 200px rgba(white, .5), 0 1px 2px rgba(black, .3));
 
     &:before {
@@ -207,6 +248,25 @@ border-bottom: px solid #dddddd;
 ::-webkit-input-placeholder {
     color: #ccc;
     font-size: 13px;
+}
+
+td[params] {
+	position: relative;
+}
+td[params]:hover::after {
+	content: attr(params);
+	position:absolute;
+	left: 180px;
+	top: 3px;
+	min-width: 200px;
+	/*max-width: 200px;*/
+	border: 1px #dddddd solid;
+	border-radius: 3px;
+	background-color: #f0f0f0;
+	padding: 3px;
+	color: #000000;
+	font-size: 14px;
+	z-index: 1;
 }
 
 input {
