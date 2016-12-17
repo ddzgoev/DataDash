@@ -7,6 +7,9 @@ public class Period {
 		this.start = start;
 		this.end = end;
 	}
+	public Period(String start, String end){
+		this(new Date(Integer.decode(start)), new Date(Integer.decode(end)));
+	}
 	public Date getStart() {
 		return start;
 	}
