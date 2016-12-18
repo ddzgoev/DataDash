@@ -107,6 +107,14 @@ div.dropdown{
     p.submit { text-align: right; }
 }
 
+.logout{
+    position:relative;
+    float:right;
+    margin: 0px 0px 0px;
+    top: 20px;
+    right: 10px;
+}
+
 #notification_li{position:relative}
 #notificationContainer {
     background-color: #404040;

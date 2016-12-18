@@ -258,6 +258,10 @@ div.dropdown{
     font-size: 13px;
 }
 
+td[params] {
+	position: relative;
+}
+
 input {
     font-family: 'Lucida Grande', Tahoma, Verdana, sans-serif;
     font-size: 14px;
