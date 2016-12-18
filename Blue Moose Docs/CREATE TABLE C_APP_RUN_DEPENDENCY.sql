@@ -4,10 +4,10 @@ CREATE TABLE C_APP_RUN_DEPENDENCY(
   ,Run_Name VARCHAR(30)
   ,Dependant_APP_Name VARCHAR(30)
   ,Dependant_Run_Name VARCHAR(30)
-  ,Create_Date_Time DATETIME 
-  ,Last_Modified_Date_Time DATETIME 
-  ,APP_Run_ID INT 
-  ,Dependant_APP_Run_ID INT 
+  ,Create_Date_Time VARCHAR(30) 
+  ,Last_Modified_Date_Time VARCHAR(30)
+  ,APP_Run_ID VARCHAR(30)
+  ,Dependant_APP_Run_ID VARCHAR(30) 
 );
 INSERT INTO mytable(Run_App_Dependency_ID,APP_Name,Run_Name,Dependant_APP_Name,Dependant_Run_Name,Create_Date_Time,Last_Modified_Date_Time,APP_Run_ID,Dependant_APP_Run_ID) VALUES (Run App Dependency ID,'APP Name','Run Name','Dependant APP Name','Dependant Run Name','Create Date Time','Last Modified Date Time',APP Run ID,Dependant APP Run ID);
 INSERT INTO mytable(Run_App_Dependency_ID,APP_Name,Run_Name,Dependant_APP_Name,Dependant_Run_Name,Create_Date_Time,Last_Modified_Date_Time,APP_Run_ID,Dependant_APP_Run_ID) VALUES (5700004,'CLAIMS','CLM_ACS_EXTR','CLAIMS','CLM_REPORTING_HUB','00:00.0','00:00.0',?,?);
