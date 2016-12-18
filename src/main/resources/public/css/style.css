@@ -1,6 +1,6 @@
-@import 'shared/mixins',
-    'shared/reset',
-    'shared/about-light';
+@import '../shared/mixins',
+    '../shared/reset',
+    '../shared/about-light';
 
 /*
 * Copyright (c) 2012-2013 Thibaut Courouble
@@ -16,161 +16,25 @@ body {
     background: rgb(23,42,98);
 }
 
-label{
-    width: 200px;
-    margin-bottom: 20px;
-    margin-right: 10px;
-    display: inline-block;
-    text-align: right;
+.container.login {
+    margin: 80px auto;
+    width: 640px;
 }
 
-input{
-    margin-bottom: 30px;
+.container.macro {
+    margin: 80px auto;
+    width: 1200px;
 }
 
-button {
-    margin-bottom: 30px;
+button{
+    text-align: middle;
 }
 
-textarea{
-    vertical-align: middle;
-}
-
-.description{
-    width: 90px;
-    height: 400px;
-    border: 1px;
-}
-div.dropdown{
-    margin: 10px;
-}
-.container{
-    width: 100%;
-}
-
-.macro {
+.login {
     position: relative;
     margin: 0 auto;
     padding: 20px 20px 20px;
-    width: 1100px;
-    background: white;
-    border-radius: 3px;
-    @include box-shadow(0 0 200px rgba(white, .5), 0 1px 2px rgba(black, .3));
-
-    &:before {
-        content: '';
-        position: absolute;
-        top: -8px; right: -8px; bottom: -8px; left: -8px;
-        z-index: -1;
-        background: rgba(black, .08);
-        border-radius: 4px;
-    }
-
-    h1 {
-        margin: -20px -20px 21px;
-        line-height: 40px;
-        font-size: 15px;
-        font-weight: bold;
-        color: #555;
-        text-align: center;
-        text-shadow: 0 1px white;
-        background: #f3f3f3;
-        border-bottom: 1px solid #cfcfcf;
-        border-radius: 3px 3px 0 0;
-        @include linear-gradient(top, whiteffd, #eef2f5);
-        @include box-shadow(0 1px #f5f5f5);
-    }
-
-    p { margin: 20px 0 0; }
-    p:first-child { margin-top: 0; }
-
-    input[type=text], input[type=password] { width: 278px; }
-
-    p.remember_me {
-        float: left;
-        line-height: 31px;
-
-        label {
-            font-size: 12px;
-            color: #777;
-            cursor: pointer;
-        }
-
-        input {
-            position: relative;
-            bottom: 1px;
-            margin-right: 4px;
-            vertical-align: middle;
-        }
-    }
-
-    p.submit { text-align: right; }
-}
-
-#notification_li{position:relative}
-#notificationContainer {
-    background-color: #404040;
-    background: rgb(23,42,98);
-    border: 1px solid rgba(100, 100, 100, .4);
-    -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
-    overflow: visible;
-    position: absolute;
-    top: 45px;
-    margin-left: -180px;
-    width: 300px;
-    z-index: 1;
-    display: none;
-}
-#notificationContainer:before {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 0;
-    height: 0;
-    color: transparent;
-    border: 10px solid black;
-    border-color: transparent transparent white;
-    margin-top: -20px;
-    margin-left: 188px;
-}
-#notificationTitle {
-    z-index: 1000;
-    font-weight: bold;
-    padding: 4px;
-    font-size: 13px;
-    background-color: #ffffff;
-    width: 300px;
-    border-bottom: px solid #dddddd;
-}
-#notificationsBody {
-    padding: 33px 0px 0px 0px !important;
-    min-height:300px;
-}
-#notificationFooter {
-    background-color: #e9eaed;
-    text-align: center;
-    font-weight: bold;
-    padding: 8px;
-    font-size: 12px;
-    border-top: 1px solid #dddddd;
-}
-#notification_count {
-    padding: 3px 7px 3px 7px;
-    background: #cc0000;
-    color: #ffffff;
-    font-weight: bold;
-    margin-left: 77px;
-    border-radius: 9px;
-    position: absolute;
-    margin-top: -11px;
-    font-size: 11px;
-}
-
-.peerreview {
-    position: relative;
-    margin: 0 auto;
-    padding: 20px 20px 20px;
-    width: 1100px;
+    width: 310px;
     background: white;
     border-radius: 3px;
     @include box-shadow(0 0 200px rgba(white, .5), 0 1px 2px rgba(black, .3));
@@ -309,15 +173,3 @@ img {
     max-height:30%;
     margin:auto;
 }
-Live Demo
-HTML Source
-SCSS Source
-TweetShare
-View Article
-Download
-Download All
-Hi there!
-If you like my snippets, please consider turning off your adblock for this website.
-I have a single handcrafted ad zone.
-(I hate bad ads too!)
-Thank you ☺ Nope
