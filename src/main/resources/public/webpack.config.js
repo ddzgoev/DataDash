@@ -5,10 +5,15 @@ var BUILD_DIR = path.resolve(__dirname, './js');
 var APP_DIR = path.resolve(__dirname, './');
 
 var config = {
-	entry: APP_DIR + '/index.jsx',
+	entry: './runMacro.jsx',
 	output: {
 		path: BUILD_DIR,
-		filename: 'compiled.js'
+		filename: 'runMacroCompiled.js'
+	},
+	entry: './login.jsx',
+	output: {
+		path: BUILD_DIR,
+		filename: 'loginCompiled.js'
 	},
 	module : {
 		loaders : [
