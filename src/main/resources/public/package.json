@@ -1,45 +1,39 @@
 {
-<<<<<<< Updated upstream
   "name": "first-webapp-react",
   "version": "1.0.0",
   "description": "",
   "main": "js/app.js",
   "private": true,
-=======
-  "name": "react",
-  "version": "1.0.0",
-  "main": "app.js",
->>>>>>> Stashed changes
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "watchify -v -d -t [ reactify --es6 ] main.js -o compiled.js",
-    "build": "NODE_ENV=production browserify -t [ reactify --es6 ] main.js | uglifyjs > compiled.js"
+    "dev": "webpack -d --watch",
+    "build": "webpack -p"
   },
-<<<<<<< Updated upstream
   "author": "Blue Moose",
   "license": "MIT",
   "dependencies": {
-    "moment": "^2.10.2",
-    "react": "^15.4.1"
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "bootstrap": "^3.3.7",
+    "browserify": "^9.0.8",
+    "http-server": "^0.9.0",
+    "moment": "^2.17.1",
+    "react": "^15.4.1",
+    "react-bootstrap": "^0.30.7",
+    "react-bootstrap-dropdown": "^0.3.0",
+    "react-dom": "^15.4.1",
+    "react-spark-js": "^0.1.5",
+    "reactify": "^1.1.1",
+    "uglify-js": "^2.7.5",
+    "watchify": "^3.8.0",
+    "webpack": "^1.14.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-preset-env": "^1.1.4",
     "browserify": "^9.0.8",
     "reactify": "^1.1.0",
     "uglify-js": "^2.4.20",
     "watchify": "^3.1.2"
-=======
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "moment": "^2.17.1"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-preset-env": "^1.1.4"
->>>>>>> Stashed changes
   }
 }

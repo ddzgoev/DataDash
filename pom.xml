@@ -19,7 +19,11 @@
 			<version>1.6.2</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-sql</artifactId>
+			<version>3.7.4</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
 		<dependency>
@@ -116,7 +120,7 @@
 				</executions>
 				<configuration>
 					<workingDirectory>src/main/resources/public/js</workingDirectory>
-				
+
 					<nodeVersion>v4.6.0</nodeVersion>
 				</configuration>
 			</plugin>
@@ -161,4 +165,16 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<repositories>
+		<repository>
+			<id>msource</id>
+			<url>http://source.mysema.com/maven2/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

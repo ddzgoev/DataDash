@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Macro History</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/failures.css">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
+        });
+    </script>
+    <script type="text/javascript" >
+        $(document).ready(function()
+                          {
+            $("#notificationLink").click(function()
+                                         {
+                $("#notificationContainer").fadeToggle(300);
+                $("#notification_count").fadeOut("slow");
+                return false;
+            });
+
+            //Document Click
+            $(document).click(function()
+                              {
+                $("#notificationContainer").hide();
+            });
+            //Popup Click
+            $("#notificationContainer").click(function()
+                                              {
+                return false
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+    $("td[colspan=5]").find("p").hide();
+    $("table").click(function(event) {
+        event.stopPropagation();
+        var $target = $(event.target);
+        if ( $target.closest("td").attr("colspan") > 1 ) {
+            $target.closest("tr").prev().find("td:first").html("+");
+        } else {
+            $target.closest("tr").next().find("p").slideToggle();
+            if ($target.closest("tr").find("td:first").html() == "+")
+                $target.closest("tr").find("td:first").html("-");
+            else
+                $target.closest("tr").find("td:first").html("+");                
+        }                    
+    });
+    });
+    </script>
+    <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body>
+    <div>
+        <a href="homepage.html">
+            <img class="resize" src="liberty.jpeg" width="30%"/>
+        </a>
+        <a href="login.html" class="btn btn-default btn-sm logout">
+            <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a>
+    </div>
+
+    <div>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="homepage.html" color="#172A62">LM</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="runMacro.html">Run Macro </a></li>
+                        <li><a href="peerReview.html">Peer Review </a></li>
+                        <li><a href="history.html">Macro History </a></li>
+                        <li><a href="failures.html">Failures </a></li>
+                        <li><a href="runNames.html">View Run Names </a></li>
+                        <li><a href="#">Historical Trending </a></li>
+                        <li><a href="#">Dependencies </a></li>
+                        <li id="notification_li">
+                            <span id="notification_count">3</span>
+                            <a href="#" id="notificationLink">Notifications</a>
+                            <div id="notificationContainer">
+                                <div id="notificationTitle">Notifications</div>
+                                <div id="notificationsBody" class="notifications">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+
+    <section class="container">
+        <div class="macro">
+            <h1>Failed Macros</h1>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Sort By
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Recent</a></li>
+                            <li><a href="#">Oldest</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Recent - Not Reviewed</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th></th>
+                        <th>Macro</th>
+                        <th>Date Run</th>
+                        <th>Run By</th>
+                        <th>Reviewer</th>
+                        <!-- /macro/failure macro list data type (don't display the unique ID) -->
+                    </tr>
+
+                    <!-- populate content here -->
+                    <tr>
+                        <td>+</td>
+                        <td params="param1:something, param2:453">Example</td>
+                        <td>12/13/2016 16:16</td>
+                        <td>Someone</td>
+                        <td>Not reviewed yet</td>
+                    </tr>
+                    <tr><td colspan="5"><p>param1 param2 param3</p></td></tr>
+                    <tr>
+                        <td>+</td>
+                        <td params="param1:somethingElse, param2:84651">Example</td>
+                        <td>12/13/2016 14:47</td>
+                        <td>Someone</td>
+                        <td>Someone else</td>
+                    </tr>
+                    <tr><td colspan="5"><p>param1 param2 param3</p></td></tr>
+                    <tr>
+                        <td>+</td>
+                        <td params="param1:41238, param2:Something">Example</td>
+                        <td>12/13/2016 14:35</td>
+                        <td>Someone</td>
+                        <td>Peer Review Bypassed</td>
+                    </tr>
+                    <tr><td colspan="5"><p>param1 param2 param3</p></td></tr>
+                    <tr>
+                        <td>+</td>
+                        <td params="param1:something, param2:somethingElse">Example</td>
+                        <td>12/12/2016 18:38</td>
+                        <td>Someone</td>
+                        <td>Someone else</td>
+                    </tr>
+                    <tr><td colspan="5"><p>param1 param2 param3</p></td></tr>
+                </table>
+
+            </div>
+        </div>
+    </section>
+</body>
+
+

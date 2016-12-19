@@ -30,7 +30,7 @@ public class dddb {
 		// It can contain directory names relative to the
 		// current working directory
 		conn = DriverManager.getConnection(
-				"jdbc:hsqldb:" + db_file_name_prefix, // filenames
+				"jdbc:hsqldb:target/" + db_file_name_prefix, // filenames
 				"sa", // username
 				""); // password
 	}
@@ -112,57 +112,82 @@ public class dddb {
 		}
 	} // void dump( ResultSet rs )
 
-	public static dddb StartDB() {
+	//return the the dddb object that provides access to libdal data tables
+	public static dddb StartLibDB() {
 		dddb db = null; 
 
 		try {
-			db = new dddb("our_db");
+			db = new dddb("our_libdb");
 		} catch (Exception ex1) {
 			ex1.printStackTrace();
 
 			return db;
 		}
 
-		try {
-			//clean start
-			db.update("DROP TABLE IF EXISTS C_APP_RUN_DEPENDENCY");
-			db.update("DROP TABLE IF EXISTS C_DRIVER_SCHEDULE");
-			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL_H");
-			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL");
-			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP");
-			db.update("DROP TABLE IF EXISTS Macros");
-			db.update("DROP TABLE IF EXISTS originalParameters");
-			db.update("DROP TABLE IF EXISTS parameters");
-
-           //libdal table create statements 
+		return db;
+	}
+	
+	public static void createLibDbTables(dddb db) {
+	try {
+		
+        //libdal table create statements 
 			db.update("CREATE TABLE C_APP_RUN_DEPENDENCY( Run_App_Dependency_ID VARCHAR(30)  NOT NULL PRIMARY KEY ,APP_Name VARCHAR(30),Run_Name VARCHAR(30) ,Dependant_APP_Name VARCHAR(30),Dependant_Run_Name VARCHAR(30),Create_Date_Time VARCHAR(30) ,Last_Modified_Date_Time DATETIME ,APP_Run_ID VARCHAR(30) ,Dependant_APP_Run_ID VARCHAR(30) );");
 			db.update("CREATE TABLE C_DRIVER_SCHEDULE(Audit_ID VARCHAR(30) PRIMARY KEY,App_Name VARCHAR(30),Run_Name VARCHAR(30),Run_Number VARCHAR(30),Re_Run_Number VARCHAR(30),Scheduled_Start_Date_Time VARCHAR(30) ,Status_Code VARCHAR(30),Valuation_Start_Date_Time VARCHAR(30) ,Valuation_End_Date_Time VARCHAR(30) ,Run_Start_Date_Time VARCHAR(30) ,Run_End_Date_Time VARCHAR(30) ,Create_Date_Time VARCHAR(30) ,Last_Modified_Date_Time VARCHAR(30) ,APP_Run_ID VARCHAR(30),SLA_DATE VARCHAR(30) ,SLA_TIME VARCHAR(30));");
 		    db.update("CREATE TABLE C_DRIVER_STEP_DETAIL_H(Driver_Step_Detail_ID VARCHAR(30) NOT NULL PRIMARY KEY ,Audit_ID  VARCHAR(30),Driver_Step_ID  VARCHAR(30),APP_Name VARCHAR(30),Run_Name VARCHAR(30),Group_Number VARCHAR(30),Run_Order_Number VARCHAR(30),Run_Status_Code VARCHAR(30),Error_Process_Number VARCHAR(30),SESSION_START_DATE_TIME VARCHAR(30),SESSION_END_DATE_TIME VARCHAR(30),Run_Start_Date_Time VARCHAR(30),Run_End_Date_Time VARCHAR(30),Create_Date_Time VARCHAR(30),Last_Modified_Date_Time VARCHAR(30),History_Date_Time VARCHAR(30));");
 			db.update("CREATE TABLE C_DRIVER_STEP_DETAIL(Driver_Step_Detail_ID   VARCHAR(30)  NOT NULL PRIMARY KEY ,Audit_ID VARCHAR(30) ,Driver_Step_ID  VARCHAR(30) ,APP_Name  VARCHAR(30),Run_Name    VARCHAR(30),Group_Number   VARCHAR(30) ,Run_Order_Number VARCHAR(30) ,Run_Status_Code         VARCHAR(30),Error_Process_Number VARCHAR(30) ,SESSION_START_DATE_TIME VARCHAR(30),SESSION_END_DATE_TIME  VARCHAR(30) ,Run_Start_Date_Time VARCHAR(30) ,Run_End_Date_Time  VARCHAR(30) ,Create_Date_Time VARCHAR(30),Last_Modified_Date_Time VARCHAR(30));");
-		    db.update("CREATE TABLE C_DRIVER_STEP(Driver_Step_ID  VARCHAR(43) NOT NULL PRIMARY KEY,APP_Name  VARCHAR(30),Run_Name VARCHAR(25),Group_Number VARCHAR(30),Group_Name  VARCHAR(68),Run_Order_Number VARCHAR(20),Path_Text VARCHAR(53),Command_Text  VARCHAR(62),Parameter_Text      VARCHAR(241),Group_Concurrency_Indicator VARCHAR(48),Step_Concurrency_Indicator  VARCHAR(32),Notify_Text  VARCHAR(32),Step_Type_Code   VARCHAR(30),Step_Name   VARCHAR(68),Error_Process_Number VARCHAR(30),Create_Date_Time VARCHAR(30),Last_Modified_Date_Time VARCHAR(30),APP_Run_ID VARCHAR(30),Active_Step_Indicator VARCHAR(30));");
+		    db.update("CREATE TABLE C_DRIVER_STEP(Driver_Step_ID  VARCHAR(30) NOT NULL PRIMARY KEY,APP_Name  VARCHAR(30),Run_Name VARCHAR(30),Group_Number VARCHAR(30),Group_Name  VARCHAR(30),Run_Order_Number VARCHAR(30),Path_Text VARCHAR(30),Command_Text  VARCHAR(30),Parameter_Text      VARCHAR(60),Group_Concurrency_Indicator VARCHAR(30),Step_Concurrency_Indicator  VARCHAR(30),Notify_Text  VARCHAR(30),Step_Type_Code   VARCHAR(30),Step_Name   VARCHAR(30),Error_Process_Number VARCHAR(30),Create_Date_Time VARCHAR(30),Last_Modified_Date_Time VARCHAR(30),APP_Run_ID VARCHAR(30),Active_Step_Indicator VARCHAR(30));");
 
-		    //idal table create statements parameters and originalParameters will have to be joined with Macros on uniqueID in practice
-		    db.update("CREATE TABLE Macros( uniqueID VARCHAR(30), creatorFname VARCHAR(30), creatorLname VARCHAR(30), reviewerFname VARCHAR(30), reviewerLname VARCHAR(30), wasPeerReviewed VARCHAR(30), runDate VARCHAR(30), creationDate VARCHAR(30),macroType VARCHAR(30), PRIMARY KEY(uniqueID) );");
-		    db.update("CREATE TABLE originalParameters( uniqueID VARCHAR(30), originalParameters VARCHAR(30));");
-		    db.update("CREATE TABLE parameters( uniqueID VARCHAR(30), parameters VARCHAR(30) );");
+		    
 			} catch (SQLException ex2) {
 		}
+	}
+	
+	
+	//return the the dddb object that provides access to idal data tables
+	public static dddb StartIdalDB() {
+		dddb db = null; 
+
+		try {
+			db = new dddb("our_Idaldb");
+		} catch (Exception ex1) {
+			ex1.printStackTrace();
+
+			return db;
+		}
+
+		return db;
+	}
+	//create tables for the idal
+	public static void createIdalDBTables(dddb db) {
+	try {
+	
+	    //idal table create statements parameters and originalParameters will have to be joined with Macros on uniqueID in practice
+	    db.update("CREATE TABLE Macros( uniqueID VARCHAR(30), creatorFname VARCHAR(30), creatorLname VARCHAR(30), reviewerFname VARCHAR(30), reviewerLname VARCHAR(30), wasPeerReviewed VARCHAR(30), runDate VARCHAR(30), creationDate VARCHAR(30),macroType VARCHAR(30), PRIMARY KEY(uniqueID), FOREIGN KEY (uniqueID) REFERENCES originalParameters(uniqueID),FOREIGN KEY (uniqueID) REFERENCES parameters(uniqueID) );");
+	    db.update("CREATE TABLE originalParameters( uniqueID VARCHAR(30), originalParameters VARCHAR(30));");
+	    db.update("CREATE TABLE parameters( uniqueID VARCHAR(30), parameters VARCHAR(30) );");
+		} catch (SQLException ex2) {
+	}
+	}
+	
+	public static void addLibDBrowsDB(dddb db) {
+
 
 		try {
 			db.update("INSERT INTO C_APP_RUN_DEPENDENCY(Run_App_Dependency_ID,APP_Name,Run_Name,Dependant_APP_Name,Dependant_Run_Name,Create_Date_Time,Last_Modified_Date_Time,APP_Run_ID,Dependant_APP_Run_ID) VALUES (5700004,'CLAIMS','CLM_ACS_EXTR','CLAIMS','CLM_REPORTING_HUB','1900-01-01 00:00:00','1900-01-01 00:00:00','?','?');");
             db.update("INSERT INTO C_DRIVER_SCHEDULE(Audit_ID,App_Name,Run_Name,Run_Number,Re_Run_Number,Scheduled_Start_Date_Time,Status_Code,Valuation_Start_Date_Time,Valuation_End_Date_Time,Run_Start_Date_Time,Run_End_Date_Time,Create_Date_Time,Last_Modified_Date_Time,APP_Run_ID,SLA_DATE,SLA_TIME) VALUES ('1799120014','CLAIMS','CLM_ACS_EXTR','1023','0','03:14.0','S','30:05.0','00:14.0','15:16.2','21:47.7','15:09.0','21:47.7','?','?','?');");
 		    db.update("INSERT INTO C_DRIVER_STEP_DETAIL (Driver_Step_Detail_ID,Audit_ID,Driver_Step_ID,APP_Name,Run_Name,Group_Number,Run_Order_Number,Run_Status_Code,Error_Process_Number,SESSION_START_DATE_TIME,SESSION_END_DATE_TIME,Run_Start_Date_Time,Run_End_Date_Time,Create_Date_Time,Last_Modified_Date_Time) VALUES ('16035010047','332185','26500001','EDW','CDI_2_O','50','10','S','2','?','?','00:45.2','00:46.1','00:38.4','00:38.4');");
 		    db.update("INSERT INTO C_DRIVER_STEP(Driver_Step_ID,APP_Name,Run_Name,Group_Number,Group_Name,Run_Order_Number,Path_Text,Command_Text,Parameter_Text,Group_Concurrency_Indicator,Step_Concurrency_Indicator,Notify_Text,Step_Type_Code,Step_Name,Error_Process_Number,Create_Date_Time,Last_Modified_Date_Time,APP_Run_ID,Active_Step_Indicator) VALUES ('26100003','CLAIMS','CLM_AIB_RPT_REQUEST_EXTR','100','DRIVER_ENTRIES_INSERT','10','$UTILITY_SCRIPTS','edwPMCMD','PM_CL_EXTR_COBRA wf_UPSERT_DRIVER_STEP_RUNNING 100 10','n','n','$APP_ERROR_MAIL_RECIP','INF','DRIVER_STEPS_INSERT','2','00:00.0','00:00.0','?','Y');");
+		    db.update("INSERT INTO C_DRIVER_STEP_DETAIL_H(Driver_Step_Detail_ID,Audit_ID,Driver_Step_ID,APP_Name,Run_Name,Group_Number,Run_Order_Number,Run_Status_Code,Error_Process_Number,SESSION_START_DATE_TIME,SESSION_END_DATE_TIME,Run_Start_Date_Time,Run_End_Date_Time,Create_Date_Time,Last_Modified_Date_Time,History_Date_Time) VALUES (12034010020,666905,18700020,'CLAIMS','CLM_ACS_EXTR',50,10,'R',2,'?','?','08:17.1','?','08:12.4','08:12.4','08:17.2');");
 		} catch (SQLException ex3) {
 			ex3.printStackTrace();
 		}
-		return db;
 	}
 
 	public static void main(String[] args) {
 		dddb db = null;
-		db = StartDB();
-
+		db = StartLibDB();
+		createLibDbTables(db);
+		addLibDBrowsDB(db);
 		try {
 
 			db.query("SELECT * FROM C_APP_RUN_DEPENDENCY");
@@ -171,15 +196,16 @@ public class dddb {
 			db.query("SELECT * FROM C_DRIVER_STEP_DETAIL");
 			db.query("SELECT * FROM C_DRIVER_STEP");
 			// at end of program
-			db.query("drop table C_APP_RUN_DEPENDENCY");
-			db.query("drop table C_DRIVER_SCHEDULE");
-			db.query("drop table C_DRIVER_STEP_DETAIL_H");
-			db.query("drop table C_DRIVER_STEP_DETAIL");
-			db.query("drop table C_DRIVER_STEP");
+
+			db.update("DROP TABLE IF EXISTS C_APP_RUN_DEPENDENCY");
+			db.update("DROP TABLE IF EXISTS C_DRIVER_SCHEDULE");
+			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL_H");
+			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL");
+			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP");
+			db.update("DROP TABLE IF EXISTS Macros");
+			db.update("DROP TABLE IF EXISTS originalParameters");
+			db.update("DROP TABLE IF EXISTS parameters");
 			
-			db.query("drop table Macros");
-			db.query("drop table originalParameters");
-			db.query("drop table parameters");
 			db.shutdown();
 		} catch (SQLException ex3) {
 			ex3.printStackTrace();
