@@ -47382,8 +47382,8 @@
 	                _reactBootstrap.NavItem,
 	                { eventKey: 1, href: '#' },
 	                _react2.default.createElement(
-	                    _NavLink2.default,
-	                    { to: '/home' },
+	                    _reactRouter.Link,
+	                    { to: '/runMacro' },
 	                    'Run Macro'
 	                )
 	            ),
@@ -47451,6 +47451,21 @@
 	        return _react2.default.createElement(
 	            'div',
 	            null,
+	            _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: 'homepage.html' },
+	                    _react2.default.createElement('img', { 'class': 'resize', src: 'liberty.jpeg', width: '30%' })
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.Button,
+	                    null,
+	                    _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'glyphicon glyphicon-log-out' }),
+	                    ' Logout'
+	                )
+	            ),
 	            navbarInstance,
 	            this.props.children
 	        );

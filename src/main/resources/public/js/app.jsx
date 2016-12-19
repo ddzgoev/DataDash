@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import NavLink from './NavLink.jsx'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, Button, Glyphicon } from 'react-bootstrap'
 
 const navbarInstance = (
     <Navbar collapseOnSelect>
@@ -13,7 +13,7 @@ const navbarInstance = (
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav>
-                <NavItem eventKey={1} href="#"><NavLink to="/home">Run Macro</NavLink></NavItem>
+                <NavItem eventKey={1} href="#"><Link to="/runMacro">Run Macro</Link></NavItem>
                 <NavItem eventKey={2} href="#"><NavLink to="/home">Peer Review</NavLink></NavItem>     
                 <NavItem eventKey={3} href="#"><NavLink to="/home">Macro History</NavLink></NavItem>
                 <NavItem eventKey={4} href="#"><NavLink to="/home">Failures</NavLink></NavItem>
@@ -29,6 +29,12 @@ export default React.createClass({
     render() {
         return (
             <div>
+                <div>
+                    <a href="homepage.html">
+                        <img class="resize" src="liberty.jpeg" width="30%"/>
+                    </a>
+                    <Button><Glyphicon glyph="glyphicon glyphicon-log-out"></Glyphicon> Logout</Button>
+                </div>
                 {navbarInstance}
 
                 {/* add this */}
