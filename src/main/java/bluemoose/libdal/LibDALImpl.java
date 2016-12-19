@@ -19,6 +19,12 @@ public class LibDALImpl implements LibDALInterface {
 
 	public LibDALImpl(ModuleFactoryImpl moduleFactoryImpl) {
 		// TODO Auto-generated constructor stub
+		
+		//startLibdb
+		//create libdbtables
+		
+		//addLibdbbr....
+		
 	}
 
 	@Override
