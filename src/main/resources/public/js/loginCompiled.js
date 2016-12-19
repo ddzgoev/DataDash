@@ -49,6 +49,8 @@
 
 	'use strict';
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -65,150 +67,243 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function Login(email, password) {
-	  var LOGIN_FLAG = 1002;
-	  console.log(email);
-	  _jquery2.default.ajax({
-	    type: "POST",
-	    url: "/login",
-	    data: JSON.stringify({ username: email,
-	      password: password
-	    }),
-	    success: "SUCCESS",
-	    dataType: "json"
-	  });
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	  //  var JSONData = tryParseJSON(data);
-	  //  if (!JSONData || JSONData["status"] == "FAILURE") {
-	  //   ShowFailureAtDOM("login");
-	  //   return;
-	  //  }
-	  //
-	  //  if(JSONData["status"] == "SUCCESS"){
-	  //   ShowSuccessAtDome("login", "admin");
-	  //  }
-	  //
-	  //  var JWTData = KJUR.jws.JWS.parse(JSONData["jwt"]);
-	  //  if (JWTData) {
-	  //   ShowSuccessAtDOM("login", JWTData.payloadObj.name);
-	  //  } else {
-	  //   ShowFailureAtDOM("login");
-	  //  }
-	};
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function ShowSuccessAtDOM(id, name) {
-	  _reactDom2.default.unmountComponentAtNode(document.getElementById(id));
-	  _reactDom2.default.render(_react2.default.createElement(LoginSuccess, { name: name }), document.getElementById(id));
-	};
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	function ShowFailureAtDOM(id) {
-	  _reactDom2.default.unmountComponentAtNode(document.getElementById(id));
-	  _reactDom2.default.render(_react2.default.createElement(LoginFail, null), document.getElementById(id));
-	};
+	var authKey = '';
 	
-	var Header = _react2.default.createClass({
-	  displayName: 'Header',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'h1',
-	      null,
-	      'Login to Data Dash'
-	    );
-	  }
-	});
+	var Login = function (_React$Component) {
+	    _inherits(Login, _React$Component);
 	
-	var LoginForm = _react2.default.createClass({
-	  displayName: 'LoginForm',
-	  ValidateLogin: function ValidateLogin() {
-	    var email = this.refs.loginEmail.state.value;
-	    var password = this.refs.LoginPassword.state.value;
-	    Login(email, password);
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'loginDiv' },
-	      _react2.default.createElement(Header, null),
-	      _react2.default.createElement(LoginEmail, { ref: 'loginEmail' }),
-	      _react2.default.createElement(LoginPassword, { ref: 'LoginPassword' }),
-	      _react2.default.createElement('br', null),
-	      _react2.default.createElement(LoginSubmit, { ValidateLogin: this.ValidateLogin })
-	    );
-	  }
-	});
+	    function Login(props) {
+	        _classCallCheck(this, Login);
 	
-	var LoginEmail = _react2.default.createClass({
-	  displayName: 'LoginEmail',
-	  getInitialState: function getInitialState() {
-	    return { value: null };
-	  },
-	  onChange: function onChange(e) {
-	    this.setState({ value: e.target.value });
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'LoginEmailDiv' },
-	      _react2.default.createElement('input', { type: 'text', onChange: this.onChange, placeholder: 'Username' })
-	    );
-	  }
-	});
+	        var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
 	
-	var LoginPassword = _react2.default.createClass({
-	  displayName: 'LoginPassword',
-	  getInitialState: function getInitialState() {
-	    return { value: null };
-	  },
-	  onChange: function onChange(e) {
-	    this.setState({ value: e.target.value });
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'LoginEmailDiv' },
-	      _react2.default.createElement('input', { type: 'password', onChange: this.onChange, placeholder: 'Password' })
-	    );
-	  }
-	});
+	        _this.state = {
+	            auth: "",
+	            username: "",
+	            password: ""
+	        };
 	
-	var LoginSubmit = _react2.default.createClass({
-	  displayName: 'LoginSubmit',
-	  onClick: function onClick() {
-	    this.props.ValidateLogin();
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      _reactBootstrap.Button,
-	      { bsStyle: 'primary', onClick: this.onClick },
-	      'Login'
-	    );
-	  }
-	});
+	        _this.log = _this.log.bind(_this);
+	        _this.onChangeUser = _this.onChangeUser.bind(_this);
+	        _this.onChangePass = _this.onChangePass.bind(_this);
+	        _this.handleResponse = _this.handleResponse.bind(_this);
+	        return _this;
+	    }
 	
-	var LoginSuccess = _react2.default.createClass({
-	  displayName: 'LoginSuccess',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'h2',
-	      null,
-	      'Login Success! Welcome Back, ',
-	      this.props.name
-	    );
-	  }
-	});
+	    _createClass(Login, [{
+	        key: 'handleResponse',
+	        value: function handleResponse(data) {
+	            console.log(data);
+	            this.setState({ auth: data });
+	        }
+	    }, {
+	        key: 'log',
+	        value: function log() {
+	            var info = {
+	                "username": this.state.username,
+	                "password": this.state.password
+	            };
 	
-	var LoginFail = _react2.default.createClass({
-	  displayName: 'LoginFail',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'h2',
-	      null,
-	      'Login FAIL...'
-	    );
-	  }
-	});
+	            console.log(JSON.stringify(info));
+	            var inf = '';
+	            _jquery2.default.ajax({
+	                type: "POST",
+	                url: "/login",
+	                data: JSON.stringify(info),
+	                dataType: 'json',
+	                success: function (msg) {
+	                    console.log(msg);
+	                    this.setState({ auth: msg.authentication });
+	                }.bind(this)
+	            });
+	        }
+	    }, {
+	        key: 'onChangeUser',
+	        value: function onChangeUser(e) {
+	            this.setState({ username: e.target.value });
+	            console.log(this.state.username);
+	        }
+	    }, {
+	        key: 'onChangePass',
+	        value: function onChangePass(e) {
+	            this.setState({ password: e.target.value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Login to Data Dash'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'loginDiv' },
+	                    _react2.default.createElement('input', { type: 'text', onChange: this.onChangeUser, placeholder: 'Username' }),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'text', onChange: this.onChangePass, placeholder: 'Username' }),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Button,
+	                        { bsStyle: 'primary', onClick: this.log },
+	                        'Login'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
 	
-	_reactDom2.default.render(_react2.default.createElement(LoginForm, null), document.getElementById('login'));
+	    return Login;
+	}(_react2.default.Component);
+	//function Login(email, password) {
+	// var info = {
+	//  "username": email,
+	//  "password": password
+	// };
+	// 
+	// console.log(JSON.stringify(info));
+	// 
+	// $.ajax({
+	//  type: "POST",
+	//  url: "/login",
+	//  data: JSON.stringify(info),
+	//  dataType: 'json',
+	//  success:function(msg) {
+	//        console.log(msg);
+	//    }     
+	// });
+	
+	//  var JSONData = tryParseJSON(data);
+	//  if (!JSONData || JSONData["status"] == "FAILURE") {
+	//   ShowFailureAtDOM("login");
+	//   return;
+	//  }
+	//
+	//  if(JSONData["status"] == "SUCCESS"){
+	//   ShowSuccessAtDome("login", "admin");
+	//  }
+	//
+	//  var JWTData = KJUR.jws.JWS.parse(JSONData["jwt"]);
+	//  if (JWTData) {
+	//   ShowSuccessAtDOM("login", JWTData.payloadObj.name);
+	//  } else {
+	//   ShowFailureAtDOM("login");
+	//  }
+	//};
+	
+	//function ShowSuccessAtDOM(id, name) {
+	// ReactDOM.unmountComponentAtNode(document.getElementById(id));
+	// ReactDOM.render(
+	//  <LoginSuccess name={name} />,
+	//  document.getElementById(id)
+	// );
+	//};
+	//
+	//function ShowFailureAtDOM(id) {
+	// ReactDOM.unmountComponentAtNode(document.getElementById(id));
+	// ReactDOM.render(
+	//  <LoginFail />,
+	//  document.getElementById(id)
+	// );
+	//};
+	
+	//var Header = React.createClass({
+	// render() {
+	//  return (
+	//   <h1>Login to Data Dash</h1>
+	//  )
+	// }
+	//});
+	//
+	//var LoginForm = React.createClass({
+	//    ValidateLogin() {
+	//        var email = this.refs.loginEmail.state.value;
+	//        var password = this.refs.LoginPassword.state.value;
+	//        Login(email, password);
+	//    },
+	//    render() {
+	//        return (
+	//            <div className="loginDiv">
+	//                <Header />
+	//                <LoginEmail ref="loginEmail"/>
+	//                <LoginPassword ref="LoginPassword"/>
+	//                <br></br>
+	//                <LoginSubmit ValidateLogin={this.ValidateLogin}/>
+	//            </div>
+	//        )
+	//    }
+	//});
+	//
+	//var LoginEmail = React.createClass({
+	//    getInitialState() {
+	//        return {value: null}
+	//    },
+	//    onChange(e) {
+	//        this.setState({value: e.target.value});
+	//    },
+	//    render() {
+	//        return (
+	//            <div className="LoginEmailDiv">
+	//                <input type="text" onChange={this.onChange} placeholder="Username"/>
+	//            </div>
+	//        )
+	//    }
+	//});
+	//
+	//var LoginPassword = React.createClass({
+	//    getInitialState() {
+	//        return {value: null}
+	//    },
+	//    onChange(e) {
+	//        this.setState({value: e.target.value});
+	//    },
+	//    render() {
+	//        return (
+	//            <div className="LoginEmailDiv">
+	//                <input type="password" onChange={this.onChange} placeholder="Password"/>
+	//            </div>
+	//        )
+	//    }
+	//});
+	//
+	//var LoginSubmit = React.createClass({
+	//    onClick() {
+	//        this.props.ValidateLogin();
+	//    },
+	//    render() {
+	//        return (
+	//            <Button bsStyle="primary" onClick={this.onClick}>Login</Button>
+	//        )
+	//    }
+	//});
+	//
+	//var LoginSuccess = React.createClass({
+	//    render() {
+	//        return (
+	//            <h2>Login Success! Welcome Back, {this.props.name}</h2>
+	//        )
+	//    }
+	//});
+	//
+	//var LoginFail = React.createClass({
+	//    render() {
+	//        return (
+	//            <h2>Login FAIL...</h2>
+	//        )
+	//    }
+	//});
+	
+	
+	_reactDom2.default.render(_react2.default.createElement(Login, null), document.getElementById('login'));
 
 /***/ },
 /* 1 */
