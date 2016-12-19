@@ -23,4 +23,9 @@ public class PP_NONE implements ParameterPossibilities {
 	public int getPrecision() {
 		return -1;
 	}
+
+	@Override
+	public boolean isValid(String input) {
+		return false;
+	}
 }

@@ -2,6 +2,8 @@ package bluemoose.libdal;
 
 import java.time.Duration;
 import bluemoose.Period;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import bluemoose.ModuleFactoryImpl;
@@ -20,8 +22,53 @@ public class LibDALImpl implements LibDALInterface {
 	}
 
 	@Override
-	public RunMacroResult runMacro(String macroType, List<String> paramaters) {
-		// TODO Auto-generated method stub
+	public RunMacroResult runMacro(String macroType, List<String> parameters) {
+		//convert macroType to enum name (assuming macroType is the human-readable version)
+		String macroTypeFixed = macroType.toUpperCase().replace(' ', '_');
+		
+		//check if parameters are valid
+		
+		boolean foundMacroType = false;
+		
+		for(MacroType mt : MacroType.values()) {
+			if(mt.name().equals(macroTypeFixed)) {
+				foundMacroType = true;
+				
+				List<ParameterType> requiredParameters = mt.getParameterList();
+				if(parameters.size() != requiredParameters.size()) {
+					return new RunMacroResultImpl(MacroResultType.INCORRECT_NUMBER_OF_PARAMETERS, null);
+				}
+				
+				List<ParameterType> invalidParameters = new ArrayList<ParameterType>();
+				
+				for(int i = 0; i < requiredParameters.size(); i++) {
+					ParameterType pt = requiredParameters.get(i);
+					ParameterPossibilities pp = pt.getPossibilities();
+					
+					if(!pp.isValid(parameters.get(i))) {
+						//this parameter is invalid
+						invalidParameters.add(pt);
+					}
+				}
+				
+				if(!invalidParameters.isEmpty()) {
+					//some parameters were invalid
+					return new RunMacroResultImpl(MacroResultType.INVALID_PARAMETERS, invalidParameters);
+				}
+				
+				break; //stop looping through macro types
+			}
+		}
+		
+		if(!foundMacroType) {
+			//macroType is not a valid MacroType
+			return new RunMacroResultImpl(MacroResultType.UNSUPPORTED_MACRO_TYPE, null);
+		}
+		
+		//parameters are probably now valid
+		//insert sql command to run the macro, based on which one it is
+
+		//return the RunMacroResult based on what happened
 		return null;
 	}
 
@@ -56,9 +103,32 @@ public class LibDALImpl implements LibDALInterface {
 
 	@Override
 	public List<MacroDescription> getMacros() {
-		// TODO Auto-generated method stub
-		return null;
+		List<MacroDescription> macroList = new ArrayList<MacroDescription>();
+		
+		for(MacroType macro : MacroType.values()) {
+			MacroDescription desc = new MacroDescription(macro, macro.getParameterList(), readableMacroName(macro));
+		}
+		
+		return macroList;
 	}
 
-
+	private String readableMacroName(MacroType macro) {
+		String s = macro.toString();
+		String[] words = s.split("_");
+		
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < words.length; i++) {
+			//special cases of acronyms that should stay uppercase
+			if(words[i].equals("SLA")) {
+				sb.append(words[i]);
+			}
+			sb.append(words[i].charAt(0));
+			sb.append(words[i].substring(1).toLowerCase());
+			if(i + 1 < words.length) {
+				sb.append(" ");
+			}
+		}
+		
+		return sb.toString();
+	}
 }
