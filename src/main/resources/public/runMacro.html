@@ -57,6 +57,7 @@
 										<a class="navbar-brand" href="homepage.html" color="#172A62">LM</a>
 								</div>
 
+<<<<<<< HEAD
 								<!-- Collect the nav links, forms, and other content for toggling -->
 								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 										<ul class="nav navbar-nav">
@@ -80,6 +81,71 @@
 								</div><!-- /.navbar-collapse -->
 						</div><!-- /.container-fluid -->
 				</nav>
+=======
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav">
+			<li><a href="runMacro.html">Run Macro </a></li>
+			<li><a href="peerReview.html">Peer Review </a></li>
+			<li><a href="history.html">Macro History </a></li>
+			<li><a href="failures.html">Failures </a></li>
+			<li><a href="runNames.html">View Run Names </a></li>
+			<li><a href="#">Historical Trending </a></li>
+			<li><a href="#">Dependencies </a></li>
+			<li id="notification_li">
+			  <span id="notification_count">3</span>
+			  <a href="#" id="notificationLink">Notifications</a>
+			  <div id="notificationContainer">
+				<div id="notificationTitle">Notifications</div>
+				<div id="notificationsBody" class="notifications">
+				</div>
+			  </div>
+			</li>
+		  </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+  </div>
+
+  <section class="container">
+	<div class="macro">
+	  <h1>Run Macro</h1>
+	  <div class="row">
+		<div class="col-md-2">
+		  <!--<div class="dropdown">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			  Macro Class
+			  <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			  <li><a href="#">Driver Schedule - Delete</a></li>
+			  <li><a href="#">Driver Schedule - Update</a></li>
+			  <li role="separator" class="divider"></li>
+			  <li><a href="#">Driver Step - Delete</a></li>
+			  <li><a href="#">Driver Step - Update</a></li>
+			  <li role="separator" class="divider"></li>
+			  <li><a href="#">Driver Step Detail - Delete</a></li>
+			  <li><a href="#">Driver Step Detail - Update</a></li>
+			</ul>
+		  </div> -->
+		  <div id="classdropdown"><script src="js/compiled.js" type="text/javascript"></script></div>
+		  <div class="dropdown">
+			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			  Specific Macros
+			  <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			  <li><a href="#">Update Schedule Start time by Run Name and Audit ID</a></li>
+			  <li><a href="#">Delete all entries by Run Name</a></li>
+			  <li role="separator" class="divider"></li>
+			  <li><a href="#">Update Status Code by Run Name and Audit ID </a></li>
+			  <li><a href="#">Update Valuation End Date by Run Name and Audit ID</a></li>
+			  <li role="separator" class="divider"></li>
+			  <li><a href="#">Update Valuation Start time by Run Name and Audit ID</a></li>
+			  <li><a href="#">Update SLA Date and Time by Audit ID</a></li>
+			</ul>
+		  </div>
+>>>>>>> origin/front-end
 		</div>
 
 		<section class="container">
@@ -122,7 +188,7 @@ Macro Class
 										</div>
 								</div>
 
-								<form method="post" action="index.html">
+								<form enctype='application/json' method="post" action="runMacro.html">
 										<div class="row">
 												<div class="col-md-5">
 														<div class="input-group">
