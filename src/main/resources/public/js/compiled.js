@@ -77,9 +77,9 @@
 	    _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: _app2.default },
+	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Login2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/runMacro', component: _RunMacro2.default })
-	    ),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default })
+	    )
 	), document.getElementById('app'));
 
 /***/ },
@@ -47338,7 +47338,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -47356,66 +47356,105 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var navbarInstance = _react2.default.createElement(
-	  _reactBootstrap.Navbar,
-	  { inverse: true, collapseOnSelect: true },
-	  _react2.default.createElement(
-	    _reactBootstrap.Navbar.Header,
-	    null,
+	    _reactBootstrap.Navbar,
+	    { collapseOnSelect: true },
 	    _react2.default.createElement(
-	      _reactBootstrap.Navbar.Brand,
-	      null,
-	      _react2.default.createElement(
-	        _NavLink2.default,
-	        { to: '/home' },
-	        'LM'
-	      )
-	    ),
-	    _react2.default.createElement(_reactBootstrap.Navbar.Toggle, null)
-	  ),
-	  _react2.default.createElement(
-	    _reactBootstrap.Navbar.Collapse,
-	    null,
-	    _react2.default.createElement(
-	      _reactBootstrap.Nav,
-	      null,
-	      _react2.default.createElement(
-	        _reactBootstrap.NavItem,
-	        { eventKey: 1, href: '#' },
-	        'Link'
-	      ),
-	      _react2.default.createElement(
-	        _reactBootstrap.NavItem,
-	        { eventKey: 2, href: '#' },
-	        'Link'
-	      )
+	        _reactBootstrap.Navbar.Header,
+	        null,
+	        _react2.default.createElement(
+	            _reactBootstrap.Navbar.Brand,
+	            null,
+	            _react2.default.createElement(
+	                _NavLink2.default,
+	                { to: '/home' },
+	                'LM'
+	            )
+	        ),
+	        _react2.default.createElement(_reactBootstrap.Navbar.Toggle, null)
 	    ),
 	    _react2.default.createElement(
-	      _reactBootstrap.Nav,
-	      { pullRight: true },
-	      _react2.default.createElement(
-	        _reactBootstrap.NavItem,
-	        { eventKey: 1, href: '#' },
-	        'Link Right'
-	      ),
-	      _react2.default.createElement(
-	        _reactBootstrap.NavItem,
-	        { eventKey: 2, href: '#' },
-	        'Link Right'
-	      )
+	        _reactBootstrap.Navbar.Collapse,
+	        null,
+	        _react2.default.createElement(
+	            _reactBootstrap.Nav,
+	            null,
+	            _react2.default.createElement(
+	                _reactBootstrap.NavItem,
+	                { eventKey: 1, href: '#' },
+	                _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/home' },
+	                    'Run Macro'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                _reactBootstrap.NavItem,
+	                { eventKey: 2, href: '#' },
+	                _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/home' },
+	                    'Peer Review'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                _reactBootstrap.NavItem,
+	                { eventKey: 3, href: '#' },
+	                _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/home' },
+	                    'Macro History'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                _reactBootstrap.NavItem,
+	                { eventKey: 4, href: '#' },
+	                _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/home' },
+	                    'Failures'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                _reactBootstrap.NavItem,
+	                { eventKey: 5, href: '#' },
+	                _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/home' },
+	                    'View Run Names'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                _reactBootstrap.NavItem,
+	                { eventKey: 6, href: '#' },
+	                _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/home' },
+	                    'Historical Trending'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                _reactBootstrap.NavItem,
+	                { eventKey: 7, href: '#' },
+	                _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/home' },
+	                    'Dependencies'
+	                )
+	            )
+	        )
 	    )
-	  )
 	);
 	
 	exports.default = _react2.default.createClass({
-	  displayName: 'app',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      navbarInstance,
-	      this.props.children
-	    );
-	  }
+	    displayName: 'app',
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            null,
+	            navbarInstance,
+	            this.props.children
+	        );
+	    }
 	});
 
 /***/ },
