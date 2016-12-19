@@ -8,7 +8,7 @@ import $ from 'jquery'
 import { Navigation, Router, Route, Link } from 'react-router'
 
 
-class Login extends React.Component{
+export default class Login extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -213,9 +213,3 @@ var LoginFail = React.createClass({
         )
     }
 });
-
-
-ReactDOM.render(
-    <Login />,
-    document.getElementById('login')
-);
