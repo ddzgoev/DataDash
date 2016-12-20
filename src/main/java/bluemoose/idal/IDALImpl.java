@@ -44,9 +44,17 @@ public class IDALImpl implements IDALInterface {
 	}
 
 	private Macro readMacro(ResultSet macros) throws SQLException {
-		return new Macro("" + macros.getInt(1), macros.getString(2), macros.getString(3), macros.getString(4),
+		Macro macro = new Macro("" + macros.getInt(1), macros.getString(2), macros.getString(3), macros.getString(4),
 				macros.getString(5), macros.getBoolean(6), new Date(macros.getLong(8)), new Date(macros.getLong(9)),
 				macros.getString(10), new ArrayList<>(), new ArrayList<>());
+		ResultSet parameters = database.queryrs("SELECT index,parameters FROM parameters WHERE uniqueid = "
+				+ macros.getInt(1) + "ORDER BY index;");
+		addParameters(macro, parameters);
+		ResultSet originalParameters = database
+				.queryrs("SELECT index,parameters FROM originalParameters WHERE uniqueid = " + macros.getInt(1)
+						+ "ORDER BY index;");
+		addOriginalParameters(macro, originalParameters);
+		return macro;
 	}
 
 	private void addParameters(Macro macro, ResultSet parameters) throws SQLException {
@@ -65,13 +73,7 @@ public class IDALImpl implements IDALInterface {
 		List<Macro> returnvalue = new ArrayList<Macro>();
 		for (; macros.next();) {
 			Macro newMacro = readMacro(macros);
-			ResultSet parameters = database.queryrs("SELECT index,parameters FROM parameters WHERE uniqueid = "
-					+ macros.getInt(1) + "; ORDER BY index");
-			addParameters(newMacro, parameters);
-			ResultSet originalParameters = database
-					.queryrs("SELECT index,parameters FROM originalParameters WHERE uniqueid = " + macros.getInt(1)
-							+ "; ORDER BY index");
-			addOriginalParameters(newMacro, originalParameters);
+			
 			returnvalue.add(newMacro);
 		}
 		return returnvalue;
@@ -96,6 +98,7 @@ public class IDALImpl implements IDALInterface {
 		if(ID!=null){
 			try {
 				ResultSet macro = database.queryrs("SELECT * FROM Macros WHERE uniqueid = " + lID);
+				macro.next();
 				return readMacro(macro);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -107,7 +110,7 @@ public class IDALImpl implements IDALInterface {
 	
 	private void insertParameters(int ID, List<String> parameters) throws SQLException{
 		for (int i = 0; i < parameters.size(); i++) {
-			database.queryrs("INSERT into paramters(uniqueId, index, parameters) VALUES (" + ID + ", " + i
+			database.queryrs("INSERT into parameters(uniqueId, index, parameters) VALUES (" + ID + ", " + i
 					+ "," + validate(parameters.get(i)) + ");");
 		}
 	}
@@ -124,6 +127,7 @@ public class IDALImpl implements IDALInterface {
 			database.queryrs("INSERT INTO Macros( creatorFname, creatorLname, macroType, creationDate) VALUES ("
 					+ validate(creatorFname) + "," + validate(creatorLname) + "," + validate(macroType) + "," + now + ");");
 			ResultSet r = database.queryrs("SELECT * FROM Macros WHERE creationDate = " + now + ";");
+			r.next();
 			int macroID = r.getInt(1);
 			insertParameters(macroID,parameters);
 
@@ -237,13 +241,6 @@ public class IDALImpl implements IDALInterface {
 		List<Macro> returnvalue = new ArrayList<Macro>();
 		for (; macros.next();) {
 			Macro newMacro = readMacro(macros);
-			ResultSet parameters = database.queryrs("SELECT index,parameters FROM parameters WHERE uniqueid = "
-					+ macros.getInt(1) + "; ORDER BY index");
-			addParameters(newMacro, parameters);
-			ResultSet originalParameters = database
-					.queryrs("SELECT index,parameters FROM originalParameters WHERE uniqueid = " + macros.getInt(1)
-							+ "; ORDER BY index");
-			addOriginalParameters(newMacro, originalParameters);
 			returnvalue.add(newMacro);
 		}
 		return returnvalue;
