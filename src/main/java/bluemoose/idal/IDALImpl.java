@@ -189,15 +189,41 @@ public class IDALImpl implements IDALInterface {
 	}
 
 	// from here down
+	//takes a macro from the macro table, deletes it from macro table and inserts it into failed macro table. 
 	@Override
 	public void markFailed(String ID, String cause) {
 		// TODO Auto-generated method stub
-
+		try {
+			ResultSet m = database.queryrs("SELECT * FROM Macros WHERE uniqueid = " + ID);
+			Macro mac = readMacro(m);
+			FailedMacro failmac = new FailedMacro("" + m.getInt(1), m.getString(2), m.getString(3), m.getString(4),
+					m.getString(5), m.getBoolean(6), new Date(m.getInt(8)), new Date(m.getInt(9)),
+					m.getString(10), new ArrayList<>(), new ArrayList<>());
+			failmac.reason = cause;
+			database.queryrs("DELETE FROM Macros WHERE uniqueid = " + ID);
+			database.query("INSERT INTO FailedMacros(uniqueID, creatorFname, creatorLname, reviewerFname, reviewerLname, wasPeerReviewed , runDate , creationDate, macroType, cause) VALUES (" + failmac.uniqueID +", " + failmac.creatorFname+", "+ failmac.creatorLname+", " + failmac.reviewerFname+", " + failmac.reviewerLname+", " +failmac.wasPeerReviewed +", " +failmac.runDate+", " + failmac.creationDate+", " +failmac.macroType+", " + failmac.reason+");");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public FailedMacro getLatestFailure() {
 		// TODO Auto-generated method stub
+		try {
+			ResultSet m = database.queryrs("SELECT * FROM failedMacros m WHERE m.uniqueID = (SELECT Max(f.uniqueID) FROM failedMacros f);");
+			Macro mac = readMacro(m);
+			FailedMacro failmac = new FailedMacro("" + m.getInt(1), m.getString(2), m.getString(3), m.getString(4),
+					m.getString(5), m.getBoolean(6), new Date(m.getInt(8)), new Date(m.getInt(9)),
+					m.getString(10), new ArrayList<>(), new ArrayList<>());
+			failmac.reason = m.getString(11);
+			return failmac;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
