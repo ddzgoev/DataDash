@@ -13,6 +13,8 @@ public class RunMacroRequestJSON {
 		this.parameters = parameters;
 		this.skipReview = skipReview;
 	}
+	
+	public RunMacroRequestJSON(){}
 
 	@JsonProperty
 	public String authentication;
