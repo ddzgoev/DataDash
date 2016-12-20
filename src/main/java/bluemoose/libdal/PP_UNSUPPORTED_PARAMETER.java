@@ -29,4 +29,10 @@ public class PP_UNSUPPORTED_PARAMETER implements ParameterPossibilities {
 		return false;
 	}
 
+	@Override
+	public String sanitize(String input) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

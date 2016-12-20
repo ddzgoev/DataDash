@@ -56,33 +56,33 @@ export default class RunMacro extends React.Component{
                                 <div className="col-md-5">
                                     <div className="input-group">
                                         <label for="run_name">Run Name</label>
-                                        <input type="text" name="run_name" value="" placeholder="Run Name" id="run_name"/><br />
+                                        <input type="text" name="run_name" placeholder="Run Name" id="run_name"/><br />
                                         <label for="audit_id">Audit ID</label>
-                                        <input type="text" name="audit_id" value="" placeholder="Audit ID" id="audit_id"/><br />
+                                        <input type="text" name="audit_id" placeholder="Audit ID" id="audit_id"/><br />
                                         <label for="scheduled_start">Scheduled Start Time</label>
-                                        <input type="text" name="scheduled_start" value="" placeholder="Schedule Start Time" id="scheduled_start"/><br />
+                                        <input type="text" name="scheduled_start" placeholder="Schedule Start Time" id="scheduled_start"/><br />
                                         <label for="valuation_end">Valuation End Time</label>
-                                        <input type="text" name="valuation_end" value="" placeholder="Valuation End Time" id="valuation_end"/><br />
+                                        <input type="text" name="valuation_end" placeholder="Valuation End Time" id="valuation_end"/><br />
                                         <label for="driver_step_id">Driver Step ID</label>
-                                        <input type="text" name="driver_step_id" value="" placeholder="Driver Step ID" id="driver_step_id"/><br />
+                                        <input type="text" name="driver_step_id" placeholder="Driver Step ID" id="driver_step_id"/><br />
                                         <label for="driver_step_detail_id">Driver Step Detail ID</label>
-                                        <input type="text" name="driver_step_detail_id" value="" placeholder="Driver Step Detail ID" id="driver_step_detail_id"/><br />
+                                        <input type="text" name="driver_step_detail_id" placeholder="Driver Step Detail ID" id="driver_step_detail_id"/><br />
                                         <label for="description">Description</label>
-                                        <input type="text" name="description" id="description" value="" maxLength="255" placeholder="Description"/>
+                                        <input type="text" name="description" id="description" maxLength="255" placeholder="Description"/>
                                     </div>
                                 </div>
                                 <label for="valuation_end">Valuation End Time</label>
-                                <input type="text" name="valuation_end" value="" placeholder="Valuation End Time" id="valuation_end"/><br /> 
+                                <input type="text" name="valuation_end" placeholder="Valuation End Time" id="valuation_end"/><br /> 
                                 <label for="sla_date">SLA Date</label>
-                                <input type="text" name="sla_date" value="" placeholder="SLA Date" id="sla_date"/><br />
+                                <input type="text" name="sla_date" placeholder="SLA Date" id="sla_date"/><br />
                                 <label for="sla_time">SLA Time</label>
-                                <input type="text" name="sla_time" value="" placeholder="SLA Time" id="sla_time"/><br />
+                                <input type="text" name="sla_time" placeholder="SLA Time" id="sla_time"/><br />
                                 <label for="group_number">Group Number</label>
-                                <input type="text" name="group_number" value="" placeholder="Group Number" id="group_number"/><br />
+                                <input type="text" name="group_number" placeholder="Group Number" id="group_number"/><br />
                                 <label for="active_step_indicator">Active Step Indicator</label>
-                                <input type="text" name="active_step_indicator" value="" placeholder="Active Step Indicator" id="active_step_indicator"/><br />
+                                <input type="text" name="active_step_indicator" placeholder="Active Step Indicator" id="active_step_indicator"/><br />
                                 <label for="status">Status</label>
-                                <input type="text" name="status" value="" placeholder="Status" id="status"/><br />
+                                <input type="text" name="status" placeholder="Status" id="status"/><br />
                             </div>
                             <div className="row">
                                 <div className="col-md-2">
