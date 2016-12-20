@@ -36,5 +36,15 @@ public class PP_STRING implements ParameterPossibilities {
 			return false;
 		}
 		return input.length() < length;
-	}		
+	}
+
+	@Override
+	public String sanitize(String input) {
+		String output = input.replaceAll("\\","\\\\");
+		output = output.replaceAll("\'", "\\\'");
+		output = output.replaceAll("\"", "\\\"");
+		output = output.replaceAll("%", "\\%");
+		output = output.replaceAll("_", "\\_");
+		return output;
+	}	
 }

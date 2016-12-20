@@ -28,4 +28,10 @@ public class PP_NONE implements ParameterPossibilities {
 	public boolean isValid(String input) {
 		return false;
 	}
+
+	@Override
+	public String sanitize(String input) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -182,6 +182,10 @@ public class dddb {
 			ex3.printStackTrace();
 		}
 	}
+	
+	public Connection getConnection() {
+		return conn;
+	}
 
 	public static void main(String[] args) {
 		dddb db = null;

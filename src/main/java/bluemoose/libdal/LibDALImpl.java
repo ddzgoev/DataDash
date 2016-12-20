@@ -1,12 +1,16 @@
 package bluemoose.libdal;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.Duration;
-import bluemoose.Period;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import bluemoose.ModuleFactoryImpl;
+import bluemoose.Period;
+import bluemoose.idal.dddb;
 
 /*
  * Out implementation of the Liberty Data Access Layer
@@ -16,15 +20,17 @@ import bluemoose.ModuleFactoryImpl;
  * script.
  */
 public class LibDALImpl implements LibDALInterface {
+	
+	private Connection conn;
 
 	public LibDALImpl(ModuleFactoryImpl moduleFactoryImpl) {
 		// TODO Auto-generated constructor stub
 		
-		//startLibdb
-		//create libdbtables
+		dddb libDB = dddb.StartLibDB();
+		dddb.createLibDbTables(libDB);
+		dddb.addLibDBrowsDB(libDB);
 		
-		//addLibdbbr....
-		
+		conn = libDB.getConnection();
 	}
 
 	@Override
@@ -32,13 +38,17 @@ public class LibDALImpl implements LibDALInterface {
 		//convert macroType to enum name (assuming macroType is the human-readable version)
 		String macroTypeFixed = macroType.toUpperCase().replace(' ', '_');
 		
+		List<String> sanitizedParameters = new ArrayList<String>();
+		
 		//check if parameters are valid
 		
 		boolean foundMacroType = false;
+		MacroType macro = null;
 		
 		for(MacroType mt : MacroType.values()) {
 			if(mt.name().equals(macroTypeFixed)) {
 				foundMacroType = true;
+				macro = mt;
 				
 				List<ParameterType> requiredParameters = mt.getParameterList();
 				if(parameters.size() != requiredParameters.size()) {
@@ -51,7 +61,9 @@ public class LibDALImpl implements LibDALInterface {
 					ParameterType pt = requiredParameters.get(i);
 					ParameterPossibilities pp = pt.getPossibilities();
 					
-					if(!pp.isValid(parameters.get(i))) {
+					sanitizedParameters.add(pp.sanitize(parameters.get(i)));
+					
+					if(!pp.isValid(sanitizedParameters.get(i))) {
 						//this parameter is invalid
 						invalidParameters.add(pt);
 					}
@@ -73,11 +85,82 @@ public class LibDALImpl implements LibDALInterface {
 		
 		//parameters are probably now valid
 		//insert sql command to run the macro, based on which one it is
+		switch(macro) {
+		case DRIVER_SCHEDULE_DELETE_BY_RUN_NAME:
+			return deleteByRunName("C_DRIVER_SCHEDULE", macro, sanitizedParameters);
+		case DRIVER_STEP_DELETE_BY_RUN_NAME:
+			return deleteByRunName("C_DRIVER_STEP", macro, sanitizedParameters);
+		case DRIVER_SCHEDULE_ADD_ROW:
+			return insertRow("C_DRIVER_SCHEDULE", macro, sanitizedParameters);
+		}
 
 		//return the RunMacroResult based on what happened
 		return null;
 	}
+	
+	private RunMacroResult deleteByRunName(String tableName, MacroType mt, List<String> parameters) {
+		Statement statement;
+		try {
+			statement = conn.createStatement();
+			
+			String updateString = String.format("DELETE FROM %s\nWHERE %s=%s", tableName, mt.getParameterList().get(0), parameters.get(0));
+			
+			int result = statement.executeUpdate(updateString);
+			statement.close();
+		} catch (SQLException e) {
+			return new RunMacroResultImpl(MacroResultType.FAILURE, null);
+		}
+		
+		return new RunMacroResultImpl(MacroResultType.SUCCESS, null);
+	}
 
+	private RunMacroResult insertRow(String tableName, MacroType mt, List<String> parameters) {
+		Statement statement;
+		try {
+			statement = conn.createStatement();
+			
+			StringBuilder parameterString = new StringBuilder();
+			for(int i = 0; i < parameters.size(); i++) {
+				parameterString.append(parameters.get(i));
+				if(i + 1 < parameters.size()) {
+					parameterString.append(", ");
+				}
+			}
+			
+			String updateString = String.format("INSERT INTO %s VALUES (%s)", tableName, parameterString.toString());
+			
+			int result = statement.executeUpdate(updateString);
+			statement.close();
+		} catch (SQLException e) {
+			return new RunMacroResultImpl(MacroResultType.FAILURE, null);
+		}
+		
+		return new RunMacroResultImpl(MacroResultType.SUCCESS, null);
+	}
+	
+	private RunMacroResult updateByRunName(String tableName, MacroType mt, List<String> parameters) {
+		Statement statement;
+		try {
+			statement = conn.createStatement();
+			
+			StringBuilder updates = new StringBuilder();
+			for(int i = 0; i < parameters.size(); i++) {
+				parameterString.append(parameters.get(i));
+				if(i + 1 < parameters.size()) {
+					parameterString.append(", ");
+				}
+			}
+			
+			String updateString = String.format("UPDATE %s\nSET %s\nWHERE %s", tableName, updates.toString(), conditions.toString());
+			
+			int result = statement.executeUpdate(updateString);
+			statement.close();
+		} catch (SQLException e) {
+			return new RunMacroResultImpl(MacroResultType.FAILURE, null);
+		}
+		
+		return new RunMacroResultImpl(MacroResultType.SUCCESS, null);
+	}
 	
 	@Override
 	public ParameterPossibilities getAllParameterPossibilities(String parameterType) {
@@ -88,7 +171,7 @@ public class LibDALImpl implements LibDALInterface {
 		}
 		return new PP_UNSUPPORTED_PARAMETER();
 	}
-
+	
 	@Override
 	public List<DriverStep> getRunningDriverSteps() {
 		// TODO Auto-generated method stub
