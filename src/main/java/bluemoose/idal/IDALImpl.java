@@ -228,10 +228,13 @@ public class IDALImpl implements IDALInterface {
 	}
 
 	@Override
-	public List<FailedMacro> getFailures() throws SQLException {
+	public List<Macro> getFailures() {
 		// TODO Auto-generated method stub
-		ResultSet macros = database.queryrs("SELECT * FROM failedMacros");
-		List<FailedMacro> returnvalue = new ArrayList<FailedMacro>();
+		ResultSet macros;
+		try {
+			macros = database.queryrs("SELECT * FROM failedMacros");
+		
+		List<Macro> returnvalue = new ArrayList<Macro>();
 		for (; macros.next();) {
 			Macro newMacro = readMacro(macros);
 			ResultSet parameters = database.queryrs("SELECT index,parameters FROM parameters WHERE uniqueid = "
@@ -241,9 +244,14 @@ public class IDALImpl implements IDALInterface {
 					.queryrs("SELECT index,parameters FROM originalParameters WHERE uniqueid = " + macros.getInt(1)
 							+ "; ORDER BY index");
 			addOriginalParameters(newMacro, originalParameters);
-			returnvalue.add((FailedMacro) newMacro);
+			returnvalue.add(newMacro);
 		}
 		return returnvalue;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
