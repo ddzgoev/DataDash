@@ -24,4 +24,9 @@ public class PP_UNSUPPORTED_PARAMETER implements ParameterPossibilities {
 		return -1;
 	}
 
+	@Override
+	public boolean isValid(String input) {
+		return false;
+	}
+
 }

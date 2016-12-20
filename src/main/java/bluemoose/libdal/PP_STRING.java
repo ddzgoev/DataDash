@@ -30,4 +30,11 @@ public class PP_STRING implements ParameterPossibilities {
 		return -1;
 	}
 
+	@Override
+	public boolean isValid(String input) {
+		if((input != null) && (input.isEmpty())) {
+			return false;
+		}
+		return input.length() < length;
+	}		
 }

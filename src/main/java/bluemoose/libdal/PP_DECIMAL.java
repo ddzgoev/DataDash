@@ -30,4 +30,10 @@ public class PP_DECIMAL implements ParameterPossibilities {
 	public int getPrecision() {
 		return precision;
 	}
+
+	@Override
+	public boolean isValid(String input) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

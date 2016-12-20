@@ -7,7 +7,7 @@ package bluemoose.libdal;
  */
 public enum MacroResultType {
 	/**
-	 * The operation was succesful.
+	 * The operation was successful.
 	 */
 	SUCCESS,
 	/**
