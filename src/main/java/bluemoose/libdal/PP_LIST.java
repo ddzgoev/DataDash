@@ -37,4 +37,10 @@ public class PP_LIST implements ParameterPossibilities {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String sanitize(String input) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
