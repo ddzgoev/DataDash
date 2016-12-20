@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { DropdownButton, MenuItem } from 'react-bootstrap'
 
 export default class RunMacro extends React.Component{
     constructor(props){
@@ -15,7 +16,7 @@ export default class RunMacro extends React.Component{
             "parameters": ["test"],
             "skipReview": "true"
         };
-        
+
 
         console.log(JSON.stringify(info));
         var inf = ''
@@ -28,7 +29,6 @@ export default class RunMacro extends React.Component{
                 console.log(msg);
                 if(msg.status == "SUCCESS"){
                     this.setState({auth: msg.authentication})
-                    window.location = '/index.html';
                     this.setState({hasAuth: true});
                 } else {
                     ShowFailureAtDOM('login');
@@ -44,29 +44,17 @@ export default class RunMacro extends React.Component{
                     <h1>Run Macro</h1>
                     <div className="row">
                         <div className="col-md-2">
-                            <div id="classdropdown"><script src="js/compiled.js" type="text/javascript"></script></div>
-                            <div className="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Specific Macros
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="#">Update Schedule Start time by Run Name and Audit ID</a></li>
-                                    <li><a href="#">Delete all entries by Run Name</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Update Status Code by Run Name and Audit ID </a></li>
-                                    <li><a href="#">Update Valuation End Date by Run Name and Audit ID</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Update Valuation Start time by Run Name and Audit ID</a></li>
-                                    <li><a href="#">Update SLA Date and Time by Audit ID</a></li>
-                                </ul>
-                            </div>
+                            <DropdownButton bsStyle='default' title="Macros" key={1}>
+                                <MenuItem eventKey="1">Update Schedule Start time by Run Name and Audit ID</MenuItem>
+                                <MenuItem eventKey="2">Delete all entries by Run Name</MenuItem>
+                                <MenuItem eventKey="3">Update Status Code by Run Name and Audit ID</MenuItem>
+                            </DropdownButton>
                         </div>
 
                         <form enctype='application/json' method="post" action="/macro">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <div class="input-group">
+                            <div className="row">
+                                <div className="col-md-5">
+                                    <div className="input-group">
                                         <label for="run_name">Run Name</label>
                                         <input type="text" name="run_name" value="" placeholder="Run Name" id="run_name"/><br />
                                         <label for="audit_id">Audit ID</label>
@@ -80,7 +68,7 @@ export default class RunMacro extends React.Component{
                                         <label for="driver_step_detail_id">Driver Step Detail ID</label>
                                         <input type="text" name="driver_step_detail_id" value="" placeholder="Driver Step Detail ID" id="driver_step_detail_id"/><br />
                                         <label for="description">Description</label>
-                                        <input type="text" name="description" id="description" value=""/><textarea rows="5" cols="15" id="description" maxlength="255"></textarea>
+                                        <input type="text" name="description" id="description" value="" maxLength="255" placeholder="Description"/>
                                     </div>
                                 </div>
                                 <label for="valuation_end">Valuation End Time</label>
@@ -93,23 +81,13 @@ export default class RunMacro extends React.Component{
                                 <input type="text" name="group_number" value="" placeholder="Group Number" id="group_number"/><br />
                                 <label for="active_step_indicator">Active Step Indicator</label>
                                 <input type="text" name="active_step_indicator" value="" placeholder="Active Step Indicator" id="active_step_indicator"/><br />
-                                <div class="input-group">
-                                    <div class="input-group-button">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Status <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Pending</a></li>
-                                            <li><a href="#">Running</a></li>
-                                            <li><a href="#">Successful</a></li>
-                                            <li><a href="#">Failure</a></li>
-                                        </ul>
-                                    </div>
-                                    <input type="text" class="form-control" sytle="width:50px;" size="1"/><br />
-                                </div>
+                                <label for="status">Status</label>
+                                <input type="text" name="status" value="" placeholder="Status" id="status"/><br />
                             </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <p class="submit"><button type="submit" name="commit" value="Login" class="btn btn-primary btn-lg" onClick={this.submit}>Submit</button></p>
-                                    <p class="remember_me">
+                            <div className="row">
+                                <div className="col-md-2">
+                                    <p className="submit"><button type="submit" name="commit" value="Submit" className="btn btn-primary btn-lg" onClick={this.submit}>Submit</button></p>
+                                    <p className="remember_me">
                                         <label>
                                             <input type="checkbox" name="bypass_peer_review" id="bypass_peer_review"/>
                                             Bypass Peer Review

@@ -57732,6 +57732,8 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -57774,7 +57776,6 @@
 	                    console.log(msg);
 	                    if (msg.status == "SUCCESS") {
 	                        this.setState({ auth: msg.authentication });
-	                        window.location = '/index.html';
 	                        this.setState({ hasAuth: true });
 	                    } else {
 	                        ShowFailureAtDOM('login');
@@ -57803,78 +57804,22 @@
 	                            'div',
 	                            { className: 'col-md-2' },
 	                            _react2.default.createElement(
-	                                'div',
-	                                { id: 'classdropdown' },
-	                                _react2.default.createElement('script', { src: 'js/compiled.js', type: 'text/javascript' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'dropdown' },
+	                                _reactBootstrap.DropdownButton,
+	                                { bsStyle: 'default', title: 'Macros', key: 1 },
 	                                _react2.default.createElement(
-	                                    'button',
-	                                    { 'class': 'btn btn-default dropdown-toggle', type: 'button', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
-	                                    'Specific Macros',
-	                                    _react2.default.createElement('span', { 'class': 'caret' })
+	                                    _reactBootstrap.MenuItem,
+	                                    { eventKey: '1' },
+	                                    'Update Schedule Start time by Run Name and Audit ID'
 	                                ),
 	                                _react2.default.createElement(
-	                                    'ul',
-	                                    { 'class': 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { href: '#' },
-	                                            'Update Schedule Start time by Run Name and Audit ID'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { href: '#' },
-	                                            'Delete all entries by Run Name'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement('li', { role: 'separator', 'class': 'divider' }),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { href: '#' },
-	                                            'Update Status Code by Run Name and Audit ID '
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { href: '#' },
-	                                            'Update Valuation End Date by Run Name and Audit ID'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement('li', { role: 'separator', 'class': 'divider' }),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { href: '#' },
-	                                            'Update Valuation Start time by Run Name and Audit ID'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { href: '#' },
-	                                            'Update SLA Date and Time by Audit ID'
-	                                        )
-	                                    )
+	                                    _reactBootstrap.MenuItem,
+	                                    { eventKey: '2' },
+	                                    'Delete all entries by Run Name'
+	                                ),
+	                                _react2.default.createElement(
+	                                    _reactBootstrap.MenuItem,
+	                                    { eventKey: '3' },
+	                                    'Update Status Code by Run Name and Audit ID'
 	                                )
 	                            )
 	                        ),
@@ -57883,13 +57828,13 @@
 	                            { enctype: 'application/json', method: 'post', action: '/macro' },
 	                            _react2.default.createElement(
 	                                'div',
-	                                { 'class': 'row' },
+	                                { className: 'row' },
 	                                _react2.default.createElement(
 	                                    'div',
-	                                    { 'class': 'col-md-5' },
+	                                    { className: 'col-md-5' },
 	                                    _react2.default.createElement(
 	                                        'div',
-	                                        { 'class': 'input-group' },
+	                                        { className: 'input-group' },
 	                                        _react2.default.createElement(
 	                                            'label',
 	                                            { 'for': 'run_name' },
@@ -57937,8 +57882,7 @@
 	                                            { 'for': 'description' },
 	                                            'Description'
 	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'description', id: 'description', value: '' }),
-	                                        _react2.default.createElement('textarea', { rows: '5', cols: '15', id: 'description', maxlength: '255' })
+	                                        _react2.default.createElement('input', { type: 'text', name: 'description', id: 'description', value: '', maxLength: '255', placeholder: 'Description' })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
@@ -57977,80 +57921,31 @@
 	                                _react2.default.createElement('input', { type: 'text', name: 'active_step_indicator', value: '', placeholder: 'Active Step Indicator', id: 'active_step_indicator' }),
 	                                _react2.default.createElement('br', null),
 	                                _react2.default.createElement(
-	                                    'div',
-	                                    { 'class': 'input-group' },
-	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { 'class': 'input-group-button' },
-	                                        _react2.default.createElement(
-	                                            'button',
-	                                            { type: 'button', 'class': 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
-	                                            'Status ',
-	                                            _react2.default.createElement('span', { 'class': 'caret' })
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'ul',
-	                                            { 'class': 'dropdown-menu' },
-	                                            _react2.default.createElement(
-	                                                'li',
-	                                                null,
-	                                                _react2.default.createElement(
-	                                                    'a',
-	                                                    { href: '#' },
-	                                                    'Pending'
-	                                                )
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'li',
-	                                                null,
-	                                                _react2.default.createElement(
-	                                                    'a',
-	                                                    { href: '#' },
-	                                                    'Running'
-	                                                )
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'li',
-	                                                null,
-	                                                _react2.default.createElement(
-	                                                    'a',
-	                                                    { href: '#' },
-	                                                    'Successful'
-	                                                )
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'li',
-	                                                null,
-	                                                _react2.default.createElement(
-	                                                    'a',
-	                                                    { href: '#' },
-	                                                    'Failure'
-	                                                )
-	                                            )
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement('input', { type: 'text', 'class': 'form-control', sytle: 'width:50px;', size: '1' }),
-	                                    _react2.default.createElement('br', null)
-	                                )
+	                                    'label',
+	                                    { 'for': 'status' },
+	                                    'Status'
+	                                ),
+	                                _react2.default.createElement('input', { type: 'text', name: 'status', value: '', placeholder: 'Status', id: 'status' }),
+	                                _react2.default.createElement('br', null)
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
-	                                { 'class': 'row' },
+	                                { className: 'row' },
 	                                _react2.default.createElement(
 	                                    'div',
-	                                    { 'class': 'col-md-2' },
+	                                    { className: 'col-md-2' },
 	                                    _react2.default.createElement(
 	                                        'p',
-	                                        { 'class': 'submit' },
+	                                        { className: 'submit' },
 	                                        _react2.default.createElement(
 	                                            'button',
-	                                            { type: 'submit', name: 'commit', value: 'Login', 'class': 'btn btn-primary btn-lg', onClick: this.submit },
+	                                            { type: 'submit', name: 'commit', value: 'Submit', className: 'btn btn-primary btn-lg', onClick: this.submit },
 	                                            'Submit'
 	                                        )
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'p',
-	                                        { 'class': 'remember_me' },
+	                                        { className: 'remember_me' },
 	                                        _react2.default.createElement(
 	                                            'label',
 	                                            null,

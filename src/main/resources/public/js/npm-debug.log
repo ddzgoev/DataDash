@@ -888,12 +888,12 @@
 4874 verbose linkMans escodegen@1.1.0
 4875 verbose rebuildBundles escodegen@1.1.0
 4876 verbose rebuildBundles [ '.bin', 'esprima', 'esutils' ]
-4877 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/escodegen is being purged
-4878 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/escodegen
-4879 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esgenerate is being purged
-4880 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esgenerate
-4881 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/escodegen
-4882 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esgenerate
+4877 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esgenerate is being purged
+4878 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esgenerate
+4879 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/escodegen is being purged
+4880 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/escodegen
+4881 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esgenerate
+4882 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/escodegen
 4883 silly vacuum-fs quitting because other entries in /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin
 4884 silly vacuum-fs quitting because other entries in /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin
 4885 info install escodegen@1.1.0
@@ -920,12 +920,12 @@
 4903 verbose link bins   false ]
 4904 verbose linkMans esprima@3.1.2
 4905 verbose rebuildBundles esprima@3.1.2
-4906 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esvalidate is being purged
-4907 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esvalidate
-4908 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esparse is being purged
-4909 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esparse
-4910 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esvalidate
-4911 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esparse
+4906 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esparse is being purged
+4907 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esparse
+4908 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esvalidate is being purged
+4909 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esvalidate
+4910 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esparse
+4911 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/esvalidate
 4912 silly vacuum-fs quitting because other entries in /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin
 4913 silly vacuum-fs quitting because other entries in /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin
 4914 info install esprima@3.1.2
@@ -1053,9 +1053,9 @@
 5034 verbose link bins   false ]
 5035 verbose linkMans express@2.5.11
 5036 verbose rebuildBundles express@2.5.11
-5037 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/express is being purged
-5038 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/express
-5039 verbose rebuildBundles [ 'connect', 'mime', 'mkdirp', 'qs' ]
+5037 verbose rebuildBundles [ 'connect', 'mime', 'mkdirp', 'qs' ]
+5038 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/express is being purged
+5039 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/express
 5040 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/express
 5041 silly vacuum-fs quitting because other entries in /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin
 5042 info install express@2.5.11
@@ -3372,12 +3372,12 @@
 7146 verbose link bins   false ]
 7147 verbose linkMans esprima-fb@3001.1.0-dev-harmony-fb
 7148 verbose rebuildBundles esprima-fb@3001.1.0-dev-harmony-fb
-7149 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esparse is being purged
-7150 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esparse
-7151 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esvalidate is being purged
-7152 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esvalidate
-7153 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esparse
-7154 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esvalidate
+7149 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esvalidate is being purged
+7150 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esvalidate
+7151 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esparse is being purged
+7152 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esparse
+7153 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esvalidate
+7154 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin/esparse
 7155 silly vacuum-fs quitting because other entries in /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin
 7156 silly vacuum-fs quitting because other entries in /Users/Sean/DataDash/src/main/resources/public/node_modules/gulp-browserify/node_modules/.bin
 7157 info install esprima-fb@3001.1.0-dev-harmony-fb
@@ -4912,16 +4912,16 @@
 8602 verbose link bins   false ]
 8603 verbose linkMans in-publish@2.0.0
 8604 verbose rebuildBundles in-publish@2.0.0
-8605 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-publish is being purged
-8606 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-publish
-8607 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-install is being purged
-8608 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-install
+8605 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-install is being purged
+8606 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-install
+8607 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-publish is being purged
+8608 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-publish
 8609 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/not-in-publish is being purged
 8610 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/not-in-publish
 8611 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/not-in-install is being purged
 8612 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/not-in-install
-8613 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-publish
-8614 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-install
+8613 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-install
+8614 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/in-publish
 8615 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/not-in-publish
 8616 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/not-in-install
 8617 silly vacuum-fs quitting because other entries in /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin
@@ -6038,12 +6038,12 @@
 9683 verbose link bins   false ]
 9684 verbose linkMans localtunnel@1.8.2
 9685 verbose rebuildBundles localtunnel@1.8.2
-9686 verbose rebuildBundles [ '.bin', 'cliui', 'debug', 'ms', 'window-size', 'yargs' ]
-9687 verbose rebuild bundle /Users/Sean/DataDash/src/main/resources/public/node_modules/localtunnel/node_modules/cliui
-9688 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/lt is being purged
-9689 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/lt
-9690 info build /Users/Sean/DataDash/src/main/resources/public/node_modules/localtunnel/node_modules/cliui
-9691 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/lt
+9686 silly gentlyRm /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/lt is being purged
+9687 verbose gentlyRm don't care about contents; nuking /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/lt
+9688 verbose rebuildBundles [ '.bin', 'cliui', 'debug', 'ms', 'window-size', 'yargs' ]
+9689 verbose rebuild bundle /Users/Sean/DataDash/src/main/resources/public/node_modules/localtunnel/node_modules/cliui
+9690 silly vacuum-fs purging /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin/lt
+9691 info build /Users/Sean/DataDash/src/main/resources/public/node_modules/localtunnel/node_modules/cliui
 9692 silly vacuum-fs quitting because other entries in /Users/Sean/DataDash/src/main/resources/public/node_modules/.bin
 9693 info preinstall cliui@3.2.0
 9694 info linkStuff cliui@3.2.0

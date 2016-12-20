@@ -6,10 +6,23 @@
 * http://www.opensource.org/licenses/mit-license.php
 */
 
+
+label{
+	width: 200px;
+	margin-bottom: 20px;
+	margin-right: 10px;
+	display: inline-block;
+	text-align: right;
+}
+
 body {
     font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
     color: #404040;
     background: rgb(23,42,98);
+}
+
+input{
+	margin-bottom: 50px;
 }
 
 .container.login {
