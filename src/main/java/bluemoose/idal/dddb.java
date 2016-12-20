@@ -190,7 +190,7 @@ public class dddb {
 		db.update("DROP TABLE IF EXISTS parameters");
 		db.update("DROP TABLE IF EXISTS FailedMacros");
 	    //idal table create statements parameters and originalParameters will have to be joined with Macros on uniqueID in practice
-	    db.update("CREATE TABLE Macros( uniqueID INT IDENTITY, creatorFname VARCHAR(30), creatorLname VARCHAR(30), reviewerFname VARCHAR(30), reviewerLname VARCHAR(30), wasPeerReviewed BOOLEAN DEFAULT FALSE, wasRun BOOLEAN DEFAULT FALSE, runDate BIGINT, creationDate BIGINT,macroType VARCHAR(30), PRIMARY KEY(uniqueID));");
+	    db.update("CREATE TABLE Macros( uniqueID INT IDENTITY, creatorFname VARCHAR(30), creatorLname VARCHAR(30), reviewerFname VARCHAR(30), reviewerLname VARCHAR(30), wasPeerReviewed BOOLEAN DEFAULT FALSE, wasRun BOOLEAN DEFAULT FALSE, runDate BIGINT, creationDate BIGINT,macroType VARCHAR(100), PRIMARY KEY(uniqueID));");
 	    db.update("CREATE TABLE FailedMacros( uniqueID INT IDENTITY, creatorFname VARCHAR(30), creatorLname VARCHAR(30), reviewerFname VARCHAR(30), reviewerLname VARCHAR(30), wasPeerReviewed BOOLEAN DEFAULT FALSE, wasRun BOOLEAN DEFAULT FALSE, runDate BIGINT, creationDate BIGINT,macroType VARCHAR(30), cause VARCHAR(200), PRIMARY KEY(uniqueID));");
 	    db.update("CREATE TABLE originalParameters(pid INT IDENTITY PRIMARY KEY, uniqueID INT, index INT, parameters VARCHAR(30) );");
 	    db.update("CREATE TABLE parameters(pid INT IDENTITY PRIMARY KEY, uniqueID INT, index INT, parameters VARCHAR(30) );");
