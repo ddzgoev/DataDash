@@ -14,14 +14,15 @@ import bluemoose.Period;
  */
 public class IDALImpl implements IDALInterface {
 
-	ModuleFactoryInterface factory;
-
 	dddb database;
 
-	public IDALImpl(ModuleFactoryInterface factory) {
-		this.factory = factory;
+	public IDALImpl() {
 		database = dddb.StartIdalDB();
 		dddb.createIdalDBTables(database);
+	}
+	
+	public IDALImpl(ModuleFactoryInterface factory){
+		this();
 	}
 	
 	private int validateID(String ID){
@@ -44,7 +45,7 @@ public class IDALImpl implements IDALInterface {
 
 	private Macro readMacro(ResultSet macros) throws SQLException {
 		return new Macro("" + macros.getInt(1), macros.getString(2), macros.getString(3), macros.getString(4),
-				macros.getString(5), macros.getBoolean(6), new Date(macros.getInt(8)), new Date(macros.getInt(9)),
+				macros.getString(5), macros.getBoolean(6), new Date(macros.getLong(8)), new Date(macros.getLong(9)),
 				macros.getString(10), new ArrayList<>(), new ArrayList<>());
 	}
 
