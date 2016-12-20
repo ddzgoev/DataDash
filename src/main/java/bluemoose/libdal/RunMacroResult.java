@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface RunMacroResult {
 	/**
-	 * @return Was the macro succesful and why not.
+	 * @return Was the macro successful and why not.
 	 */
-	public MacroResultType wasSuccesful();
+	public MacroResultType wasSuccessful();
 	/**
-	 * @return If wasSeccesful is INVALID_PARAMETERS, problems is a list of bad parameters.
+	 * @return If wasSuccessful is INVALID_PARAMETERS, problems is a list of bad parameters.
 	 */
 	public List<ParameterType> problems();
 }

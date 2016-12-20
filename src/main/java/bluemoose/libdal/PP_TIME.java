@@ -30,4 +30,10 @@ public class PP_TIME implements ParameterPossibilities {
 		return -1;
 	}
 
+	@Override
+	public boolean isValid(String input) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
