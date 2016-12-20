@@ -34,9 +34,9 @@ export default React.createClass({
             <div>
                 <div>
                     <a href="homepage.html">
-                        <img class="resize" src="liberty.jpeg" width="30%"/>
+                        <img className="resize" src="liberty.jpeg" width="30%"/>
                     </a>
-                    <Button><Glyphicon glyph="glyphicon glyphicon-log-out"></Glyphicon> Logout</Button>
+                    <Button><Glyphicon glyph="glyphicon glyphicon-log-out"></Glyphicon><Link to="/login"> Logout</Link></Button>
 
 
                 </div>

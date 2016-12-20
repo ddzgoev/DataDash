@@ -22209,13 +22209,17 @@
 	                _react2.default.createElement(
 	                    'a',
 	                    { href: 'homepage.html' },
-	                    _react2.default.createElement('img', { 'class': 'resize', src: 'liberty.jpeg', width: '30%' })
+	                    _react2.default.createElement('img', { className: 'resize', src: 'liberty.jpeg', width: '30%' })
 	                ),
 	                _react2.default.createElement(
 	                    _reactBootstrap.Button,
 	                    null,
 	                    _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'glyphicon glyphicon-log-out' }),
-	                    ' Logout'
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: '/login' },
+	                        ' Logout'
+	                    )
 	                )
 	            ),
 	            navbarInstance,
@@ -57744,13 +57748,6 @@
 	
 	        var _this = _possibleConstructorReturn(this, (RunMacro.__proto__ || Object.getPrototypeOf(RunMacro)).call(this, props));
 	
-	        _this.state = {
-	            auth: "",
-	            username: "",
-	            password: "",
-	            hasAuth: false
-	        };
-	
 	        _this.submit = _this.submit.bind(_this);
 	        return _this;
 	    }
@@ -57801,10 +57798,10 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { 'class': 'row' },
+	                        { className: 'row' },
 	                        _react2.default.createElement(
 	                            'div',
-	                            { 'class': 'col-md-2' },
+	                            { className: 'col-md-2' },
 	                            _react2.default.createElement(
 	                                'div',
 	                                { id: 'classdropdown' },
@@ -57812,7 +57809,7 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
-	                                { 'class': 'dropdown' },
+	                                { className: 'dropdown' },
 	                                _react2.default.createElement(
 	                                    'button',
 	                                    { 'class': 'btn btn-default dropdown-toggle', type: 'button', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },

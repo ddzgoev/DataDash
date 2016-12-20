@@ -4,13 +4,6 @@ import ReactDOM from 'react-dom'
 export default class RunMacro extends React.Component{
     constructor(props){
         super(props)
-        this.state = {
-            auth: "",
-            username: "",
-            password: "",
-            hasAuth: false
-        }
-
         this.submit = this.submit.bind(this);
     }
 
@@ -49,10 +42,10 @@ export default class RunMacro extends React.Component{
             <section className="container">
                 <div className="macro">
                     <h1>Run Macro</h1>
-                    <div class="row">
-                        <div class="col-md-2">
+                    <div className="row">
+                        <div className="col-md-2">
                             <div id="classdropdown"><script src="js/compiled.js" type="text/javascript"></script></div>
-                            <div class="dropdown">
+                            <div className="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Specific Macros
                                     <span class="caret"></span>
