@@ -96,7 +96,6 @@ public interface IDALInterface {
 	 * TODO: requires group discussion of system architecture
 	 *
 	 * @return list of failed macros
-	 * @throws SQLException 
 	 */
-	public List<FailedMacro> getFailures() throws SQLException;
+	public List<Macro> getFailures();
 }
