@@ -1,6 +1,8 @@
 package bluemoose.idal;
 
 import bluemoose.Period;
+
+import java.sql.SQLException;
 import java.util.List;
 
 /*
@@ -94,6 +96,7 @@ public interface IDALInterface {
 	 * TODO: requires group discussion of system architecture
 	 *
 	 * @return list of failed macros
+	 * @throws SQLException 
 	 */
-	public List<Macro> getFailures();
+	public List<FailedMacro> getFailures() throws SQLException;
 }
