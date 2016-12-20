@@ -1,5 +1,9 @@
 package bluemoose.idal;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import bluemoose.ModuleFactoryInterface;
@@ -16,25 +20,74 @@ public class IDALImpl implements IDALInterface {
 	
 	public IDALImpl(ModuleFactoryInterface factory) {
 		this.factory = factory;
-		database = dddb.StartDB();
+		database = dddb.StartIdalDB();
+		dddb.createIdalDBTables(database);
 	}
 
+	private Macro readMacro(ResultSet macros) throws SQLException{
+		return new Macro("" + macros.getInt(1),macros.getString(2),macros.getString(3),macros.getString(4),macros.getString(5),macros.getBoolean(6),new Date(macros.getInt(7)), new Date(macros.getInt(8)), macros.getString(9),new ArrayList<>(),new ArrayList<>());
+	}
+	
+	private void addParameters(Macro macro, ResultSet parameters) throws SQLException{
+		for(;parameters.next();){
+			macro.getParameters().add(parameters.getString("parameters"));
+		}
+	}
+	
+	private void addOriginalParameters(Macro macro, ResultSet parameters) throws SQLException{
+		for(;parameters.next();){
+			macro.getOriginalParameters().add(parameters.getString("parameters"));
+		}
+	}
+	
+	private List<Macro> readMacros(ResultSet macros) throws SQLException{
+		List<Macro> returnvalue = new ArrayList<Macro>();
+		for(;macros.next();){
+			Macro newMacro = readMacro(macros);
+			ResultSet parameters = database.queryrs("SELECT index,parameters FROM parameters WHERE uniqueid = " + macros.getInt(1) + "; ORDER BY index");
+			addParameters(newMacro,parameters);
+			ResultSet originalParameters = database.queryrs("SELECT index,parameters FROM originalParameters WHERE uniqueid = " + macros.getInt(1) + "; ORDER BY index");
+			addOriginalParameters(newMacro,originalParameters);
+			returnvalue.add(newMacro);
+		}
+		return returnvalue;
+	}
+	
 	@Override
 	public List<Macro> getAllPendingMacros() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			ResultSet macros = database.queryrs("SELECT * FROM Macros WHERE m.wasRun = 0;");
+			return readMacros(macros);			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+			
+		}
 	}
 
 	@Override
 	public MacroInterface getPendingMacro(String ID) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public MacroInterface storeMacro(String creatorFname, String creatorLname, String macroType, List<String> parameters) {
-		// TODO Auto-generated method stub
-		return null;
+		long now = (int) new Date().getTime();
+		try {
+			database.queryrs("INSERT INTO Macros( creatorFname, creatorLname, macroType, creationDate) VALUES ('" + creatorFname + "', '" + creatorLname + "', '" + macroType + "', '" + now + "');");
+			ResultSet r = database.queryrs("SELECT * FROM Macros WHERE creationDate = " + now + ";");
+			int macroID = r.getInt(1);
+			for(int i = 1; i<=parameters.size(); i++){
+				database.queryrs("INSERT into paramters(uniqueId, index, parameters) VALUES (" + macroID + ", " + i + "," + parameters.get(i-1) + ");");
+			}
+			
+			return readMacro(r);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -60,7 +113,7 @@ public class IDALImpl implements IDALInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//from here down
 	@Override
 	public void markFailed(String ID, String cause) {
 		// TODO Auto-generated method stub

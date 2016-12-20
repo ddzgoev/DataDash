@@ -21,6 +21,7 @@ import bluemoose.mediator.MacroType;
 import bluemoose.mediator.MacroTypeListResultInterface;
 import bluemoose.mediator.MediatorStatus;
 import bluemoose.mediator.PeerReviewRequest;
+import bluemoose.mediator.RunMacroRequest;
 import bluemoose.mediator.SimpleResultWithFailMessage;
 import bluemoose.mediator.StepListResultInterface;
 import bluemoose.mediator.StoredMacroListResultInterface;
@@ -65,6 +66,9 @@ public class WebTranslator implements Translator {
 
 		post("/login", this::loginRoute);
 		post("/macro", this::getAllMacroTypesRoute);
+		post("/macro/runMacro", this::submitMacroRoute);
+		post("/macro/failures", this::getMacroFailuresRoute);
+		post("/step/running", this::getRunningStepsRoute);
 		post("/peerreview", this::getPendingMacrosRoute);
 		post("/peerreview/review", this::reviewMacroRoute);
 		post("/journal", this::getJournalRoute);
@@ -158,6 +162,96 @@ public class WebTranslator implements Translator {
 				return write(mediatorError);
 			case SUCCESS:
 				return write(translate(simres));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			res.status(400);
+			return write(parseError);
+		}
+		return write(internalError);
+	}
+	
+	private String submitMacroRoute(Request req, Response res) {
+		try {
+			res.type("application/json");
+			String body = getBody(req);
+			
+			RunMacroRequestJSON runreq = mapper.readValue(body, RunMacroRequestJSON.class);
+			SimpleResultWithFailMessage runres = factory.getMediator()
+					.submitMacro(new RunMacroRequest(runreq.authentication, runreq.macroType, runreq.parameters, runreq.skipReview));
+			switch (runres.getStatus()) {
+			case AUTHENTICATION_ERROR:
+				return write(authenticationError);
+			case AUTHENTICATION_EXPIRATION:
+				return write(authenticationExpiration);
+			case BAD_REQUEST:
+				return write(illegalCharacters);
+			case FAILURE:
+				return write(returnError);
+			case INTERNAL_ERROR:
+				return write(mediatorError);
+			case SUCCESS:
+				return write(new SimpleResultJSON(runres.getMessage()));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			res.status(400);
+			return write(parseError);
+		}
+		return write(internalError);
+	}
+	
+	private String getMacroFailuresRoute(Request req, Response res) {
+		try {
+			res.type("application/json");
+			String body = getBody(req);
+			
+			TimedRequestJSON failreq = mapper.readValue(body, TimedRequestJSON.class);
+			StoredMacroListResultInterface failres = factory.getMediator()
+					.getMacroFailures(new TimedRequest(failreq.authentication, new Period(failreq.startDate, failreq.endDate)));
+			switch(failres.getStatus()) {
+			case AUTHENTICATION_ERROR:
+				return write(authenticationError);
+			case AUTHENTICATION_EXPIRATION:
+				return write(authenticationExpiration);
+			case BAD_REQUEST:
+				return write(illegalCharacters);
+			case FAILURE:
+				return write(returnError);
+			case INTERNAL_ERROR:
+				return write(mediatorError);
+			case SUCCESS:
+				return write(translate(failres));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			res.status(400);
+			return write(parseError);
+		}
+		return write(internalError);
+	}
+	
+	private String getRunningStepsRoute(Request req, Response res) {
+		try {
+			res.type("application/json");
+			String body = getBody(req);
+			
+			SimpleRequestJSON simreq = mapper.readValue(body, SimpleRequestJSON.class);
+			StepListResultInterface simres = factory.getMediator()
+					.getRunningSteps(new AuthenticatedRequest(simreq.authentication));
+			switch(simres.getStatus()) {
+			case AUTHENTICATION_ERROR:
+				return write(authenticationError);
+			case AUTHENTICATION_EXPIRATION:
+				return write(authenticationExpiration);
+			case BAD_REQUEST:
+				return write(illegalCharacters);
+			case FAILURE:
+				return write(returnError);
+			case INTERNAL_ERROR:
+				return write(mediatorError);
+			case SUCCESS:
+				return write(new StepListJSON(simres.getSteps()));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
