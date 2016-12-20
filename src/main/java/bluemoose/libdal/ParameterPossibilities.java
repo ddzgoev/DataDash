@@ -28,4 +28,10 @@ public interface ParameterPossibilities {
 	 * Returns -1 when invalid
 	 */
 	public int getPrecision();
+	
+	/**
+	 * Checks if a given input from a user is a valid example of this possibility type
+	 * @return true if the input is valid, false if it is not
+	 */
+	public boolean isValid(String input);
 }
