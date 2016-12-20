@@ -6,6 +6,7 @@ import { MenuItem } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import $ from 'jquery'
 import { Navigation, Router, Route, Link } from 'react-router'
+import cookie from 'react-cookie'
 
 export default class Login extends React.Component{
     constructor(props){
@@ -23,12 +24,12 @@ export default class Login extends React.Component{
         this.handleResponse = this.handleResponse.bind(this)
         this.getAuth = this.getAuth.bind(this)
     }
-    
+
     handleResponse(data){
         console.log(data)
         this.setState({auth: data})
     }
-    
+
     getAuth(){
         return(this.state.hasAuth)
     }
@@ -50,7 +51,9 @@ export default class Login extends React.Component{
                 console.log(msg);
                 if(msg.status == "SUCCESS"){
                     this.setState({auth: msg.authentication})
-                    window.location = '/homepage.html';
+                    window.location = '/index.html';
+                    document.cookie = 'auth='+msg.authentication;
+                    console.log(document.cookie)
                     this.setState({hasAuth: true});
                 } else {
                     ShowFailureAtDOM('login');
@@ -67,18 +70,22 @@ export default class Login extends React.Component{
     onChangePass(e){
         this.setState({password: e.target.value})
     }
-    
+
     render(){
         return(
-            <div><h1>Login to Data Dash</h1>
-                <div className="loginDiv">
-                    <input type="text" onChange={this.onChangeUser} placeholder="Username"/>
-                    <br></br>
-                    <input type="text" onChange={this.onChangePass} placeholder="Password"/>
-                    <br></br>
-                    <Button bsStyle="primary" onClick={this.log}>Login</Button>
+            <section className="container">
+                <div className="login">
+                    <div><h1>Login to Data Dash</h1>
+                        <div className="loginDiv">
+                            <input type="text" onChange={this.onChangeUser} placeholder="Username"/>
+                            <br></br>
+                            <input type="password" onChange={this.onChangePass} placeholder="Password"/>
+                            <br></br>
+                            <Button bsStyle="primary" onClick={this.log}>Login</Button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         )
     }
 }
@@ -127,11 +134,11 @@ export default class Login extends React.Component{
 //};
 //
 function ShowFailureAtDOM(id) {
- ReactDOM.unmountComponentAtNode(document.getElementById(id));
- ReactDOM.render(
-  <LoginFail />,
-  document.getElementById(id)
- );
+    ReactDOM.unmountComponentAtNode(document.getElementById(id));
+    ReactDOM.render(
+        <LoginFail />,
+        document.getElementById(id)
+    );
 };
 
 //var Header = React.createClass({

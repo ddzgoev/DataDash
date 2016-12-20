@@ -65,11 +65,11 @@
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
-	var _RunMacro = __webpack_require__(/*! ./js/RunMacro.jsx */ 490);
+	var _RunMacro = __webpack_require__(/*! ./js/RunMacro.jsx */ 492);
 	
 	var _RunMacro2 = _interopRequireDefault(_RunMacro);
 	
-	var _Home = __webpack_require__(/*! ./js/Home.jsx */ 491);
+	var _Home = __webpack_require__(/*! ./js/Home.jsx */ 493);
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
@@ -47247,6 +47247,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 179);
 	
+	var _reactCookie = __webpack_require__(/*! react-cookie */ 490);
+	
+	var _reactCookie2 = _interopRequireDefault(_reactCookie);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47308,7 +47312,9 @@
 	                    console.log(msg);
 	                    if (msg.status == "SUCCESS") {
 	                        this.setState({ auth: msg.authentication });
-	                        window.location = '/homepage.html';
+	                        window.location = '/index.html';
+	                        document.cookie = 'auth=' + msg.authentication;
+	                        console.log(document.cookie);
 	                        this.setState({ hasAuth: true });
 	                    } else {
 	                        ShowFailureAtDOM('login');
@@ -47331,24 +47337,32 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    'Login to Data Dash'
-	                ),
+	                'section',
+	                { className: 'container' },
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'loginDiv' },
-	                    _react2.default.createElement('input', { type: 'text', onChange: this.onChangeUser, placeholder: 'Username' }),
-	                    _react2.default.createElement('br', null),
-	                    _react2.default.createElement('input', { type: 'text', onChange: this.onChangePass, placeholder: 'Password' }),
-	                    _react2.default.createElement('br', null),
+	                    { className: 'login' },
 	                    _react2.default.createElement(
-	                        _reactBootstrap.Button,
-	                        { bsStyle: 'primary', onClick: this.log },
-	                        'Login'
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'h1',
+	                            null,
+	                            'Login to Data Dash'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'loginDiv' },
+	                            _react2.default.createElement('input', { type: 'text', onChange: this.onChangeUser, placeholder: 'Username' }),
+	                            _react2.default.createElement('br', null),
+	                            _react2.default.createElement('input', { type: 'password', onChange: this.onChangePass, placeholder: 'Password' }),
+	                            _react2.default.createElement('br', null),
+	                            _react2.default.createElement(
+	                                _reactBootstrap.Button,
+	                                { bsStyle: 'primary', onClick: this.log },
+	                                'Login'
+	                            )
+	                        )
 	                    )
 	                )
 	            );
@@ -57323,6 +57337,376 @@
 
 /***/ },
 /* 490 */
+/*!****************************************!*\
+  !*** ./~/react-cookie/build/cookie.js ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+	  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+	} : function (obj) {
+	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+	};
+	
+	exports.load = load;
+	exports.select = select;
+	exports.save = save;
+	exports.remove = remove;
+	exports.setRawCookie = setRawCookie;
+	exports.plugToRequest = plugToRequest;
+	
+	var _cookie = __webpack_require__(/*! cookie */ 491);
+	
+	var _cookie2 = _interopRequireDefault(_cookie);
+	
+	var _objectAssign = __webpack_require__(/*! object-assign */ 4);
+	
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	var IS_NODE = typeof document === 'undefined' || process && process.env && process.env.NODE_ENV === 'test';
+	var _rawCookie = {};
+	var _res = undefined;
+	
+	function _isResWritable() {
+	  return _res && !_res.headersSent;
+	}
+	
+	function load(name, doNotParse) {
+	  var cookies = IS_NODE ? _rawCookie : _cookie2.default.parse(document.cookie);
+	  var cookieVal = cookies && cookies[name];
+	
+	  if (typeof doNotParse === 'undefined') {
+	    doNotParse = !cookieVal || cookieVal[0] !== '{' && cookieVal[0] !== '[';
+	  }
+	
+	  if (!doNotParse) {
+	    try {
+	      cookieVal = JSON.parse(cookieVal);
+	    } catch (e) {
+	      // Not serialized object
+	    }
+	  }
+	
+	  return cookieVal;
+	}
+	
+	function select(regex) {
+	  var cookies = IS_NODE ? _rawCookie : _cookie2.default.parse(document.cookie);
+	
+	  if (!cookies) {
+	    return {};
+	  }
+	
+	  if (!regex) {
+	    return cookies;
+	  }
+	
+	  return Object.keys(cookies).reduce(function (accumulator, name) {
+	    if (!regex.test(name)) {
+	      return accumulator;
+	    }
+	
+	    var newCookie = {};
+	    newCookie[name] = cookies[name];
+	    return (0, _objectAssign2.default)({}, accumulator, newCookie);
+	  }, {});
+	}
+	
+	function save(name, val, opt) {
+	  _rawCookie[name] = val;
+	
+	  // allow you to work with cookies as objects.
+	  if ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object') {
+	    _rawCookie[name] = JSON.stringify(val);
+	  }
+	
+	  // Cookies only work in the browser
+	  if (!IS_NODE) {
+	    document.cookie = _cookie2.default.serialize(name, _rawCookie[name], opt);
+	  }
+	
+	  if (_isResWritable() && _res.cookie) {
+	    _res.cookie(name, val, opt);
+	  }
+	}
+	
+	function remove(name, opt) {
+	  delete _rawCookie[name];
+	
+	  if (typeof opt === 'undefined') {
+	    opt = {};
+	  } else if (typeof opt === 'string') {
+	    // Will be deprecated in future versions
+	    opt = { path: opt };
+	  } else {
+	    // Prevent mutation of opt below
+	    opt = (0, _objectAssign2.default)({}, opt);
+	  }
+	
+	  if (typeof document !== 'undefined') {
+	    opt.expires = new Date(1970, 1, 1, 0, 0, 1);
+	    opt.maxAge = 0;
+	    document.cookie = _cookie2.default.serialize(name, '', opt);
+	  }
+	
+	  if (_isResWritable() && _res.clearCookie) {
+	    _res.clearCookie(name, opt);
+	  }
+	}
+	
+	function setRawCookie(rawCookie) {
+	  if (rawCookie) {
+	    _rawCookie = _cookie2.default.parse(rawCookie);
+	  } else {
+	    _rawCookie = {};
+	  }
+	}
+	
+	function plugToRequest(req, res) {
+	  if (req.cookie) {
+	    _rawCookie = req.cookie;
+	  } else if (req.cookies) {
+	    _rawCookie = req.cookies;
+	  } else if (req.headers && req.headers.cookie) {
+	    setRawCookie(req.headers.cookie);
+	  } else {
+	    _rawCookie = {};
+	  }
+	
+	  _res = res;
+	
+	  return function unplug() {
+	    _res = null;
+	    _rawCookie = {};
+	  };
+	}
+	
+	exports.default = {
+	  setRawCookie: setRawCookie,
+	  load: load,
+	  select: select,
+	  save: save,
+	  remove: remove,
+	  plugToRequest: plugToRequest
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../node-libs-browser/~/process/browser.js */ 3)))
+
+/***/ },
+/* 491 */
+/*!***************************!*\
+  !*** ./~/cookie/index.js ***!
+  \***************************/
+/***/ function(module, exports) {
+
+	/*!
+	 * cookie
+	 * Copyright(c) 2012-2014 Roman Shtylman
+	 * Copyright(c) 2015 Douglas Christopher Wilson
+	 * MIT Licensed
+	 */
+	
+	'use strict';
+	
+	/**
+	 * Module exports.
+	 * @public
+	 */
+	
+	exports.parse = parse;
+	exports.serialize = serialize;
+	
+	/**
+	 * Module variables.
+	 * @private
+	 */
+	
+	var decode = decodeURIComponent;
+	var encode = encodeURIComponent;
+	var pairSplitRegExp = /; */;
+	
+	/**
+	 * RegExp to match field-content in RFC 7230 sec 3.2
+	 *
+	 * field-content = field-vchar [ 1*( SP / HTAB ) field-vchar ]
+	 * field-vchar   = VCHAR / obs-text
+	 * obs-text      = %x80-FF
+	 */
+	
+	var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
+	
+	/**
+	 * Parse a cookie header.
+	 *
+	 * Parse the given cookie header string into an object
+	 * The object has the various cookies as keys(names) => values
+	 *
+	 * @param {string} str
+	 * @param {object} [options]
+	 * @return {object}
+	 * @public
+	 */
+	
+	function parse(str, options) {
+	  if (typeof str !== 'string') {
+	    throw new TypeError('argument str must be a string');
+	  }
+	
+	  var obj = {};
+	  var opt = options || {};
+	  var pairs = str.split(pairSplitRegExp);
+	  var dec = opt.decode || decode;
+	
+	  for (var i = 0; i < pairs.length; i++) {
+	    var pair = pairs[i];
+	    var eq_idx = pair.indexOf('=');
+	
+	    // skip things that don't look like key=value
+	    if (eq_idx < 0) {
+	      continue;
+	    }
+	
+	    var key = pair.substr(0, eq_idx).trim();
+	    var val = pair.substr(++eq_idx, pair.length).trim();
+	
+	    // quoted values
+	    if ('"' == val[0]) {
+	      val = val.slice(1, -1);
+	    }
+	
+	    // only assign once
+	    if (undefined == obj[key]) {
+	      obj[key] = tryDecode(val, dec);
+	    }
+	  }
+	
+	  return obj;
+	}
+	
+	/**
+	 * Serialize data into a cookie header.
+	 *
+	 * Serialize the a name value pair into a cookie string suitable for
+	 * http headers. An optional options object specified cookie parameters.
+	 *
+	 * serialize('foo', 'bar', { httpOnly: true })
+	 *   => "foo=bar; httpOnly"
+	 *
+	 * @param {string} name
+	 * @param {string} val
+	 * @param {object} [options]
+	 * @return {string}
+	 * @public
+	 */
+	
+	function serialize(name, val, options) {
+	  var opt = options || {};
+	  var enc = opt.encode || encode;
+	
+	  if (typeof enc !== 'function') {
+	    throw new TypeError('option encode is invalid');
+	  }
+	
+	  if (!fieldContentRegExp.test(name)) {
+	    throw new TypeError('argument name is invalid');
+	  }
+	
+	  var value = enc(val);
+	
+	  if (value && !fieldContentRegExp.test(value)) {
+	    throw new TypeError('argument val is invalid');
+	  }
+	
+	  var str = name + '=' + value;
+	
+	  if (null != opt.maxAge) {
+	    var maxAge = opt.maxAge - 0;
+	    if (isNaN(maxAge)) throw new Error('maxAge should be a Number');
+	    str += '; Max-Age=' + Math.floor(maxAge);
+	  }
+	
+	  if (opt.domain) {
+	    if (!fieldContentRegExp.test(opt.domain)) {
+	      throw new TypeError('option domain is invalid');
+	    }
+	
+	    str += '; Domain=' + opt.domain;
+	  }
+	
+	  if (opt.path) {
+	    if (!fieldContentRegExp.test(opt.path)) {
+	      throw new TypeError('option path is invalid');
+	    }
+	
+	    str += '; Path=' + opt.path;
+	  }
+	
+	  if (opt.expires) {
+	    if (typeof opt.expires.toUTCString !== 'function') {
+	      throw new TypeError('option expires is invalid');
+	    }
+	
+	    str += '; Expires=' + opt.expires.toUTCString();
+	  }
+	
+	  if (opt.httpOnly) {
+	    str += '; HttpOnly';
+	  }
+	
+	  if (opt.secure) {
+	    str += '; Secure';
+	  }
+	
+	  if (opt.sameSite) {
+	    var sameSite = typeof opt.sameSite === 'string' ? opt.sameSite.toLowerCase() : opt.sameSite;
+	
+	    switch (sameSite) {
+	      case true:
+	        str += '; SameSite=Strict';
+	        break;
+	      case 'lax':
+	        str += '; SameSite=Lax';
+	        break;
+	      case 'strict':
+	        str += '; SameSite=Strict';
+	        break;
+	      default:
+	        throw new TypeError('option sameSite is invalid');
+	    }
+	  }
+	
+	  return str;
+	}
+	
+	/**
+	 * Try decoding a string using a decoding function.
+	 *
+	 * @param {string} str
+	 * @param {function} decode
+	 * @private
+	 */
+	
+	function tryDecode(str, decode) {
+	  try {
+	    return decode(str);
+	  } catch (e) {
+	    return str;
+	  }
+	}
+
+/***/ },
+/* 492 */
 /*!*************************!*\
   !*** ./js/RunMacro.jsx ***!
   \*************************/
@@ -57331,28 +57715,368 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = _react2.default.createClass({
-	  displayName: 'RunMacro',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      'Repos'
-	    );
-	  }
-	});
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var RunMacro = function (_React$Component) {
+	    _inherits(RunMacro, _React$Component);
+	
+	    function RunMacro(props) {
+	        _classCallCheck(this, RunMacro);
+	
+	        var _this = _possibleConstructorReturn(this, (RunMacro.__proto__ || Object.getPrototypeOf(RunMacro)).call(this, props));
+	
+	        _this.state = {
+	            auth: "",
+	            username: "",
+	            password: "",
+	            hasAuth: false
+	        };
+	
+	        _this.submit = _this.submit.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(RunMacro, [{
+	        key: 'submit',
+	        value: function submit() {
+	            var cookies = document.cookie.split(/=/);
+	            var info = {
+	                "authentication": cookies[1],
+	                "macroType": "DRIVER_SCHEDULE_DELETE_BY_RUN_NAME",
+	                "parameters": ["test"],
+	                "skipReview": "true"
+	            };
+	
+	            console.log(JSON.stringify(info));
+	            var inf = '';
+	            $.ajax({
+	                type: "POST",
+	                url: "/macro/runMacro",
+	                data: JSON.stringify(info),
+	                dataType: 'json',
+	                success: function (msg) {
+	                    console.log(msg);
+	                    if (msg.status == "SUCCESS") {
+	                        this.setState({ auth: msg.authentication });
+	                        window.location = '/index.html';
+	                        this.setState({ hasAuth: true });
+	                    } else {
+	                        ShowFailureAtDOM('login');
+	                    }
+	                }.bind(this)
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'section',
+	                { className: 'container' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'macro' },
+	                    _react2.default.createElement(
+	                        'h1',
+	                        null,
+	                        'Run Macro'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { 'class': 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { 'class': 'col-md-2' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { id: 'classdropdown' },
+	                                _react2.default.createElement('script', { src: 'js/compiled.js', type: 'text/javascript' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { 'class': 'dropdown' },
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { 'class': 'btn btn-default dropdown-toggle', type: 'button', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
+	                                    'Specific Macros',
+	                                    _react2.default.createElement('span', { 'class': 'caret' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'ul',
+	                                    { 'class': 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#' },
+	                                            'Update Schedule Start time by Run Name and Audit ID'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#' },
+	                                            'Delete all entries by Run Name'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement('li', { role: 'separator', 'class': 'divider' }),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#' },
+	                                            'Update Status Code by Run Name and Audit ID '
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#' },
+	                                            'Update Valuation End Date by Run Name and Audit ID'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement('li', { role: 'separator', 'class': 'divider' }),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#' },
+	                                            'Update Valuation Start time by Run Name and Audit ID'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#' },
+	                                            'Update SLA Date and Time by Audit ID'
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'form',
+	                            { enctype: 'application/json', method: 'post', action: '/macro' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { 'class': 'row' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { 'class': 'col-md-5' },
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { 'class': 'input-group' },
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { 'for': 'run_name' },
+	                                            'Run Name'
+	                                        ),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'run_name', value: '', placeholder: 'Run Name', id: 'run_name' }),
+	                                        _react2.default.createElement('br', null),
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { 'for': 'audit_id' },
+	                                            'Audit ID'
+	                                        ),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'audit_id', value: '', placeholder: 'Audit ID', id: 'audit_id' }),
+	                                        _react2.default.createElement('br', null),
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { 'for': 'scheduled_start' },
+	                                            'Scheduled Start Time'
+	                                        ),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'scheduled_start', value: '', placeholder: 'Schedule Start Time', id: 'scheduled_start' }),
+	                                        _react2.default.createElement('br', null),
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { 'for': 'valuation_end' },
+	                                            'Valuation End Time'
+	                                        ),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'valuation_end', value: '', placeholder: 'Valuation End Time', id: 'valuation_end' }),
+	                                        _react2.default.createElement('br', null),
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { 'for': 'driver_step_id' },
+	                                            'Driver Step ID'
+	                                        ),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'driver_step_id', value: '', placeholder: 'Driver Step ID', id: 'driver_step_id' }),
+	                                        _react2.default.createElement('br', null),
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { 'for': 'driver_step_detail_id' },
+	                                            'Driver Step Detail ID'
+	                                        ),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'driver_step_detail_id', value: '', placeholder: 'Driver Step Detail ID', id: 'driver_step_detail_id' }),
+	                                        _react2.default.createElement('br', null),
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { 'for': 'description' },
+	                                            'Description'
+	                                        ),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'description', id: 'description', value: '' }),
+	                                        _react2.default.createElement('textarea', { rows: '5', cols: '15', id: 'description', maxlength: '255' })
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    { 'for': 'valuation_end' },
+	                                    'Valuation End Time'
+	                                ),
+	                                _react2.default.createElement('input', { type: 'text', name: 'valuation_end', value: '', placeholder: 'Valuation End Time', id: 'valuation_end' }),
+	                                _react2.default.createElement('br', null),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    { 'for': 'sla_date' },
+	                                    'SLA Date'
+	                                ),
+	                                _react2.default.createElement('input', { type: 'text', name: 'sla_date', value: '', placeholder: 'SLA Date', id: 'sla_date' }),
+	                                _react2.default.createElement('br', null),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    { 'for': 'sla_time' },
+	                                    'SLA Time'
+	                                ),
+	                                _react2.default.createElement('input', { type: 'text', name: 'sla_time', value: '', placeholder: 'SLA Time', id: 'sla_time' }),
+	                                _react2.default.createElement('br', null),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    { 'for': 'group_number' },
+	                                    'Group Number'
+	                                ),
+	                                _react2.default.createElement('input', { type: 'text', name: 'group_number', value: '', placeholder: 'Group Number', id: 'group_number' }),
+	                                _react2.default.createElement('br', null),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    { 'for': 'active_step_indicator' },
+	                                    'Active Step Indicator'
+	                                ),
+	                                _react2.default.createElement('input', { type: 'text', name: 'active_step_indicator', value: '', placeholder: 'Active Step Indicator', id: 'active_step_indicator' }),
+	                                _react2.default.createElement('br', null),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { 'class': 'input-group' },
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { 'class': 'input-group-button' },
+	                                        _react2.default.createElement(
+	                                            'button',
+	                                            { type: 'button', 'class': 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
+	                                            'Status ',
+	                                            _react2.default.createElement('span', { 'class': 'caret' })
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'ul',
+	                                            { 'class': 'dropdown-menu' },
+	                                            _react2.default.createElement(
+	                                                'li',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'a',
+	                                                    { href: '#' },
+	                                                    'Pending'
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'li',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'a',
+	                                                    { href: '#' },
+	                                                    'Running'
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'li',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'a',
+	                                                    { href: '#' },
+	                                                    'Successful'
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'li',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'a',
+	                                                    { href: '#' },
+	                                                    'Failure'
+	                                                )
+	                                            )
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement('input', { type: 'text', 'class': 'form-control', sytle: 'width:50px;', size: '1' }),
+	                                    _react2.default.createElement('br', null)
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { 'class': 'row' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { 'class': 'col-md-2' },
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        { 'class': 'submit' },
+	                                        _react2.default.createElement(
+	                                            'button',
+	                                            { type: 'submit', name: 'commit', value: 'Login', 'class': 'btn btn-primary btn-lg', onClick: this.submit },
+	                                            'Submit'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        { 'class': 'remember_me' },
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            null,
+	                                            _react2.default.createElement('input', { type: 'checkbox', name: 'bypass_peer_review', id: 'bypass_peer_review' }),
+	                                            'Bypass Peer Review'
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return RunMacro;
+	}(_react2.default.Component);
+	
+	exports.default = RunMacro;
 
 /***/ },
-/* 491 */
+/* 493 */
 /*!*********************!*\
   !*** ./js/Home.jsx ***!
   \*********************/
