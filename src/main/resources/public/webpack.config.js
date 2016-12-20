@@ -8,7 +8,7 @@ var config = {
 	entry: './index.jsx',
 	output: {
 		path: BUILD_DIR,
-		filename: 'loginCompiled.js'
+		filename: 'compiled.js'
 	},
 	module : {
 		loaders : [

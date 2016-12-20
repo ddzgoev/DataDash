@@ -7,25 +7,30 @@ import { Button } from 'react-bootstrap';
 import $ from 'jquery'
 import { Navigation, Router, Route, Link } from 'react-router'
 
-
 export default class Login extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             auth: "",
             username: "",
-            password: ""
+            password: "",
+            hasAuth: false
         }
 
         this.log = this.log.bind(this)
         this.onChangeUser = this.onChangeUser.bind(this)
         this.onChangePass = this.onChangePass.bind(this)
         this.handleResponse = this.handleResponse.bind(this)
+        this.getAuth = this.getAuth.bind(this)
     }
     
     handleResponse(data){
         console.log(data)
         this.setState({auth: data})
+    }
+    
+    getAuth(){
+        return(this.state.hasAuth)
     }
 
     log(){
@@ -46,6 +51,7 @@ export default class Login extends React.Component{
                 if(msg.status == "SUCCESS"){
                     this.setState({auth: msg.authentication})
                     window.location = '/homepage.html';
+                    this.setState({hasAuth: true});
                 } else {
                     ShowFailureAtDOM('login');
                 }

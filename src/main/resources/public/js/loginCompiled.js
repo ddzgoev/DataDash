@@ -77,7 +77,7 @@
 	    _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: _app2.default },
-	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Login2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/runMacro', component: _RunMacro2.default })
 	    )
 	), document.getElementById('app'));
