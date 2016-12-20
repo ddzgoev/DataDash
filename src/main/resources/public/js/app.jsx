@@ -21,6 +21,8 @@ const navbarInstance = (
                 <NavItem eventKey={5} href="#"><NavLink to="/home">View Run Names</NavLink></NavItem>
                 <NavItem eventKey={6} href="#"><NavLink to="/home">Historical Trending</NavLink></NavItem>
                 <NavItem eventKey={7} href="#"><NavLink to="/home">Dependencies</NavLink></NavItem>
+                <NavItem eventKey={7} href="#"><NavLink to="/home">Past Step Average</NavLink></NavItem>
+
             </Nav>
         </Navbar.Collapse>
     </Navbar>

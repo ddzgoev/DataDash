@@ -22183,6 +22183,15 @@
 	                    { to: '/home' },
 	                    'Dependencies'
 	                )
+	            ),
+	            _react2.default.createElement(
+	                _reactBootstrap.NavItem,
+	                { eventKey: 7, href: '#' },
+	                _react2.default.createElement(
+	                    _NavLink2.default,
+	                    { to: '/home' },
+	                    'Past Step Average'
+	                )
 	            )
 	        )
 	    )
