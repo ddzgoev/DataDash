@@ -69,6 +69,22 @@ public class dddb {
 		// and try to execute some other query before the result set has been
 		// completely examined.
 	}
+	//return result set of a query
+	public synchronized ResultSet queryrs(String expression) throws SQLException {
+
+		Statement st = null;
+		ResultSet rs = null;
+
+		st = conn.createStatement(); // statement objects can be reused with
+
+		// repeated calls to execute but we
+		// choose to make a new one each time
+		rs = st.executeQuery(expression); // run the query
+
+		// do something with the result set.
+		st.close(); 
+		return rs; 
+	}
 
 	// use for SQL commands CREATE, DROP, INSERT and UPDATE
 	public synchronized void update(String expression) throws SQLException {
@@ -105,7 +121,10 @@ public class dddb {
 				o = rs.getObject(i + 1); // Is SQL the first column is indexed
 
 				// with 1 not 0
+			   if(o != null){
 				System.out.print(o.toString() + " ");
+			   }
+			   else{System.out.print("null");}
 			}
 
 			System.out.println(" ");
@@ -162,9 +181,10 @@ public class dddb {
 	try {
 	
 	    //idal table create statements parameters and originalParameters will have to be joined with Macros on uniqueID in practice
-	    db.update("CREATE TABLE Macros( uniqueID VARCHAR(30), creatorFname VARCHAR(30), creatorLname VARCHAR(30), reviewerFname VARCHAR(30), reviewerLname VARCHAR(30), wasPeerReviewed VARCHAR(30), runDate VARCHAR(30), creationDate VARCHAR(30),macroType VARCHAR(30), PRIMARY KEY(uniqueID), FOREIGN KEY (uniqueID) REFERENCES originalParameters(uniqueID),FOREIGN KEY (uniqueID) REFERENCES parameters(uniqueID) );");
-	    db.update("CREATE TABLE originalParameters( uniqueID VARCHAR(30), originalParameters VARCHAR(30));");
-	    db.update("CREATE TABLE parameters( uniqueID VARCHAR(30), parameters VARCHAR(30) );");
+	    db.update("CREATE TABLE Macros( uniqueID INT IDENTITY, creatorFname VARCHAR(30), creatorLname VARCHAR(30), reviewerFname VARCHAR(30), reviewerLname VARCHAR(30), wasPeerReviewed BOOLEAN DEFAULT FALSE, wasRun BOOLEAN DEFAULT FALSE, runDate INT, creationDate INT,macroType VARCHAR(30), PRIMARY KEY(uniqueID));");
+	    db.update("CREATE TABLE FailedMacros( uniqueID INT IDENTITY, creatorFname VARCHAR(30), creatorLname VARCHAR(30), reviewerFname VARCHAR(30), reviewerLname VARCHAR(30), wasPeerReviewed BOOLEAN DEFAULT FALSE, wasRun BOOLEAN DEFAULT FALSE, runDate INT, creationDate INT,macroType VARCHAR(30), cause VARCHAR(200), PRIMARY KEY(uniqueID));");
+	    db.update("CREATE TABLE originalParameters(pid INT IDENTITY PRIMARY KEY, uniqueID INT, index INT, originalParameters VARCHAR(30) );");
+	    db.update("CREATE TABLE parameters(pid INT IDENTITY PRIMARY KEY, uniqueID INT, index INT, parameters VARCHAR(30) );");
 		} catch (SQLException ex2) {
 	}
 	}
@@ -185,26 +205,30 @@ public class dddb {
 
 	public static void main(String[] args) {
 		dddb db = null;
-		db = StartLibDB();
-		createLibDbTables(db);
-		addLibDBrowsDB(db);
+		db = StartIdalDB();
+		createIdalDBTables(db);
+		
+	//	addLibDBrowsDB(db);
 		try {
 
-			db.query("SELECT * FROM C_APP_RUN_DEPENDENCY");
-			db.query("SELECT * FROM C_DRIVER_SCHEDULE");
-			db.query("SELECT * FROM C_DRIVER_STEP_DETAIL_H");
-			db.query("SELECT * FROM C_DRIVER_STEP_DETAIL");
-			db.query("SELECT * FROM C_DRIVER_STEP");
+//			db.query("SELECT * FROM C_APP_RUN_DEPENDENCY");
+//			db.query("SELECT * FROM C_DRIVER_SCHEDULE");
+//			db.query("SELECT * FROM C_DRIVER_STEP_DETAIL_H");
+//			db.query("SELECT * FROM C_DRIVER_STEP_DETAIL");
+//			db.query("SELECT * FROM C_DRIVER_STEP");
+			db.query("INSERT into Macros (creatorFname) VALUES ('bob')");
+			db.query("SELECT * FROM Macros");
 			// at end of program
 
-			db.update("DROP TABLE IF EXISTS C_APP_RUN_DEPENDENCY");
-			db.update("DROP TABLE IF EXISTS C_DRIVER_SCHEDULE");
-			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL_H");
-			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL");
-			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP");
+//			db.update("DROP TABLE IF EXISTS C_APP_RUN_DEPENDENCY");
+//			db.update("DROP TABLE IF EXISTS C_DRIVER_SCHEDULE");
+//			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL_H");
+//			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL");
+//			db.update("DROP TABLE IF EXISTS C_DRIVER_STEP");
 			db.update("DROP TABLE IF EXISTS Macros");
 			db.update("DROP TABLE IF EXISTS originalParameters");
 			db.update("DROP TABLE IF EXISTS parameters");
+			db.update("DROP TABLE IF EXISTS FailedMacros");
 			
 			db.shutdown();
 		} catch (SQLException ex3) {
