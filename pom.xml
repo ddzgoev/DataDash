@@ -54,6 +54,17 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.html</include>
+					<include>**/*.js</include>
+					<include>**/*.jsx</include>
+					<include>**/*.css</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -79,15 +90,6 @@
 					<mainClass>bluemoose.Main</mainClass>
 					<arguments>
 					</arguments>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<fork>true</fork>
-					<executable>C:\Program Files (x86)\Java\jdk1.8.0_60\bin\javac.exe</executable>
 				</configuration>
 			</plugin>
 
