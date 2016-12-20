@@ -73,6 +73,10 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
+	var _PeerReview = __webpack_require__(/*! ./js/PeerReview.jsx */ 494);
+	
+	var _PeerReview2 = _interopRequireDefault(_PeerReview);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -83,7 +87,8 @@
 	        _reactRouter.Route,
 	        { path: '/', component: _app2.default },
 	        _react2.default.createElement(_reactRouter.Route, { path: '/home', component: _Home2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: '/runMacro', component: _RunMacro2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: '/runMacro', component: _RunMacro2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/peerReview', component: _PeerReview2.default })
 	    )
 	), document.getElementById('app'));
 
@@ -22144,7 +22149,7 @@
 	                { eventKey: 3, href: '#' },
 	                _react2.default.createElement(
 	                    _NavLink2.default,
-	                    { to: '/' },
+	                    { to: '/home' },
 	                    'Macro History'
 	                )
 	            ),
@@ -47316,7 +47321,7 @@
 	                    console.log(msg);
 	                    if (msg.status == "SUCCESS") {
 	                        this.setState({ auth: msg.authentication });
-	                        window.location = '/index.html';
+	                        window.location = '/index.html#/home';
 	                        document.cookie = 'auth=' + msg.authentication;
 	                        console.log(document.cookie);
 	                        this.setState({ hasAuth: true });
@@ -57974,10 +57979,10 @@
   \*********************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -57987,14 +57992,329 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createClass({
-	  displayName: 'Home',
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      'Home'
-	    );
-	  }
+	    displayName: "Home",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "section",
+	            { className: "container" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "macro" },
+	                _react2.default.createElement(
+	                    "h1",
+	                    null,
+	                    "Welcome to Data Dash"
+	                )
+	            )
+	        );
+	    }
+	});
+
+/***/ },
+/* 494 */
+/*!***************************!*\
+  !*** ./js/PeerReview.jsx ***!
+  \***************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
+	
+	var _jquery = __webpack_require__(/*! jquery */ 488);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 179);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PeerReview = function (_React$Component) {
+	    _inherits(PeerReview, _React$Component);
+	
+	    function PeerReview(props) {
+	        _classCallCheck(this, PeerReview);
+	
+	        var _this = _possibleConstructorReturn(this, (PeerReview.__proto__ || Object.getPrototypeOf(PeerReview)).call(this, props));
+	
+	        _this.state = {
+	            auth: "",
+	            macroName: "",
+	            parameters: []
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(PeerReview, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'section',
+	                { className: 'peerreview' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'peerreview' },
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Table,
+	                        { bordered: true, condensed: true },
+	                        _react2.default.createElement('thread', null),
+	                        _react2.default.createElement(
+	                            'tbody',
+	                            null,
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Macro Name'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Request Date and Time'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Parameters'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Accept'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Example'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    '12/13/2016 16:16'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'ul',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _reactBootstrap.Button,
+	                                        null,
+	                                        'Accept'
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Example'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    '12/13/2016 16:16'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'ul',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _reactBootstrap.Button,
+	                                        null,
+	                                        'Accept'
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Example'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    '12/13/2016 16:16'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'ul',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _reactBootstrap.Button,
+	                                        null,
+	                                        'Accept'
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Example'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    '12/13/2016 16:16'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'ul',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'li',
+	                                            null,
+	                                            'ParameterName: Value'
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _reactBootstrap.Button,
+	                                        null,
+	                                        'Accept'
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return PeerReview;
+	}(_react2.default.Component);
+	
+	exports.default = PeerReview;
+	
+	function ShowFailureAtDOM(id) {
+	    _reactDom2.default.unmountComponentAtNode(document.getElementById(id));
+	    _reactDom2.default.render(_react2.default.createElement(PeerReviewFail, null), document.getElementById(id));
+	}
+	
+	var peerReviewFail = _react2.default.createClass({
+	    displayName: 'peerReviewFail',
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'h2',
+	            null,
+	            'PeerReview FAIL...'
+	        );
+	    }
 	});
 
 /***/ }

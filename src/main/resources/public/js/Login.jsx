@@ -51,7 +51,7 @@ export default class Login extends React.Component{
                 console.log(msg);
                 if(msg.status == "SUCCESS"){
                     this.setState({auth: msg.authentication})
-                    window.location = '/index.html';
+                    window.location = '/index.html#/home';
                     document.cookie = 'auth='+msg.authentication;
                     console.log(document.cookie)
                     this.setState({hasAuth: true});
