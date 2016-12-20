@@ -34,6 +34,7 @@ public class IDALImpl implements IDALInterface {
 	}
 
 	private String validate(String name) {
+		if(name == null) return "' '";
 		if(name.equals("")) return "' '";
 		if( name.chars().allMatch(c -> c < 128)){
 			return "'" + name.replace("\"", "").replace("'","''") + "'";
