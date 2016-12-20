@@ -227,9 +227,22 @@ public class IDALImpl implements IDALInterface {
 	}
 
 	@Override
-	public List<Macro> getFailures() {
+	public List<FailedMacro> getFailures() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		ResultSet macros = database.queryrs("SELECT * FROM failedMacros");
+		List<FailedMacro> returnvalue = new ArrayList<FailedMacro>();
+		for (; macros.next();) {
+			Macro newMacro = readMacro(macros);
+			ResultSet parameters = database.queryrs("SELECT index,parameters FROM parameters WHERE uniqueid = "
+					+ macros.getInt(1) + "; ORDER BY index");
+			addParameters(newMacro, parameters);
+			ResultSet originalParameters = database
+					.queryrs("SELECT index,parameters FROM originalParameters WHERE uniqueid = " + macros.getInt(1)
+							+ "; ORDER BY index");
+			addOriginalParameters(newMacro, originalParameters);
+			returnvalue.add((FailedMacro) newMacro);
+		}
+		return returnvalue;
 	}
 
 }
