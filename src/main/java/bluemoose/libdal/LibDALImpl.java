@@ -92,6 +92,10 @@ public class LibDALImpl implements LibDALInterface {
 			return deleteByRunName("C_DRIVER_STEP", macro, sanitizedParameters);
 		case DRIVER_SCHEDULE_ADD_ROW:
 			return insertRow("C_DRIVER_SCHEDULE", macro, sanitizedParameters);
+		case DRIVER_STEP_ADD_ROW:
+			return insertRow("C_DRIVER_STEP", macro, sanitizedParameters);
+		case DRIVER_SCHEDULE_UPDATE_STATUS_BY_RUN_NAME_AND_AUDIT_ID:
+			return updateStatusCodeByRunNameAndAuditID("C_DRIVER_SCHEDULE", macro, sanitizedParameters);
 		}
 
 		//return the RunMacroResult based on what happened
@@ -138,18 +142,13 @@ public class LibDALImpl implements LibDALInterface {
 		return new RunMacroResultImpl(MacroResultType.SUCCESS, null);
 	}
 	
-	private RunMacroResult updateByRunName(String tableName, MacroType mt, List<String> parameters) {
+	private RunMacroResult updateStatusCodeByRunNameAndAuditID(String tableName, MacroType mt, List<String> parameters) {
 		Statement statement;
 		try {
 			statement = conn.createStatement();
 			
-			StringBuilder updates = new StringBuilder();
-			for(int i = 0; i < parameters.size(); i++) {
-				parameterString.append(parameters.get(i));
-				if(i + 1 < parameters.size()) {
-					parameterString.append(", ");
-				}
-			}
+			String updates = String.format("Status_Code=\'%s\'", parameters.get(2));
+			String conditions = String.format("Run_Name=\'%s\'\nAND Audit_ID=\'%s\'", parameters.get(0), parameters.get(1));
 			
 			String updateString = String.format("UPDATE %s\nSET %s\nWHERE %s", tableName, updates.toString(), conditions.toString());
 			
