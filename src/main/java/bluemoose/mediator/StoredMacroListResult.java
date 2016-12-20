@@ -1,7 +1,9 @@
 package bluemoose.mediator;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import bluemoose.idal.FailedMacro;
 import bluemoose.idal.Macro;
 
 public class StoredMacroListResult extends MediatorResult implements StoredMacroListResultInterface {
@@ -18,5 +20,11 @@ public class StoredMacroListResult extends MediatorResult implements StoredMacro
 	public StoredMacroListResult(MediatorStatus status, List<Macro> result) {
 		super(status);
 		this.result = result;
+	}
+
+	public StoredMacroListResult(MediatorStatus success, List<FailedMacro> failures, int placeholder) {
+		super(status);
+		result = new ArrayList<Macro>();
+		failures.forEach((macro) -> result.add(macro));
 	}
 }
