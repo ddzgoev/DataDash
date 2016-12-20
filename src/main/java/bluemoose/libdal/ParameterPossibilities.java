@@ -34,4 +34,11 @@ public interface ParameterPossibilities {
 	 * @return true if the input is valid, false if it is not
 	 */
 	public boolean isValid(String input);
+	
+	/**
+	 * 
+	 * @param input
+	 * @return the sanitized string
+	 */
+	public String sanitize(String input);
 }

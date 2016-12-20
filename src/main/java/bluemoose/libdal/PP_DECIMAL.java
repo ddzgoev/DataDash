@@ -36,4 +36,10 @@ public class PP_DECIMAL implements ParameterPossibilities {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String sanitize(String input) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

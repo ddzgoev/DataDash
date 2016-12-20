@@ -2,6 +2,7 @@ package bluemoose.idal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -69,5 +70,9 @@ public class IDALTester {
 		assertEquals(macro.getParameters(),Arrays.asList("A","B","D"));
 		assertEquals(macro.getMacroType(), "Type2");
 		assertEquals(macro.getWasPeerReviewed(),true);
+		
+		idal.markFailed(macro.getUniqueID(), "hello");
+		
+		idal.storeMacro("", "", "", new ArrayList<>());
 	}
 }
