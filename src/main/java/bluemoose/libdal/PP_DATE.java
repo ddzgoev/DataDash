@@ -36,4 +36,10 @@ public class PP_DATE implements ParameterPossibilities {
 		return false;
 	}
 
+	@Override
+	public String sanitize(String input) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
