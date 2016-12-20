@@ -149,6 +149,12 @@ public class dddb {
 	public static void createLibDbTables(dddb db) {
 	try {
 		
+		db.update("DROP TABLE IF EXISTS C_APP_RUN_DEPENDENCY");
+		db.update("DROP TABLE IF EXISTS C_DRIVER_SCHEDULE");
+		db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL_H");
+		db.update("DROP TABLE IF EXISTS C_DRIVER_STEP_DETAIL");
+		db.update("DROP TABLE IF EXISTS C_DRIVER_STEP");
+		
         //libdal table create statements 
 			db.update("CREATE TABLE C_APP_RUN_DEPENDENCY( Run_App_Dependency_ID VARCHAR(30)  NOT NULL PRIMARY KEY ,APP_Name VARCHAR(30),Run_Name VARCHAR(30) ,Dependant_APP_Name VARCHAR(30),Dependant_Run_Name VARCHAR(30),Create_Date_Time VARCHAR(30) ,Last_Modified_Date_Time DATETIME ,APP_Run_ID VARCHAR(30) ,Dependant_APP_Run_ID VARCHAR(30) );");
 			db.update("CREATE TABLE C_DRIVER_SCHEDULE(Audit_ID VARCHAR(30) PRIMARY KEY,App_Name VARCHAR(30),Run_Name VARCHAR(30),Run_Number VARCHAR(30),Re_Run_Number VARCHAR(30),Scheduled_Start_Date_Time VARCHAR(30) ,Status_Code VARCHAR(30),Valuation_Start_Date_Time VARCHAR(30) ,Valuation_End_Date_Time VARCHAR(30) ,Run_Start_Date_Time VARCHAR(30) ,Run_End_Date_Time VARCHAR(30) ,Create_Date_Time VARCHAR(30) ,Last_Modified_Date_Time VARCHAR(30) ,APP_Run_ID VARCHAR(30),SLA_DATE VARCHAR(30) ,SLA_TIME VARCHAR(30));");

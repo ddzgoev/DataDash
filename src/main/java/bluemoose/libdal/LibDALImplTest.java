@@ -18,6 +18,7 @@ public class LibDALImplTest {
 		MacroResultType mrt = result.wasSuccessful();
 		System.out.println(mrt);
 		System.out.println(result.problems());
+		assert(mrt.toString().equals("SUCCESS"));
 	}
 
 }
