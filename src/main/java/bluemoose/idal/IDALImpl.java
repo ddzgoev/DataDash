@@ -34,6 +34,7 @@ public class IDALImpl implements IDALInterface {
 	}
 
 	private String validate(String name) {
+		if(name.equals("")) return "' '";
 		if( name.chars().allMatch(c -> c < 128)){
 			return "'" + name.replace("\"", "").replace("'","''") + "'";
 		} else return null;
@@ -199,13 +200,14 @@ public class IDALImpl implements IDALInterface {
 		// TODO Auto-generated method stub
 		try {
 			ResultSet m = database.queryrs("SELECT * FROM Macros WHERE uniqueid = " + ID);
+			m.next();
 			Macro mac = readMacro(m);
 			FailedMacro failmac = new FailedMacro("" + m.getInt(1), m.getString(2), m.getString(3), m.getString(4),
-					m.getString(5), m.getBoolean(6), new Date(m.getInt(8)), new Date(m.getInt(9)),
+					m.getString(5), m.getBoolean(6), new Date(m.getLong(8)), new Date(m.getLong(9)),
 					m.getString(10), new ArrayList<>(), new ArrayList<>());
 			failmac.reason = cause;
 			database.queryrs("DELETE FROM Macros WHERE uniqueid = " + ID);
-			database.query("INSERT INTO FailedMacros(uniqueID, creatorFname, creatorLname, reviewerFname, reviewerLname, wasPeerReviewed , runDate , creationDate, macroType, cause) VALUES (" + failmac.uniqueID +", " + failmac.creatorFname+", "+ failmac.creatorLname+", " + failmac.reviewerFname+", " + failmac.reviewerLname+", " +failmac.wasPeerReviewed +", " +failmac.runDate+", " + failmac.creationDate+", " +failmac.macroType+", " + failmac.reason+");");
+			database.query("INSERT INTO FailedMacros(uniqueID, creatorFname, creatorLname, reviewerFname, reviewerLname, wasPeerReviewed , runDate , creationDate, macroType, cause) VALUES (" + validate(failmac.uniqueID) +", " + validate(failmac.creatorFname)+", "+ validate(failmac.creatorLname)+", " + validate(failmac.reviewerFname)+", " + validate(failmac.reviewerLname)+", " +validate(failmac.wasPeerReviewed) +", " +failmac.runDate.getTime()+", " + failmac.creationDate.getTime()+", " +validate(failmac.macroType)+", " + validate(failmac.reason)+");");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
