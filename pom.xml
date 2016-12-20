@@ -56,7 +56,14 @@
 					<include>**/*.js</include>
 					<include>**/*.jsx</include>
 					<include>**/*.css</include>
+					<include>**/*.min.css.map</include>
+					<include>**/*.js.map</include>
+					<include>**/*.jpeg</include>
+					<include>**/*.woff2</include>
+					<include>**/*.woff</include>
+					<include>**/*.ttf</include>
 				</includes>
+
 			</resource>
 		</resources>
 		<plugins>

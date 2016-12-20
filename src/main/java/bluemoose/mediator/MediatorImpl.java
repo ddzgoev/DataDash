@@ -1,5 +1,6 @@
 package bluemoose.mediator;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -227,7 +228,7 @@ public class MediatorImpl implements MediatorInterface {
 	private SimpleResultWithFailMessage executeMacro(MacroInterface macro) {
 		RunMacroResult result = factory.getLibDAL().runMacro(macro.getMacroType(), macro.getParameters());
 		factory.getIDAL().markRan(macro.getUniqueID());
-		switch (result.wasSuccesful()) {
+		switch (result.wasSuccessful()) {
 		case FAILURE:
 			// Never happens under normal circumstances.
 			factory.getIDAL().markFailed(macro.getUniqueID(), "Macro failed at runtime.");
