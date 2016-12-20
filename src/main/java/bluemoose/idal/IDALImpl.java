@@ -24,9 +24,9 @@ public class IDALImpl implements IDALInterface {
 		dddb.createIdalDBTables(database);
 	}
 	
-	private long validateID(String ID){
+	private int validateID(String ID){
 		try{
-			return Long.parseLong(ID);
+			return Integer.parseInt(ID);
 		} catch(NumberFormatException e){
 			return -1;
 		}
@@ -34,7 +34,7 @@ public class IDALImpl implements IDALInterface {
 
 	private String validate(String name) {
 		if( name.chars().allMatch(c -> c < 128)){
-			return "'" + name.replace("\"", "''").replace("'","''") + "'";
+			return "'" + name.replace("\"", "").replace("'","''") + "'";
 		} else return null;
 	}
 	
@@ -44,8 +44,8 @@ public class IDALImpl implements IDALInterface {
 
 	private Macro readMacro(ResultSet macros) throws SQLException {
 		return new Macro("" + macros.getInt(1), macros.getString(2), macros.getString(3), macros.getString(4),
-				macros.getString(5), macros.getBoolean(6), new Date(macros.getInt(7)), new Date(macros.getInt(8)),
-				macros.getString(9), new ArrayList<>(), new ArrayList<>());
+				macros.getString(5), macros.getBoolean(6), new Date(macros.getInt(8)), new Date(macros.getInt(9)),
+				macros.getString(10), new ArrayList<>(), new ArrayList<>());
 	}
 
 	private void addParameters(Macro macro, ResultSet parameters) throws SQLException {
@@ -103,20 +103,28 @@ public class IDALImpl implements IDALInterface {
 		}
 			else return null;
 	}
+	
+	private void insertParameters(int ID, List<String> parameters) throws SQLException{
+		for (int i = 0; i < parameters.size(); i++) {
+			database.queryrs("INSERT into paramters(uniqueId, index, parameters) VALUES (" + ID + ", " + i
+					+ "," + validate(parameters.get(i)) + ");");
+		}
+	}
+	
+	private long getNow(){
+		return  new Date().getTime();
+	}
 
 	@Override
 	public MacroInterface storeMacro(String creatorFname, String creatorLname, String macroType,
 			List<String> parameters) {
-		long now = (int) new Date().getTime();
+		long now = getNow();
 		try {
 			database.queryrs("INSERT INTO Macros( creatorFname, creatorLname, macroType, creationDate) VALUES ("
 					+ validate(creatorFname) + "," + validate(creatorLname) + "," + validate(macroType) + "," + now + ");");
 			ResultSet r = database.queryrs("SELECT * FROM Macros WHERE creationDate = " + now + ";");
 			int macroID = r.getInt(1);
-			for (int i = 0; i < parameters.size(); i++) {
-				database.queryrs("INSERT into paramters(uniqueId, index, parameters) VALUES (" + macroID + ", " + i
-						+ "," + validate(parameters.get(i)) + ");");
-			}
+			insertParameters(macroID,parameters);
 
 			return readMacro(r);
 		} catch (SQLException e) {
@@ -128,26 +136,55 @@ public class IDALImpl implements IDALInterface {
 
 	@Override
 	public MacroInterface reviewMacro(String ID, String reviewerLname, String reviewerFname, List<String> parameters) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			int id = validateID(ID);
+			database.queryrs("UPDATE Macros SET wasPeerReviewed = true, reviewerLname = " + validate(reviewerLname) +", reviewerFname = " + validate(reviewerFname) + " WHERE uniqueid =" +id);
+			database.queryrs("INSERT INTO originalParameters(uniqueid,index,parameters) SELECT uniqueid,index,parameters FROM parameters WHERE uniqueID = " + id + ";");
+			database.queryrs("DELETE FROM parameters WHERE uniqueid = " + id);
+			insertParameters(id,parameters);
+			return getPendingMacro(ID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 	@Override
 	public MacroInterface markRan(String ID) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			database.queryrs("UPDATE Macros SET wasRun = true, runDate = "+getNow()+" WHERE uniqueid = " + validateID(ID));
+			return getPendingMacro(ID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public List<Macro> getJournal() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			ResultSet macros = database.queryrs("SELECT * FROM Macros WHERE wasRun = true;");
+			return readMacros(macros);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+
+		}
 	}
 
 	@Override
 	public List<Macro> viewJournal(Period period) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			ResultSet macros = database.queryrs("SELECT * FROM Macros WHERE wasRun = true AND runDate< "+ period.getEnd().getTime() +" AND runDate> " + period.getStart().getTime() +";");
+			return readMacros(macros);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+
+		}
 	}
 
 	// from here down
