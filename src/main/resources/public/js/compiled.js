@@ -57845,49 +57845,49 @@
 	                                            { 'for': 'run_name' },
 	                                            'Run Name'
 	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'run_name', value: '', placeholder: 'Run Name', id: 'run_name' }),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'run_name', placeholder: 'Run Name', id: 'run_name' }),
 	                                        _react2.default.createElement('br', null),
 	                                        _react2.default.createElement(
 	                                            'label',
 	                                            { 'for': 'audit_id' },
 	                                            'Audit ID'
 	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'audit_id', value: '', placeholder: 'Audit ID', id: 'audit_id' }),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'audit_id', placeholder: 'Audit ID', id: 'audit_id' }),
 	                                        _react2.default.createElement('br', null),
 	                                        _react2.default.createElement(
 	                                            'label',
 	                                            { 'for': 'scheduled_start' },
 	                                            'Scheduled Start Time'
 	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'scheduled_start', value: '', placeholder: 'Schedule Start Time', id: 'scheduled_start' }),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'scheduled_start', placeholder: 'Schedule Start Time', id: 'scheduled_start' }),
 	                                        _react2.default.createElement('br', null),
 	                                        _react2.default.createElement(
 	                                            'label',
 	                                            { 'for': 'valuation_end' },
 	                                            'Valuation End Time'
 	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'valuation_end', value: '', placeholder: 'Valuation End Time', id: 'valuation_end' }),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'valuation_end', placeholder: 'Valuation End Time', id: 'valuation_end' }),
 	                                        _react2.default.createElement('br', null),
 	                                        _react2.default.createElement(
 	                                            'label',
 	                                            { 'for': 'driver_step_id' },
 	                                            'Driver Step ID'
 	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'driver_step_id', value: '', placeholder: 'Driver Step ID', id: 'driver_step_id' }),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'driver_step_id', placeholder: 'Driver Step ID', id: 'driver_step_id' }),
 	                                        _react2.default.createElement('br', null),
 	                                        _react2.default.createElement(
 	                                            'label',
 	                                            { 'for': 'driver_step_detail_id' },
 	                                            'Driver Step Detail ID'
 	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'driver_step_detail_id', value: '', placeholder: 'Driver Step Detail ID', id: 'driver_step_detail_id' }),
+	                                        _react2.default.createElement('input', { type: 'text', name: 'driver_step_detail_id', placeholder: 'Driver Step Detail ID', id: 'driver_step_detail_id' }),
 	                                        _react2.default.createElement('br', null),
 	                                        _react2.default.createElement(
 	                                            'label',
 	                                            { 'for': 'description' },
 	                                            'Description'
 	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'description', id: 'description', value: '', maxLength: '255', placeholder: 'Description' })
+	                                        _react2.default.createElement('input', { type: 'text', name: 'description', id: 'description', maxLength: '255', placeholder: 'Description' })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
@@ -57895,42 +57895,42 @@
 	                                    { 'for': 'valuation_end' },
 	                                    'Valuation End Time'
 	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'valuation_end', value: '', placeholder: 'Valuation End Time', id: 'valuation_end' }),
+	                                _react2.default.createElement('input', { type: 'text', name: 'valuation_end', placeholder: 'Valuation End Time', id: 'valuation_end' }),
 	                                _react2.default.createElement('br', null),
 	                                _react2.default.createElement(
 	                                    'label',
 	                                    { 'for': 'sla_date' },
 	                                    'SLA Date'
 	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'sla_date', value: '', placeholder: 'SLA Date', id: 'sla_date' }),
+	                                _react2.default.createElement('input', { type: 'text', name: 'sla_date', placeholder: 'SLA Date', id: 'sla_date' }),
 	                                _react2.default.createElement('br', null),
 	                                _react2.default.createElement(
 	                                    'label',
 	                                    { 'for': 'sla_time' },
 	                                    'SLA Time'
 	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'sla_time', value: '', placeholder: 'SLA Time', id: 'sla_time' }),
+	                                _react2.default.createElement('input', { type: 'text', name: 'sla_time', placeholder: 'SLA Time', id: 'sla_time' }),
 	                                _react2.default.createElement('br', null),
 	                                _react2.default.createElement(
 	                                    'label',
 	                                    { 'for': 'group_number' },
 	                                    'Group Number'
 	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'group_number', value: '', placeholder: 'Group Number', id: 'group_number' }),
+	                                _react2.default.createElement('input', { type: 'text', name: 'group_number', placeholder: 'Group Number', id: 'group_number' }),
 	                                _react2.default.createElement('br', null),
 	                                _react2.default.createElement(
 	                                    'label',
 	                                    { 'for': 'active_step_indicator' },
 	                                    'Active Step Indicator'
 	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'active_step_indicator', value: '', placeholder: 'Active Step Indicator', id: 'active_step_indicator' }),
+	                                _react2.default.createElement('input', { type: 'text', name: 'active_step_indicator', placeholder: 'Active Step Indicator', id: 'active_step_indicator' }),
 	                                _react2.default.createElement('br', null),
 	                                _react2.default.createElement(
 	                                    'label',
 	                                    { 'for': 'status' },
 	                                    'Status'
 	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'status', value: '', placeholder: 'Status', id: 'status' }),
+	                                _react2.default.createElement('input', { type: 'text', name: 'status', placeholder: 'Status', id: 'status' }),
 	                                _react2.default.createElement('br', null)
 	                            ),
 	                            _react2.default.createElement(
