@@ -172,13 +172,7 @@ public class MediatorImpl implements MediatorInterface {
 			break;
 		}
 
-		try {
-			return new StoredMacroListResult(MediatorStatus.SUCCESS, factory.getIDAL().getFailures(),0);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new StoredMacroListResult(MediatorStatus.INTERNAL_ERROR, null);
-		}
+		return new StoredMacroListResult(MediatorStatus.SUCCESS, factory.getIDAL().getFailures());
 	}
 
 	@Override

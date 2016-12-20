@@ -23,7 +23,7 @@ public class StoredMacroListResult extends MediatorResult implements StoredMacro
 	}
 
 	public StoredMacroListResult(MediatorStatus success, List<FailedMacro> failures, int placeholder) {
-		super(status);
+		super(success);
 		result = new ArrayList<Macro>();
 		failures.forEach((macro) -> result.add(macro));
 	}
