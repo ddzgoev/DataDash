@@ -32,6 +32,14 @@ public class LibDALImpl implements LibDALInterface {
 		
 		conn = libDB.getConnection();
 	}
+	
+	public LibDALImpl() {
+		dddb libDB = dddb.StartLibDB();
+		dddb.createLibDbTables(libDB);
+		dddb.addLibDBrowsDB(libDB);
+		
+		conn = libDB.getConnection();
+	}
 
 	@Override
 	public RunMacroResult runMacro(String macroType, List<String> parameters) {
@@ -99,7 +107,7 @@ public class LibDALImpl implements LibDALInterface {
 		}
 
 		//return the RunMacroResult based on what happened
-		return null;
+		return new RunMacroResultImpl(MacroResultType.UNSUPPORTED_MACRO_TYPE, null);
 	}
 	
 	private RunMacroResult deleteByRunName(String tableName, MacroType mt, List<String> parameters) {

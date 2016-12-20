@@ -40,11 +40,13 @@ public class PP_STRING implements ParameterPossibilities {
 
 	@Override
 	public String sanitize(String input) {
-		String output = input.replaceAll("\\","\\\\");
-		output = output.replaceAll("\'", "\\\'");
-		output = output.replaceAll("\"", "\\\"");
-		output = output.replaceAll("%", "\\%");
-		output = output.replaceAll("_", "\\_");
+		String output = input.replaceAll("\\\\","\\\\\\");
+		output = output.replaceAll("\\n", "\\\\n");
+		output = output.replaceAll("\\t", "\\\\t");
+		output = output.replaceAll("\\'", "\\\\\\'");
+		output = output.replaceAll("\"", "\\\\\"");
+		output = output.replaceAll("%", "\\\\%");
+		output = output.replaceAll("_", "\\\\_");
 		return output;
-	}	
+	}
 }
