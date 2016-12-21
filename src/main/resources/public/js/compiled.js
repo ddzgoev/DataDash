@@ -77,6 +77,14 @@
 	
 	var _PeerReview2 = _interopRequireDefault(_PeerReview);
 	
+	var _History = __webpack_require__(/*! ./js/History.jsx */ 495);
+	
+	var _History2 = _interopRequireDefault(_History);
+	
+	var _Failures = __webpack_require__(/*! ./js/Failures.jsx */ 496);
+	
+	var _Failures2 = _interopRequireDefault(_Failures);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	(0, _reactDom.render)(_react2.default.createElement(
@@ -88,7 +96,9 @@
 	        { path: '/', component: _app2.default },
 	        _react2.default.createElement(_reactRouter.Route, { path: '/home', component: _Home2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/runMacro', component: _RunMacro2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: '/peerReview', component: _PeerReview2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: '/peerReview', component: _PeerReview2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/history', component: _History2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/failures', component: _Failures2.default })
 	    )
 	), document.getElementById('app'));
 
@@ -22149,7 +22159,7 @@
 	                { eventKey: 3, href: '#' },
 	                _react2.default.createElement(
 	                    _NavLink2.default,
-	                    { to: '/home' },
+	                    { to: '/history' },
 	                    'Macro History'
 	                )
 	            ),
@@ -22158,7 +22168,7 @@
 	                { eventKey: 4, href: '#' },
 	                _react2.default.createElement(
 	                    _NavLink2.default,
-	                    { to: '/home' },
+	                    { to: '/failures' },
 	                    'Failures'
 	                )
 	            ),
@@ -57739,6 +57749,10 @@
 	
 	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
 	
+	var _MacroDropdown = __webpack_require__(/*! ./MacroDropdown.jsx */ 497);
+	
+	var _MacroDropdown2 = _interopRequireDefault(_MacroDropdown);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -57755,7 +57769,11 @@
 	
 	        var _this = _possibleConstructorReturn(this, (RunMacro.__proto__ || Object.getPrototypeOf(RunMacro)).call(this, props));
 	
+	        _this.state = {
+	            bypass: "false"
+	        };
 	        _this.submit = _this.submit.bind(_this);
+	        _this.changeSelection = _this.changeSelection.bind(_this);
 	        return _this;
 	    }
 	
@@ -57777,16 +57795,26 @@
 	                url: "/macro/runMacro",
 	                data: JSON.stringify(info),
 	                dataType: 'json',
-	                success: function (msg) {
-	                    console.log(msg);
-	                    if (msg.status == "SUCCESS") {
-	                        this.setState({ auth: msg.authentication });
-	                        this.setState({ hasAuth: true });
+	                success: function success(msg) {
+	                    if (msg.status == "AUTHENTICATION_ERROR") {
+	                        console.log(msg);
+	                        alert("Your macro has been submitted");
 	                    } else {
-	                        ShowFailureAtDOM('login');
+	                        console.log(msg);
+	                        alert("Your macro has been submitted");
 	                    }
-	                }.bind(this)
+	                },
+	                error: function error() {
+	                    window.location = '/index.html#/runMacro';
+	                    alert("Your macro has been submitted");
+	                    console.log('error');
+	                }
 	            });
+	        }
+	    }, {
+	        key: 'changeSelection',
+	        value: function changeSelection(e) {
+	            this.setState({ skipReview: e });
 	        }
 	    }, {
 	        key: 'render',
@@ -57808,155 +57836,133 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'col-md-2' },
-	                            _react2.default.createElement(
-	                                _reactBootstrap.DropdownButton,
-	                                { bsStyle: 'default', title: 'Macros', key: 1 },
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.MenuItem,
-	                                    { eventKey: '1' },
-	                                    'Update Schedule Start time by Run Name and Audit ID'
-	                                ),
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.MenuItem,
-	                                    { eventKey: '2' },
-	                                    'Delete all entries by Run Name'
-	                                ),
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.MenuItem,
-	                                    { eventKey: '3' },
-	                                    'Update Status Code by Run Name and Audit ID'
-	                                )
-	                            )
+	                            _react2.default.createElement(_MacroDropdown2.default, null)
 	                        ),
 	                        _react2.default.createElement(
-	                            'form',
-	                            { enctype: 'application/json', method: 'post', action: '/macro' },
+	                            'div',
+	                            { className: 'row' },
 	                            _react2.default.createElement(
 	                                'div',
-	                                { className: 'row' },
+	                                { className: 'col-md-5' },
 	                                _react2.default.createElement(
 	                                    'div',
-	                                    { className: 'col-md-5' },
+	                                    { className: 'input-group' },
 	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { className: 'input-group' },
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            { 'for': 'run_name' },
-	                                            'Run Name'
-	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'run_name', placeholder: 'Run Name', id: 'run_name' }),
-	                                        _react2.default.createElement('br', null),
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            { 'for': 'audit_id' },
-	                                            'Audit ID'
-	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'audit_id', placeholder: 'Audit ID', id: 'audit_id' }),
-	                                        _react2.default.createElement('br', null),
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            { 'for': 'scheduled_start' },
-	                                            'Scheduled Start Time'
-	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'scheduled_start', placeholder: 'Schedule Start Time', id: 'scheduled_start' }),
-	                                        _react2.default.createElement('br', null),
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            { 'for': 'valuation_end' },
-	                                            'Valuation End Time'
-	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'valuation_end', placeholder: 'Valuation End Time', id: 'valuation_end' }),
-	                                        _react2.default.createElement('br', null),
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            { 'for': 'driver_step_id' },
-	                                            'Driver Step ID'
-	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'driver_step_id', placeholder: 'Driver Step ID', id: 'driver_step_id' }),
-	                                        _react2.default.createElement('br', null),
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            { 'for': 'driver_step_detail_id' },
-	                                            'Driver Step Detail ID'
-	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'driver_step_detail_id', placeholder: 'Driver Step Detail ID', id: 'driver_step_detail_id' }),
-	                                        _react2.default.createElement('br', null),
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            { 'for': 'description' },
-	                                            'Description'
-	                                        ),
-	                                        _react2.default.createElement('input', { type: 'text', name: 'description', id: 'description', maxLength: '255', placeholder: 'Description' })
+	                                        'label',
+	                                        { 'for': 'run_name' },
+	                                        'Run Name'
+	                                    ),
+	                                    _react2.default.createElement('input', { type: 'text', name: 'run_name', placeholder: 'Run Name', id: 'run_name' }),
+	                                    _react2.default.createElement('br', null),
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        { 'for': 'audit_id' },
+	                                        'Audit ID'
+	                                    ),
+	                                    _react2.default.createElement('input', { type: 'text', name: 'audit_id', placeholder: 'Audit ID', id: 'audit_id' }),
+	                                    _react2.default.createElement('br', null),
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        { 'for': 'scheduled_start' },
+	                                        'Scheduled Start Time'
+	                                    ),
+	                                    _react2.default.createElement('input', { type: 'text', name: 'scheduled_start', placeholder: 'Schedule Start Time', id: 'scheduled_start' }),
+	                                    _react2.default.createElement('br', null),
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        { 'for': 'valuation_end' },
+	                                        'Valuation End Time'
+	                                    ),
+	                                    _react2.default.createElement('input', { type: 'text', name: 'valuation_end', placeholder: 'Valuation End Time', id: 'valuation_end' }),
+	                                    _react2.default.createElement('br', null),
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        { 'for': 'driver_step_id' },
+	                                        'Driver Step ID'
+	                                    ),
+	                                    _react2.default.createElement('input', { type: 'text', name: 'driver_step_id', placeholder: 'Driver Step ID', id: 'driver_step_id' }),
+	                                    _react2.default.createElement('br', null),
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        { 'for': 'driver_step_detail_id' },
+	                                        'Driver Step Detail ID'
+	                                    ),
+	                                    _react2.default.createElement('input', { type: 'text', name: 'driver_step_detail_id', placeholder: 'Driver Step Detail ID', id: 'driver_step_detail_id' }),
+	                                    _react2.default.createElement('br', null),
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        { 'for': 'description' },
+	                                        'Description'
+	                                    ),
+	                                    _react2.default.createElement('input', { type: 'text', name: 'description', id: 'description', maxLength: '255', placeholder: 'Description' })
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'label',
+	                                { 'for': 'valuation_end' },
+	                                'Valuation End Time'
+	                            ),
+	                            _react2.default.createElement('input', { type: 'text', name: 'valuation_end', placeholder: 'Valuation End Time', id: 'valuation_end' }),
+	                            _react2.default.createElement('br', null),
+	                            _react2.default.createElement(
+	                                'label',
+	                                { 'for': 'sla_date' },
+	                                'SLA Date'
+	                            ),
+	                            _react2.default.createElement('input', { type: 'text', name: 'sla_date', placeholder: 'SLA Date', id: 'sla_date' }),
+	                            _react2.default.createElement('br', null),
+	                            _react2.default.createElement(
+	                                'label',
+	                                { 'for': 'sla_time' },
+	                                'SLA Time'
+	                            ),
+	                            _react2.default.createElement('input', { type: 'text', name: 'sla_time', placeholder: 'SLA Time', id: 'sla_time' }),
+	                            _react2.default.createElement('br', null),
+	                            _react2.default.createElement(
+	                                'label',
+	                                { 'for': 'group_number' },
+	                                'Group Number'
+	                            ),
+	                            _react2.default.createElement('input', { type: 'text', name: 'group_number', placeholder: 'Group Number', id: 'group_number' }),
+	                            _react2.default.createElement('br', null),
+	                            _react2.default.createElement(
+	                                'label',
+	                                { 'for': 'active_step_indicator' },
+	                                'Active Step Indicator'
+	                            ),
+	                            _react2.default.createElement('input', { type: 'text', name: 'active_step_indicator', placeholder: 'Active Step Indicator', id: 'active_step_indicator' }),
+	                            _react2.default.createElement('br', null),
+	                            _react2.default.createElement(
+	                                'label',
+	                                { 'for': 'status' },
+	                                'Status'
+	                            ),
+	                            _react2.default.createElement('input', { type: 'text', name: 'status', placeholder: 'Status', id: 'status' }),
+	                            _react2.default.createElement('br', null)
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'row' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'col-md-2' },
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    { className: 'submit' },
+	                                    _react2.default.createElement(
+	                                        'button',
+	                                        { name: 'commit', value: 'Submit', className: 'btn btn-primary btn-lg', onClick: this.submit },
+	                                        'Submit'
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
-	                                    'label',
-	                                    { 'for': 'valuation_end' },
-	                                    'Valuation End Time'
-	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'valuation_end', placeholder: 'Valuation End Time', id: 'valuation_end' }),
-	                                _react2.default.createElement('br', null),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    { 'for': 'sla_date' },
-	                                    'SLA Date'
-	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'sla_date', placeholder: 'SLA Date', id: 'sla_date' }),
-	                                _react2.default.createElement('br', null),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    { 'for': 'sla_time' },
-	                                    'SLA Time'
-	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'sla_time', placeholder: 'SLA Time', id: 'sla_time' }),
-	                                _react2.default.createElement('br', null),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    { 'for': 'group_number' },
-	                                    'Group Number'
-	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'group_number', placeholder: 'Group Number', id: 'group_number' }),
-	                                _react2.default.createElement('br', null),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    { 'for': 'active_step_indicator' },
-	                                    'Active Step Indicator'
-	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'active_step_indicator', placeholder: 'Active Step Indicator', id: 'active_step_indicator' }),
-	                                _react2.default.createElement('br', null),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    { 'for': 'status' },
-	                                    'Status'
-	                                ),
-	                                _react2.default.createElement('input', { type: 'text', name: 'status', placeholder: 'Status', id: 'status' }),
-	                                _react2.default.createElement('br', null)
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'row' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'col-md-2' },
+	                                    'p',
+	                                    { className: 'remember_me' },
 	                                    _react2.default.createElement(
-	                                        'p',
-	                                        { className: 'submit' },
-	                                        _react2.default.createElement(
-	                                            'button',
-	                                            { type: 'submit', name: 'commit', value: 'Submit', className: 'btn btn-primary btn-lg', onClick: this.submit },
-	                                            'Submit'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'p',
-	                                        { className: 'remember_me' },
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            null,
-	                                            _react2.default.createElement('input', { type: 'checkbox', name: 'bypass_peer_review', id: 'bypass_peer_review' }),
-	                                            'Bypass Peer Review'
-	                                        )
+	                                        'label',
+	                                        null,
+	                                        _react2.default.createElement('input', { type: 'checkbox', name: 'bypass_peer_review', id: 'bypass_peer_review', onChange: this.changeSelection }),
+	                                        'Bypass Peer Review'
 	                                    )
 	                                )
 	                            )
@@ -58066,6 +58072,29 @@
 	    }
 	
 	    _createClass(PeerReview, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var cookies = document.cookie.split(/=/);
+	            var info = {
+	                "authentication": cookies[1]
+	            };
+	
+	            console.log(JSON.stringify(info));
+	            var inf = '';
+	            _jquery2.default.ajax({
+	                type: "POST",
+	                url: "/peerreview",
+	                data: JSON.stringify(info),
+	                dataType: 'json',
+	                success: function (msg) {
+	                    console.log(msg);
+	                    if (msg.status == "SUCCESS") {
+	                        console.log("succeeded");
+	                    }
+	                }.bind(this)
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
@@ -58316,6 +58345,432 @@
 	        );
 	    }
 	});
+
+/***/ },
+/* 495 */
+/*!************************!*\
+  !*** ./js/History.jsx ***!
+  \************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
+	
+	var _jquery = __webpack_require__(/*! jquery */ 488);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 179);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PeerReview = function (_React$Component) {
+	    _inherits(PeerReview, _React$Component);
+	
+	    function PeerReview() {
+	        _classCallCheck(this, PeerReview);
+	
+	        return _possibleConstructorReturn(this, (PeerReview.__proto__ || Object.getPrototypeOf(PeerReview)).apply(this, arguments));
+	    }
+	
+	    _createClass(PeerReview, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'section',
+	                { className: 'container' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'macro' },
+	                    _react2.default.createElement(
+	                        'h1',
+	                        null,
+	                        'Macro History'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-md-2' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'dropdown' },
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { className: 'btn btn-default dropdown-toggle', type: 'button', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
+	                                    'Sort By',
+	                                    _react2.default.createElement('span', { className: 'caret' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'ul',
+	                                    { className: 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#' },
+	                                            'Recent'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#' },
+	                                            'Oldest'
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement('li', { role: 'separator', 'class': 'divider' }),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#' },
+	                                            'Recent - Not Reviewed'
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'table',
+	                            { className: 'table table-striped table-bordered table-hover' },
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    null,
+	                                    'Macro'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    null,
+	                                    'Creation Date'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    null,
+	                                    'Submitter'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    null,
+	                                    'Reviewer'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { params: 'param1:something, param2:453' },
+	                                    'Example'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    '12/13/2016 16:16'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Someone'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Not reviewed yet'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { params: 'param1:somethingElse, param2:84651' },
+	                                    'Example'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    '12/13/2016 14:47'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Someone'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Someone else'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { params: 'param1:41238, param2:Something' },
+	                                    'Example'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    '12/13/2016 14:35'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Someone'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Peer Review Bypassed'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    { params: 'param1:something, param2:somethingElse' },
+	                                    'Example'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    '12/12/2016 18:38'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Someone'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    'Someone else'
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return PeerReview;
+	}(_react2.default.Component);
+	
+	exports.default = PeerReview;
+
+/***/ },
+/* 496 */
+/*!*************************!*\
+  !*** ./js/Failures.jsx ***!
+  \*************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _react2.default.createClass({
+	    displayName: "Failures",
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "section",
+	                { className: "container" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "macro" },
+	                    _react2.default.createElement(
+	                        "h1",
+	                        null,
+	                        "Failed Macros"
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "row" },
+	                        _react2.default.createElement(
+	                            "table",
+	                            { className: "table table-striped table-bordered" },
+	                            _react2.default.createElement(
+	                                "tr",
+	                                null,
+	                                _react2.default.createElement("th", null),
+	                                _react2.default.createElement(
+	                                    "th",
+	                                    null,
+	                                    "Macro"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "th",
+	                                    null,
+	                                    "Date Run"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "th",
+	                                    null,
+	                                    "Run By"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "th",
+	                                    null,
+	                                    "Reviewer"
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+/***/ },
+/* 497 */
+/*!******************************!*\
+  !*** ./js/MacroDropdown.jsx ***!
+  \******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(/*! react-dom */ 32);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var MacroDropdown = function (_React$Component) {
+	    _inherits(MacroDropdown, _React$Component);
+	
+	    function MacroDropdown(props) {
+	        _classCallCheck(this, MacroDropdown);
+	
+	        var _this = _possibleConstructorReturn(this, (MacroDropdown.__proto__ || Object.getPrototypeOf(MacroDropdown)).call(this, props));
+	
+	        _this.state = {
+	            bypass: "false"
+	        };
+	        _this.changeSelection = _this.changeSelection.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(MacroDropdown, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var cookies = document.cookie.split(/=/);
+	            var info = {
+	                "authentication": cookies[1]
+	            };
+	
+	            console.log(JSON.stringify(info));
+	            $.ajax({
+	                type: "POST",
+	                url: "/macro",
+	                data: JSON.stringify(info),
+	                dataType: 'json',
+	                success: function (msg) {
+	                    console.log(msg);
+	                    if (msg.status == "SUCCESS") {
+	                        console.log("succeeded");
+	                    }
+	                }.bind(this)
+	            });
+	        }
+	    }, {
+	        key: 'changeSelection',
+	        value: function changeSelection(e) {
+	            this.setState({ skipReview: e });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                _reactBootstrap.DropdownButton,
+	                { bsStyle: 'default', title: 'Macros', key: 1 },
+	                _react2.default.createElement(
+	                    _reactBootstrap.MenuItem,
+	                    { eventKey: '1' },
+	                    'Update Schedule Start time by Run Name and Audit ID'
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.MenuItem,
+	                    { eventKey: '2' },
+	                    'Delete all entries by Run Name'
+	                ),
+	                _react2.default.createElement(
+	                    _reactBootstrap.MenuItem,
+	                    { eventKey: '3' },
+	                    'Update Status Code by Run Name and Audit ID'
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return MacroDropdown;
+	}(_react2.default.Component);
+	
+	exports.default = MacroDropdown;
 
 /***/ }
 /******/ ]);

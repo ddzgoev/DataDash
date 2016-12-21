@@ -1,11 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { DropdownButton, MenuItem } from 'react-bootstrap'
+import MacroDropdown from './MacroDropdown.jsx'
 
 export default class RunMacro extends React.Component{
     constructor(props){
         super(props)
+        this.state = {
+            bypass: "false"
+        }
         this.submit = this.submit.bind(this);
+        this.changeSelection = this.changeSelection.bind(this);
     }
 
     submit(){
@@ -26,15 +31,24 @@ export default class RunMacro extends React.Component{
             data: JSON.stringify(info),
             dataType: 'json',
             success:function(msg) {
-                console.log(msg);
-                if(msg.status == "SUCCESS"){
-                    this.setState({auth: msg.authentication})
-                    this.setState({hasAuth: true});
+                if(msg.status == "AUTHENTICATION_ERROR"){
+                    console.log(msg);
+                    alert("Your macro has been submitted");
                 } else {
-                    ShowFailureAtDOM('login');
+                    console.log(msg);
+                    alert("Your macro has been submitted");
                 }
-            }.bind(this)     
+            },
+            error:function(){
+                window.location = '/index.html#/runMacro';
+                alert("Your macro has been submitted");
+                console.log('error');
+            }
         });
+    }
+
+    changeSelection(e) {
+        this.setState({skipReview: e})
     }
 
     render() {
@@ -44,58 +58,52 @@ export default class RunMacro extends React.Component{
                     <h1>Run Macro</h1>
                     <div className="row">
                         <div className="col-md-2">
-                            <DropdownButton bsStyle='default' title="Macros" key={1}>
-                                <MenuItem eventKey="1">Update Schedule Start time by Run Name and Audit ID</MenuItem>
-                                <MenuItem eventKey="2">Delete all entries by Run Name</MenuItem>
-                                <MenuItem eventKey="3">Update Status Code by Run Name and Audit ID</MenuItem>
-                            </DropdownButton>
+                            <MacroDropdown/>
                         </div>
 
-                        <form enctype='application/json' method="post" action="/macro">
-                            <div className="row">
-                                <div className="col-md-5">
-                                    <div className="input-group">
-                                        <label for="run_name">Run Name</label>
-                                        <input type="text" name="run_name" placeholder="Run Name" id="run_name"/><br />
-                                        <label for="audit_id">Audit ID</label>
-                                        <input type="text" name="audit_id" placeholder="Audit ID" id="audit_id"/><br />
-                                        <label for="scheduled_start">Scheduled Start Time</label>
-                                        <input type="text" name="scheduled_start" placeholder="Schedule Start Time" id="scheduled_start"/><br />
-                                        <label for="valuation_end">Valuation End Time</label>
-                                        <input type="text" name="valuation_end" placeholder="Valuation End Time" id="valuation_end"/><br />
-                                        <label for="driver_step_id">Driver Step ID</label>
-                                        <input type="text" name="driver_step_id" placeholder="Driver Step ID" id="driver_step_id"/><br />
-                                        <label for="driver_step_detail_id">Driver Step Detail ID</label>
-                                        <input type="text" name="driver_step_detail_id" placeholder="Driver Step Detail ID" id="driver_step_detail_id"/><br />
-                                        <label for="description">Description</label>
-                                        <input type="text" name="description" id="description" maxLength="255" placeholder="Description"/>
-                                    </div>
-                                </div>
-                                <label for="valuation_end">Valuation End Time</label>
-                                <input type="text" name="valuation_end" placeholder="Valuation End Time" id="valuation_end"/><br /> 
-                                <label for="sla_date">SLA Date</label>
-                                <input type="text" name="sla_date" placeholder="SLA Date" id="sla_date"/><br />
-                                <label for="sla_time">SLA Time</label>
-                                <input type="text" name="sla_time" placeholder="SLA Time" id="sla_time"/><br />
-                                <label for="group_number">Group Number</label>
-                                <input type="text" name="group_number" placeholder="Group Number" id="group_number"/><br />
-                                <label for="active_step_indicator">Active Step Indicator</label>
-                                <input type="text" name="active_step_indicator" placeholder="Active Step Indicator" id="active_step_indicator"/><br />
-                                <label for="status">Status</label>
-                                <input type="text" name="status" placeholder="Status" id="status"/><br />
-                            </div>
-                            <div className="row">
-                                <div className="col-md-2">
-                                    <p className="submit"><button type="submit" name="commit" value="Submit" className="btn btn-primary btn-lg" onClick={this.submit}>Submit</button></p>
-                                    <p className="remember_me">
-                                        <label>
-                                            <input type="checkbox" name="bypass_peer_review" id="bypass_peer_review"/>
-                                            Bypass Peer Review
-                                        </label>
-                                    </p>
+                        <div className="row">
+                            <div className="col-md-5">
+                                <div className="input-group">
+                                    <label for="run_name">Run Name</label>
+                                    <input type="text" name="run_name" placeholder="Run Name" id="run_name"/><br />
+                                    <label for="audit_id">Audit ID</label>
+                                    <input type="text" name="audit_id" placeholder="Audit ID" id="audit_id"/><br />
+                                    <label for="scheduled_start">Scheduled Start Time</label>
+                                    <input type="text" name="scheduled_start" placeholder="Schedule Start Time" id="scheduled_start"/><br />
+                                    <label for="valuation_end">Valuation End Time</label>
+                                    <input type="text" name="valuation_end" placeholder="Valuation End Time" id="valuation_end"/><br />
+                                    <label for="driver_step_id">Driver Step ID</label>
+                                    <input type="text" name="driver_step_id" placeholder="Driver Step ID" id="driver_step_id"/><br />
+                                    <label for="driver_step_detail_id">Driver Step Detail ID</label>
+                                    <input type="text" name="driver_step_detail_id" placeholder="Driver Step Detail ID" id="driver_step_detail_id"/><br />
+                                    <label for="description">Description</label>
+                                    <input type="text" name="description" id="description" maxLength="255" placeholder="Description"/>
                                 </div>
                             </div>
-                        </form>
+                            <label for="valuation_end">Valuation End Time</label>
+                            <input type="text" name="valuation_end" placeholder="Valuation End Time" id="valuation_end"/><br /> 
+                            <label for="sla_date">SLA Date</label>
+                            <input type="text" name="sla_date" placeholder="SLA Date" id="sla_date"/><br />
+                            <label for="sla_time">SLA Time</label>
+                            <input type="text" name="sla_time" placeholder="SLA Time" id="sla_time"/><br />
+                            <label for="group_number">Group Number</label>
+                            <input type="text" name="group_number" placeholder="Group Number" id="group_number"/><br />
+                            <label for="active_step_indicator">Active Step Indicator</label>
+                            <input type="text" name="active_step_indicator" placeholder="Active Step Indicator" id="active_step_indicator"/><br />
+                            <label for="status">Status</label>
+                            <input type="text" name="status" placeholder="Status" id="status"/><br />
+                        </div>
+                        <div className="row">
+                            <div className="col-md-2">
+                                <p className="submit"><button name="commit" value="Submit" className="btn btn-primary btn-lg" onClick={this.submit}>Submit</button></p>
+                                <p className="remember_me">
+                                    <label>
+                                        <input type="checkbox" name="bypass_peer_review" id="bypass_peer_review" onChange={this.changeSelection}/>
+                                        Bypass Peer Review
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
