@@ -65,40 +65,20 @@
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
-	var _RunMacro = __webpack_require__(/*! ./js/RunMacro.jsx */ 492);
+	var _RunMacro = __webpack_require__(/*! ./js/RunMacro.jsx */ 490);
 	
 	var _RunMacro2 = _interopRequireDefault(_RunMacro);
-	
-	var _Home = __webpack_require__(/*! ./js/Home.jsx */ 493);
-	
-	var _Home2 = _interopRequireDefault(_Home);
-	
-	var _PeerReview = __webpack_require__(/*! ./js/PeerReview.jsx */ 494);
-	
-	var _PeerReview2 = _interopRequireDefault(_PeerReview);
-	
-	var _History = __webpack_require__(/*! ./js/History.jsx */ 495);
-	
-	var _History2 = _interopRequireDefault(_History);
-	
-	var _Failures = __webpack_require__(/*! ./js/Failures.jsx */ 496);
-	
-	var _Failures2 = _interopRequireDefault(_Failures);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.hashHistory },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
 	    _react2.default.createElement(
 	        _reactRouter.Route,
 	        { path: '/', component: _app2.default },
-	        _react2.default.createElement(_reactRouter.Route, { path: '/home', component: _Home2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: '/runMacro', component: _RunMacro2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: '/peerReview', component: _PeerReview2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: '/history', component: _History2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: '/failures', component: _Failures2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/runMacro', component: _RunMacro2.default })
 	    )
 	), document.getElementById('app'));
 
@@ -22107,10 +22087,6 @@
 	
 	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
 	
-	var _Login = __webpack_require__(/*! ./Login.jsx */ 487);
-	
-	var _Login2 = _interopRequireDefault(_Login);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var navbarInstance = _react2.default.createElement(
@@ -22150,7 +22126,7 @@
 	                { eventKey: 2, href: '#' },
 	                _react2.default.createElement(
 	                    _NavLink2.default,
-	                    { to: '/peerReview' },
+	                    { to: '/home' },
 	                    'Peer Review'
 	                )
 	            ),
@@ -22159,7 +22135,7 @@
 	                { eventKey: 3, href: '#' },
 	                _react2.default.createElement(
 	                    _NavLink2.default,
-	                    { to: '/history' },
+	                    { to: '/home' },
 	                    'Macro History'
 	                )
 	            ),
@@ -22168,7 +22144,7 @@
 	                { eventKey: 4, href: '#' },
 	                _react2.default.createElement(
 	                    _NavLink2.default,
-	                    { to: '/failures' },
+	                    { to: '/home' },
 	                    'Failures'
 	                )
 	            ),
@@ -22198,15 +22174,6 @@
 	                    { to: '/home' },
 	                    'Dependencies'
 	                )
-	            ),
-	            _react2.default.createElement(
-	                _reactBootstrap.NavItem,
-	                { eventKey: 7, href: '#' },
-	                _react2.default.createElement(
-	                    _NavLink2.default,
-	                    { to: '/home' },
-	                    'Past Step Average'
-	                )
 	            )
 	        )
 	    )
@@ -22224,17 +22191,13 @@
 	                _react2.default.createElement(
 	                    'a',
 	                    { href: 'homepage.html' },
-	                    _react2.default.createElement('img', { className: 'resize', src: 'liberty.jpeg', width: '30%' })
+	                    _react2.default.createElement('img', { 'class': 'resize', src: 'liberty.jpeg', width: '30%' })
 	                ),
 	                _react2.default.createElement(
 	                    _reactBootstrap.Button,
 	                    null,
 	                    _react2.default.createElement(_reactBootstrap.Glyphicon, { glyph: 'glyphicon glyphicon-log-out' }),
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: '/login' },
-	                        ' Logout'
-	                    )
+	                    ' Logout'
 	                )
 	            ),
 	            navbarInstance,
@@ -47266,10 +47229,6 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 179);
 	
-	var _reactCookie = __webpack_require__(/*! react-cookie */ 490);
-	
-	var _reactCookie2 = _interopRequireDefault(_reactCookie);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -47289,15 +47248,13 @@
 	        _this.state = {
 	            auth: "",
 	            username: "",
-	            password: "",
-	            hasAuth: false
+	            password: ""
 	        };
 	
 	        _this.log = _this.log.bind(_this);
 	        _this.onChangeUser = _this.onChangeUser.bind(_this);
 	        _this.onChangePass = _this.onChangePass.bind(_this);
 	        _this.handleResponse = _this.handleResponse.bind(_this);
-	        _this.getAuth = _this.getAuth.bind(_this);
 	        return _this;
 	    }
 	
@@ -47306,11 +47263,6 @@
 	        value: function handleResponse(data) {
 	            console.log(data);
 	            this.setState({ auth: data });
-	        }
-	    }, {
-	        key: 'getAuth',
-	        value: function getAuth() {
-	            return this.state.hasAuth;
 	        }
 	    }, {
 	        key: 'log',
@@ -47331,10 +47283,7 @@
 	                    console.log(msg);
 	                    if (msg.status == "SUCCESS") {
 	                        this.setState({ auth: msg.authentication });
-	                        window.location = '/index.html#/home';
-	                        document.cookie = 'auth=' + msg.authentication;
-	                        console.log(document.cookie);
-	                        this.setState({ hasAuth: true });
+	                        window.location = '/homepage.html';
 	                    } else {
 	                        ShowFailureAtDOM('login');
 	                    }
@@ -47356,32 +47305,24 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'section',
-	                { className: 'container' },
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Login to Data Dash'
+	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'login' },
+	                    { className: 'loginDiv' },
+	                    _react2.default.createElement('input', { type: 'text', onChange: this.onChangeUser, placeholder: 'Username' }),
+	                    _react2.default.createElement('br', null),
+	                    _react2.default.createElement('input', { type: 'text', onChange: this.onChangePass, placeholder: 'Password' }),
+	                    _react2.default.createElement('br', null),
 	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(
-	                            'h1',
-	                            null,
-	                            'Login to Data Dash'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'loginDiv' },
-	                            _react2.default.createElement('input', { type: 'text', onChange: this.onChangeUser, placeholder: 'Username' }),
-	                            _react2.default.createElement('br', null),
-	                            _react2.default.createElement('input', { type: 'password', onChange: this.onChangePass, placeholder: 'Password' }),
-	                            _react2.default.createElement('br', null),
-	                            _react2.default.createElement(
-	                                _reactBootstrap.Button,
-	                                { bsStyle: 'primary', onClick: this.log },
-	                                'Login'
-	                            )
-	                        )
+	                        _reactBootstrap.Button,
+	                        { bsStyle: 'primary', onClick: this.log },
+	                        'Login'
 	                    )
 	                )
 	            );
@@ -57356,376 +57297,6 @@
 
 /***/ },
 /* 490 */
-/*!****************************************!*\
-  !*** ./~/react-cookie/build/cookie.js ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-	
-	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
-	  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-	} : function (obj) {
-	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
-	};
-	
-	exports.load = load;
-	exports.select = select;
-	exports.save = save;
-	exports.remove = remove;
-	exports.setRawCookie = setRawCookie;
-	exports.plugToRequest = plugToRequest;
-	
-	var _cookie = __webpack_require__(/*! cookie */ 491);
-	
-	var _cookie2 = _interopRequireDefault(_cookie);
-	
-	var _objectAssign = __webpack_require__(/*! object-assign */ 4);
-	
-	var _objectAssign2 = _interopRequireDefault(_objectAssign);
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	var IS_NODE = typeof document === 'undefined' || process && process.env && process.env.NODE_ENV === 'test';
-	var _rawCookie = {};
-	var _res = undefined;
-	
-	function _isResWritable() {
-	  return _res && !_res.headersSent;
-	}
-	
-	function load(name, doNotParse) {
-	  var cookies = IS_NODE ? _rawCookie : _cookie2.default.parse(document.cookie);
-	  var cookieVal = cookies && cookies[name];
-	
-	  if (typeof doNotParse === 'undefined') {
-	    doNotParse = !cookieVal || cookieVal[0] !== '{' && cookieVal[0] !== '[';
-	  }
-	
-	  if (!doNotParse) {
-	    try {
-	      cookieVal = JSON.parse(cookieVal);
-	    } catch (e) {
-	      // Not serialized object
-	    }
-	  }
-	
-	  return cookieVal;
-	}
-	
-	function select(regex) {
-	  var cookies = IS_NODE ? _rawCookie : _cookie2.default.parse(document.cookie);
-	
-	  if (!cookies) {
-	    return {};
-	  }
-	
-	  if (!regex) {
-	    return cookies;
-	  }
-	
-	  return Object.keys(cookies).reduce(function (accumulator, name) {
-	    if (!regex.test(name)) {
-	      return accumulator;
-	    }
-	
-	    var newCookie = {};
-	    newCookie[name] = cookies[name];
-	    return (0, _objectAssign2.default)({}, accumulator, newCookie);
-	  }, {});
-	}
-	
-	function save(name, val, opt) {
-	  _rawCookie[name] = val;
-	
-	  // allow you to work with cookies as objects.
-	  if ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object') {
-	    _rawCookie[name] = JSON.stringify(val);
-	  }
-	
-	  // Cookies only work in the browser
-	  if (!IS_NODE) {
-	    document.cookie = _cookie2.default.serialize(name, _rawCookie[name], opt);
-	  }
-	
-	  if (_isResWritable() && _res.cookie) {
-	    _res.cookie(name, val, opt);
-	  }
-	}
-	
-	function remove(name, opt) {
-	  delete _rawCookie[name];
-	
-	  if (typeof opt === 'undefined') {
-	    opt = {};
-	  } else if (typeof opt === 'string') {
-	    // Will be deprecated in future versions
-	    opt = { path: opt };
-	  } else {
-	    // Prevent mutation of opt below
-	    opt = (0, _objectAssign2.default)({}, opt);
-	  }
-	
-	  if (typeof document !== 'undefined') {
-	    opt.expires = new Date(1970, 1, 1, 0, 0, 1);
-	    opt.maxAge = 0;
-	    document.cookie = _cookie2.default.serialize(name, '', opt);
-	  }
-	
-	  if (_isResWritable() && _res.clearCookie) {
-	    _res.clearCookie(name, opt);
-	  }
-	}
-	
-	function setRawCookie(rawCookie) {
-	  if (rawCookie) {
-	    _rawCookie = _cookie2.default.parse(rawCookie);
-	  } else {
-	    _rawCookie = {};
-	  }
-	}
-	
-	function plugToRequest(req, res) {
-	  if (req.cookie) {
-	    _rawCookie = req.cookie;
-	  } else if (req.cookies) {
-	    _rawCookie = req.cookies;
-	  } else if (req.headers && req.headers.cookie) {
-	    setRawCookie(req.headers.cookie);
-	  } else {
-	    _rawCookie = {};
-	  }
-	
-	  _res = res;
-	
-	  return function unplug() {
-	    _res = null;
-	    _rawCookie = {};
-	  };
-	}
-	
-	exports.default = {
-	  setRawCookie: setRawCookie,
-	  load: load,
-	  select: select,
-	  save: save,
-	  remove: remove,
-	  plugToRequest: plugToRequest
-	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../node-libs-browser/~/process/browser.js */ 3)))
-
-/***/ },
-/* 491 */
-/*!***************************!*\
-  !*** ./~/cookie/index.js ***!
-  \***************************/
-/***/ function(module, exports) {
-
-	/*!
-	 * cookie
-	 * Copyright(c) 2012-2014 Roman Shtylman
-	 * Copyright(c) 2015 Douglas Christopher Wilson
-	 * MIT Licensed
-	 */
-	
-	'use strict';
-	
-	/**
-	 * Module exports.
-	 * @public
-	 */
-	
-	exports.parse = parse;
-	exports.serialize = serialize;
-	
-	/**
-	 * Module variables.
-	 * @private
-	 */
-	
-	var decode = decodeURIComponent;
-	var encode = encodeURIComponent;
-	var pairSplitRegExp = /; */;
-	
-	/**
-	 * RegExp to match field-content in RFC 7230 sec 3.2
-	 *
-	 * field-content = field-vchar [ 1*( SP / HTAB ) field-vchar ]
-	 * field-vchar   = VCHAR / obs-text
-	 * obs-text      = %x80-FF
-	 */
-	
-	var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
-	
-	/**
-	 * Parse a cookie header.
-	 *
-	 * Parse the given cookie header string into an object
-	 * The object has the various cookies as keys(names) => values
-	 *
-	 * @param {string} str
-	 * @param {object} [options]
-	 * @return {object}
-	 * @public
-	 */
-	
-	function parse(str, options) {
-	  if (typeof str !== 'string') {
-	    throw new TypeError('argument str must be a string');
-	  }
-	
-	  var obj = {};
-	  var opt = options || {};
-	  var pairs = str.split(pairSplitRegExp);
-	  var dec = opt.decode || decode;
-	
-	  for (var i = 0; i < pairs.length; i++) {
-	    var pair = pairs[i];
-	    var eq_idx = pair.indexOf('=');
-	
-	    // skip things that don't look like key=value
-	    if (eq_idx < 0) {
-	      continue;
-	    }
-	
-	    var key = pair.substr(0, eq_idx).trim();
-	    var val = pair.substr(++eq_idx, pair.length).trim();
-	
-	    // quoted values
-	    if ('"' == val[0]) {
-	      val = val.slice(1, -1);
-	    }
-	
-	    // only assign once
-	    if (undefined == obj[key]) {
-	      obj[key] = tryDecode(val, dec);
-	    }
-	  }
-	
-	  return obj;
-	}
-	
-	/**
-	 * Serialize data into a cookie header.
-	 *
-	 * Serialize the a name value pair into a cookie string suitable for
-	 * http headers. An optional options object specified cookie parameters.
-	 *
-	 * serialize('foo', 'bar', { httpOnly: true })
-	 *   => "foo=bar; httpOnly"
-	 *
-	 * @param {string} name
-	 * @param {string} val
-	 * @param {object} [options]
-	 * @return {string}
-	 * @public
-	 */
-	
-	function serialize(name, val, options) {
-	  var opt = options || {};
-	  var enc = opt.encode || encode;
-	
-	  if (typeof enc !== 'function') {
-	    throw new TypeError('option encode is invalid');
-	  }
-	
-	  if (!fieldContentRegExp.test(name)) {
-	    throw new TypeError('argument name is invalid');
-	  }
-	
-	  var value = enc(val);
-	
-	  if (value && !fieldContentRegExp.test(value)) {
-	    throw new TypeError('argument val is invalid');
-	  }
-	
-	  var str = name + '=' + value;
-	
-	  if (null != opt.maxAge) {
-	    var maxAge = opt.maxAge - 0;
-	    if (isNaN(maxAge)) throw new Error('maxAge should be a Number');
-	    str += '; Max-Age=' + Math.floor(maxAge);
-	  }
-	
-	  if (opt.domain) {
-	    if (!fieldContentRegExp.test(opt.domain)) {
-	      throw new TypeError('option domain is invalid');
-	    }
-	
-	    str += '; Domain=' + opt.domain;
-	  }
-	
-	  if (opt.path) {
-	    if (!fieldContentRegExp.test(opt.path)) {
-	      throw new TypeError('option path is invalid');
-	    }
-	
-	    str += '; Path=' + opt.path;
-	  }
-	
-	  if (opt.expires) {
-	    if (typeof opt.expires.toUTCString !== 'function') {
-	      throw new TypeError('option expires is invalid');
-	    }
-	
-	    str += '; Expires=' + opt.expires.toUTCString();
-	  }
-	
-	  if (opt.httpOnly) {
-	    str += '; HttpOnly';
-	  }
-	
-	  if (opt.secure) {
-	    str += '; Secure';
-	  }
-	
-	  if (opt.sameSite) {
-	    var sameSite = typeof opt.sameSite === 'string' ? opt.sameSite.toLowerCase() : opt.sameSite;
-	
-	    switch (sameSite) {
-	      case true:
-	        str += '; SameSite=Strict';
-	        break;
-	      case 'lax':
-	        str += '; SameSite=Lax';
-	        break;
-	      case 'strict':
-	        str += '; SameSite=Strict';
-	        break;
-	      default:
-	        throw new TypeError('option sameSite is invalid');
-	    }
-	  }
-	
-	  return str;
-	}
-	
-	/**
-	 * Try decoding a string using a decoding function.
-	 *
-	 * @param {string} str
-	 * @param {function} decode
-	 * @private
-	 */
-	
-	function tryDecode(str, decode) {
-	  try {
-	    return decode(str);
-	  } catch (e) {
-	    return str;
-	  }
-	}
-
-/***/ },
-/* 492 */
 /*!*************************!*\
   !*** ./js/RunMacro.jsx ***!
   \*************************/
@@ -57734,261 +57305,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(/*! react-dom */ 32);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
-	
-	var _MacroDropdown = __webpack_require__(/*! ./MacroDropdown.jsx */ 497);
-	
-	var _MacroDropdown2 = _interopRequireDefault(_MacroDropdown);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var RunMacro = function (_React$Component) {
-	    _inherits(RunMacro, _React$Component);
-	
-	    function RunMacro(props) {
-	        _classCallCheck(this, RunMacro);
-	
-	        var _this = _possibleConstructorReturn(this, (RunMacro.__proto__ || Object.getPrototypeOf(RunMacro)).call(this, props));
-	
-	        _this.state = {
-	            bypass: "false"
-	        };
-	        _this.submit = _this.submit.bind(_this);
-	        _this.changeSelection = _this.changeSelection.bind(_this);
-	        return _this;
-	    }
-	
-	    _createClass(RunMacro, [{
-	        key: 'submit',
-	        value: function submit() {
-	            var cookies = document.cookie.split(/=/);
-	            var info = {
-	                "authentication": cookies[1],
-	                "macroType": "DRIVER_SCHEDULE_DELETE_BY_RUN_NAME",
-	                "parameters": ["test"],
-	                "skipReview": "true"
-	            };
-	
-	            console.log(JSON.stringify(info));
-	            var inf = '';
-	            $.ajax({
-	                type: "POST",
-	                url: "/macro/runMacro",
-	                data: JSON.stringify(info),
-	                dataType: 'json',
-	                success: function success(msg) {
-	                    if (msg.status == "AUTHENTICATION_ERROR") {
-	                        console.log(msg);
-	                        alert("Your macro has been submitted");
-	                    } else {
-	                        console.log(msg);
-	                        alert("Your macro has been submitted");
-	                    }
-	                },
-	                error: function error() {
-	                    window.location = '/index.html#/runMacro';
-	                    alert("Your macro has been submitted");
-	                    console.log('error');
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'changeSelection',
-	        value: function changeSelection(e) {
-	            this.setState({ skipReview: e });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'section',
-	                { className: 'container' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'macro' },
-	                    _react2.default.createElement(
-	                        'h1',
-	                        null,
-	                        'Run Macro'
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'row' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'col-md-2' },
-	                            _react2.default.createElement(_MacroDropdown2.default, null)
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'row' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'col-md-5' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'input-group' },
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        { 'for': 'run_name' },
-	                                        'Run Name'
-	                                    ),
-	                                    _react2.default.createElement('input', { type: 'text', name: 'run_name', placeholder: 'Run Name', id: 'run_name' }),
-	                                    _react2.default.createElement('br', null),
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        { 'for': 'audit_id' },
-	                                        'Audit ID'
-	                                    ),
-	                                    _react2.default.createElement('input', { type: 'text', name: 'audit_id', placeholder: 'Audit ID', id: 'audit_id' }),
-	                                    _react2.default.createElement('br', null),
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        { 'for': 'scheduled_start' },
-	                                        'Scheduled Start Time'
-	                                    ),
-	                                    _react2.default.createElement('input', { type: 'text', name: 'scheduled_start', placeholder: 'Schedule Start Time', id: 'scheduled_start' }),
-	                                    _react2.default.createElement('br', null),
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        { 'for': 'valuation_end' },
-	                                        'Valuation End Time'
-	                                    ),
-	                                    _react2.default.createElement('input', { type: 'text', name: 'valuation_end', placeholder: 'Valuation End Time', id: 'valuation_end' }),
-	                                    _react2.default.createElement('br', null),
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        { 'for': 'driver_step_id' },
-	                                        'Driver Step ID'
-	                                    ),
-	                                    _react2.default.createElement('input', { type: 'text', name: 'driver_step_id', placeholder: 'Driver Step ID', id: 'driver_step_id' }),
-	                                    _react2.default.createElement('br', null),
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        { 'for': 'driver_step_detail_id' },
-	                                        'Driver Step Detail ID'
-	                                    ),
-	                                    _react2.default.createElement('input', { type: 'text', name: 'driver_step_detail_id', placeholder: 'Driver Step Detail ID', id: 'driver_step_detail_id' }),
-	                                    _react2.default.createElement('br', null),
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        { 'for': 'description' },
-	                                        'Description'
-	                                    ),
-	                                    _react2.default.createElement('input', { type: 'text', name: 'description', id: 'description', maxLength: '255', placeholder: 'Description' })
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'label',
-	                                { 'for': 'valuation_end' },
-	                                'Valuation End Time'
-	                            ),
-	                            _react2.default.createElement('input', { type: 'text', name: 'valuation_end', placeholder: 'Valuation End Time', id: 'valuation_end' }),
-	                            _react2.default.createElement('br', null),
-	                            _react2.default.createElement(
-	                                'label',
-	                                { 'for': 'sla_date' },
-	                                'SLA Date'
-	                            ),
-	                            _react2.default.createElement('input', { type: 'text', name: 'sla_date', placeholder: 'SLA Date', id: 'sla_date' }),
-	                            _react2.default.createElement('br', null),
-	                            _react2.default.createElement(
-	                                'label',
-	                                { 'for': 'sla_time' },
-	                                'SLA Time'
-	                            ),
-	                            _react2.default.createElement('input', { type: 'text', name: 'sla_time', placeholder: 'SLA Time', id: 'sla_time' }),
-	                            _react2.default.createElement('br', null),
-	                            _react2.default.createElement(
-	                                'label',
-	                                { 'for': 'group_number' },
-	                                'Group Number'
-	                            ),
-	                            _react2.default.createElement('input', { type: 'text', name: 'group_number', placeholder: 'Group Number', id: 'group_number' }),
-	                            _react2.default.createElement('br', null),
-	                            _react2.default.createElement(
-	                                'label',
-	                                { 'for': 'active_step_indicator' },
-	                                'Active Step Indicator'
-	                            ),
-	                            _react2.default.createElement('input', { type: 'text', name: 'active_step_indicator', placeholder: 'Active Step Indicator', id: 'active_step_indicator' }),
-	                            _react2.default.createElement('br', null),
-	                            _react2.default.createElement(
-	                                'label',
-	                                { 'for': 'status' },
-	                                'Status'
-	                            ),
-	                            _react2.default.createElement('input', { type: 'text', name: 'status', placeholder: 'Status', id: 'status' }),
-	                            _react2.default.createElement('br', null)
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'row' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'col-md-2' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'submit' },
-	                                    _react2.default.createElement(
-	                                        'button',
-	                                        { name: 'commit', value: 'Submit', className: 'btn btn-primary btn-lg', onClick: this.submit },
-	                                        'Submit'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'remember_me' },
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        null,
-	                                        _react2.default.createElement('input', { type: 'checkbox', name: 'bypass_peer_review', id: 'bypass_peer_review', onChange: this.changeSelection }),
-	                                        'Bypass Peer Review'
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return RunMacro;
-	}(_react2.default.Component);
-	
-	exports.default = RunMacro;
-
-/***/ },
-/* 493 */
-/*!*********************!*\
-  !*** ./js/Home.jsx ***!
-  \*********************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -57998,780 +57315,16 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createClass({
-	    displayName: "Home",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "section",
-	            { className: "container" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "macro" },
-	                _react2.default.createElement(
-	                    "h1",
-	                    null,
-	                    "Welcome to Data Dash"
-	                )
-	            )
-	        );
-	    }
+	  displayName: 'RunMacro',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      'Repos'
+	    );
+	  }
 	});
-
-/***/ },
-/* 494 */
-/*!***************************!*\
-  !*** ./js/PeerReview.jsx ***!
-  \***************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(/*! react-dom */ 32);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
-	
-	var _jquery = __webpack_require__(/*! jquery */ 488);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 179);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var PeerReview = function (_React$Component) {
-	    _inherits(PeerReview, _React$Component);
-	
-	    function PeerReview(props) {
-	        _classCallCheck(this, PeerReview);
-	
-	        var _this = _possibleConstructorReturn(this, (PeerReview.__proto__ || Object.getPrototypeOf(PeerReview)).call(this, props));
-	
-	        _this.state = {
-	            auth: "",
-	            macroName: "",
-	            parameters: []
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(PeerReview, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var cookies = document.cookie.split(/=/);
-	            var info = {
-	                "authentication": cookies[1]
-	            };
-	
-	            console.log(JSON.stringify(info));
-	            var inf = '';
-	            _jquery2.default.ajax({
-	                type: "POST",
-	                url: "/peerreview",
-	                data: JSON.stringify(info),
-	                dataType: 'json',
-	                success: function (msg) {
-	                    console.log(msg);
-	                    if (msg.status == "SUCCESS") {
-	                        console.log("succeeded");
-	                    }
-	                }.bind(this)
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'section',
-	                { className: 'peerreview' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'peerreview' },
-	                    _react2.default.createElement(
-	                        _reactBootstrap.Table,
-	                        { bordered: true, condensed: true },
-	                        _react2.default.createElement('thread', null),
-	                        _react2.default.createElement(
-	                            'tbody',
-	                            null,
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Macro Name'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Request Date and Time'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Parameters'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Accept'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Example'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '12/13/2016 16:16'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'ul',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        )
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Button,
-	                                        null,
-	                                        'Accept'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Example'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '12/13/2016 16:16'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'ul',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        )
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Button,
-	                                        null,
-	                                        'Accept'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Example'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '12/13/2016 16:16'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'ul',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        )
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Button,
-	                                        null,
-	                                        'Accept'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Example'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '12/13/2016 16:16'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'ul',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            null,
-	                                            'ParameterName: Value'
-	                                        )
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Button,
-	                                        null,
-	                                        'Accept'
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return PeerReview;
-	}(_react2.default.Component);
-	
-	exports.default = PeerReview;
-	
-	function ShowFailureAtDOM(id) {
-	    _reactDom2.default.unmountComponentAtNode(document.getElementById(id));
-	    _reactDom2.default.render(_react2.default.createElement(PeerReviewFail, null), document.getElementById(id));
-	}
-	
-	var peerReviewFail = _react2.default.createClass({
-	    displayName: 'peerReviewFail',
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'h2',
-	            null,
-	            'PeerReview FAIL...'
-	        );
-	    }
-	});
-
-/***/ },
-/* 495 */
-/*!************************!*\
-  !*** ./js/History.jsx ***!
-  \************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(/*! react-dom */ 32);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
-	
-	var _jquery = __webpack_require__(/*! jquery */ 488);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 179);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var PeerReview = function (_React$Component) {
-	    _inherits(PeerReview, _React$Component);
-	
-	    function PeerReview() {
-	        _classCallCheck(this, PeerReview);
-	
-	        return _possibleConstructorReturn(this, (PeerReview.__proto__ || Object.getPrototypeOf(PeerReview)).apply(this, arguments));
-	    }
-	
-	    _createClass(PeerReview, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'section',
-	                { className: 'container' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'macro' },
-	                    _react2.default.createElement(
-	                        'h1',
-	                        null,
-	                        'Macro History'
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'row' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'col-md-2' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'dropdown' },
-	                                _react2.default.createElement(
-	                                    'button',
-	                                    { className: 'btn btn-default dropdown-toggle', type: 'button', id: 'dropdownMenu1', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
-	                                    'Sort By',
-	                                    _react2.default.createElement('span', { className: 'caret' })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'ul',
-	                                    { className: 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { href: '#' },
-	                                            'Recent'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { href: '#' },
-	                                            'Oldest'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement('li', { role: 'separator', 'class': 'divider' }),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { href: '#' },
-	                                            'Recent - Not Reviewed'
-	                                        )
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'table',
-	                            { className: 'table table-striped table-bordered table-hover' },
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    null,
-	                                    'Macro'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    null,
-	                                    'Creation Date'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    null,
-	                                    'Submitter'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    null,
-	                                    'Reviewer'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { params: 'param1:something, param2:453' },
-	                                    'Example'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '12/13/2016 16:16'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Someone'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Not reviewed yet'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { params: 'param1:somethingElse, param2:84651' },
-	                                    'Example'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '12/13/2016 14:47'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Someone'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Someone else'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { params: 'param1:41238, param2:Something' },
-	                                    'Example'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '12/13/2016 14:35'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Someone'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Peer Review Bypassed'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { params: 'param1:something, param2:somethingElse' },
-	                                    'Example'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '12/12/2016 18:38'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Someone'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    'Someone else'
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return PeerReview;
-	}(_react2.default.Component);
-	
-	exports.default = PeerReview;
-
-/***/ },
-/* 496 */
-/*!*************************!*\
-  !*** ./js/Failures.jsx ***!
-  \*************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	    displayName: "Failures",
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            null,
-	            _react2.default.createElement(
-	                "section",
-	                { className: "container" },
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "macro" },
-	                    _react2.default.createElement(
-	                        "h1",
-	                        null,
-	                        "Failed Macros"
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "row" },
-	                        _react2.default.createElement(
-	                            "table",
-	                            { className: "table table-striped table-bordered" },
-	                            _react2.default.createElement(
-	                                "tr",
-	                                null,
-	                                _react2.default.createElement("th", null),
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    null,
-	                                    "Macro"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    null,
-	                                    "Date Run"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    null,
-	                                    "Run By"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    null,
-	                                    "Reviewer"
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-
-/***/ },
-/* 497 */
-/*!******************************!*\
-  !*** ./js/MacroDropdown.jsx ***!
-  \******************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(/*! react-dom */ 32);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _reactBootstrap = __webpack_require__(/*! react-bootstrap */ 235);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var MacroDropdown = function (_React$Component) {
-	    _inherits(MacroDropdown, _React$Component);
-	
-	    function MacroDropdown(props) {
-	        _classCallCheck(this, MacroDropdown);
-	
-	        var _this = _possibleConstructorReturn(this, (MacroDropdown.__proto__ || Object.getPrototypeOf(MacroDropdown)).call(this, props));
-	
-	        _this.state = {
-	            bypass: "false"
-	        };
-	        _this.changeSelection = _this.changeSelection.bind(_this);
-	        return _this;
-	    }
-	
-	    _createClass(MacroDropdown, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var cookies = document.cookie.split(/=/);
-	            var info = {
-	                "authentication": cookies[1]
-	            };
-	
-	            console.log(JSON.stringify(info));
-	            $.ajax({
-	                type: "POST",
-	                url: "/macro",
-	                data: JSON.stringify(info),
-	                dataType: 'json',
-	                success: function (msg) {
-	                    console.log(msg);
-	                    if (msg.status == "SUCCESS") {
-	                        console.log("succeeded");
-	                    }
-	                }.bind(this)
-	            });
-	        }
-	    }, {
-	        key: 'changeSelection',
-	        value: function changeSelection(e) {
-	            this.setState({ skipReview: e });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                _reactBootstrap.DropdownButton,
-	                { bsStyle: 'default', title: 'Macros', key: 1 },
-	                _react2.default.createElement(
-	                    _reactBootstrap.MenuItem,
-	                    { eventKey: '1' },
-	                    'Update Schedule Start time by Run Name and Audit ID'
-	                ),
-	                _react2.default.createElement(
-	                    _reactBootstrap.MenuItem,
-	                    { eventKey: '2' },
-	                    'Delete all entries by Run Name'
-	                ),
-	                _react2.default.createElement(
-	                    _reactBootstrap.MenuItem,
-	                    { eventKey: '3' },
-	                    'Update Status Code by Run Name and Audit ID'
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return MacroDropdown;
-	}(_react2.default.Component);
-	
-	exports.default = MacroDropdown;
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=compiled.js.map
+//# sourceMappingURL=loginCompiled.js.map

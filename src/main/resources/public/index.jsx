@@ -1,30 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { DropdownButton } from 'react-bootstrap';
-import { ButtonToolbar } from 'react-bootstrap';
-import { MenuItem } from 'react-bootstrap';
+import React from 'react'
+import { render } from 'react-dom'
+import App from './js/app.jsx'
+import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+import Login from './js/Login.jsx'
+import RunMacro from './js/RunMacro.jsx'
+import Home from './js/Home.jsx'
+import PeerReview from './js/PeerReview.jsx'
+import History from './js/History.jsx'
+import Failures from './js/Failures.jsx'
 
-
-
-const BUTTONS = ['Default'];
-
-function renderDropdownButton(title, i) {
-  return (
-	<DropdownButton bsStyle={title.toLowerCase()} title="Macro Class" key={i} id={`dropdown-basic-${i}`}>
-	  <MenuItem eventKey="1">Driver Schedule - Update</MenuItem>
-	  <MenuItem eventKey="2">Driver Schedule - Delete</MenuItem>
-	  <MenuItem divider />
-	  <MenuItem eventKey="3">Driver Step - Update</MenuItem>
-	  <MenuItem eventKey="2">Driver Step - Delete</MenuItem>
-	  <MenuItem divider />
-	  <MenuItem eventKey="5">Driver Step Detail - Update</MenuItem>
-	  <MenuItem eventKey="6">Driver Step Detail - Delete</MenuItem>
-	</DropdownButton>
-  );
-}
-
-const buttonsInstance = (
-  <div>{BUTTONS.map(renderDropdownButton)}</div>
-);
-
-ReactDOM.render(buttonsInstance, document.getElementById('classdropdown'));
+render((
+    <Router history={hashHistory}>
+        <Route path="/login" component={Login}/>
+        <Route path="/" component={App}>
+            {/* make them children of `App` */}
+            <Route path="/home" component={Home}/>
+            <Route path="/runMacro" component={RunMacro}/>
+            <Route path="/peerReview" component={PeerReview}/>
+            <Route path="/history" component={History}/>
+            <Route path="/failures" component={Failures}/>
+        </Route>
+    </Router>
+), document.getElementById('app'))
