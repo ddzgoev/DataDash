@@ -57755,7 +57755,11 @@
 	
 	        var _this = _possibleConstructorReturn(this, (RunMacro.__proto__ || Object.getPrototypeOf(RunMacro)).call(this, props));
 	
+	        _this.state = {
+	            bypass: "false"
+	        };
 	        _this.submit = _this.submit.bind(_this);
+	        _this.changeSelection = _this.changeSelection.bind(_this);
 	        return _this;
 	    }
 	
@@ -57767,7 +57771,7 @@
 	                "authentication": cookies[1],
 	                "macroType": "DRIVER_SCHEDULE_DELETE_BY_RUN_NAME",
 	                "parameters": ["test"],
-	                "skipReview": "true"
+	                "skipReview": "false"
 	            };
 	
 	            console.log(JSON.stringify(info));
@@ -57778,15 +57782,18 @@
 	                data: JSON.stringify(info),
 	                dataType: 'json',
 	                success: function (msg) {
-	                    console.log(msg);
 	                    if (msg.status == "SUCCESS") {
-	                        this.setState({ auth: msg.authentication });
-	                        this.setState({ hasAuth: true });
+	                        console.log(msg);
 	                    } else {
-	                        ShowFailureAtDOM('login');
+	                        console.log("hello");
 	                    }
 	                }.bind(this)
 	            });
+	        }
+	    }, {
+	        key: 'changeSelection',
+	        value: function changeSelection() {
+	            this.setState({ skipReview: skipReview });
 	        }
 	    }, {
 	        key: 'render',

@@ -5,7 +5,11 @@ import { DropdownButton, MenuItem } from 'react-bootstrap'
 export default class RunMacro extends React.Component{
     constructor(props){
         super(props)
+        this.state = {
+            bypass: "false"
+        }
         this.submit = this.submit.bind(this);
+        this.changeSelection = this.changeSelection.bind(this);
     }
 
     submit(){
@@ -14,7 +18,7 @@ export default class RunMacro extends React.Component{
             "authentication": cookies[1],
             "macroType": "DRIVER_SCHEDULE_DELETE_BY_RUN_NAME",
             "parameters": ["test"],
-            "skipReview": "true"
+            "skipReview": "false"
         };
 
 
@@ -26,15 +30,17 @@ export default class RunMacro extends React.Component{
             data: JSON.stringify(info),
             dataType: 'json',
             success:function(msg) {
-                console.log(msg);
                 if(msg.status == "SUCCESS"){
-                    this.setState({auth: msg.authentication})
-                    this.setState({hasAuth: true});
+                    console.log(msg);
                 } else {
-                    ShowFailureAtDOM('login');
+                    console.log("hello");
                 }
             }.bind(this)     
         });
+    }
+    
+    changeSelection() {
+        this.setState({skipReview})
     }
 
     render() {
