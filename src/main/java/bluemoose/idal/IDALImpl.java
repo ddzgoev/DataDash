@@ -84,7 +84,7 @@ public class IDALImpl implements IDALInterface {
 	@Override
 	public List<Macro> getAllPendingMacros() {
 		try {
-			ResultSet macros = database.queryrs("SELECT * FROM Macros WHERE m.wasRun = false;");
+			ResultSet macros = database.queryrs("SELECT * FROM Macros WHERE wasRun = false;");
 			return readMacros(macros);
 
 		} catch (SQLException e) {

@@ -17,6 +17,28 @@ export default class PeerReview extends React.Component{
             parameters:[]
         }
     }
+    
+    componentDidMount(){
+        var cookies = document.cookie.split(/=/);
+        var info = {
+            "authentication": cookies[1]
+        };
+        
+        console.log(JSON.stringify(info));
+        var inf = ''
+        $.ajax({
+            type: "POST",
+            url: "/peerreview",
+            data: JSON.stringify(info),
+            dataType: 'json',
+            success:function(msg) {
+                console.log(msg);
+                if(msg.status == "SUCCESS"){
+                    console.log("succeeded")
+                }
+            }.bind(this)     
+        });
+    }
 
     render() {
         return(

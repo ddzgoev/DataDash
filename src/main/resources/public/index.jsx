@@ -7,6 +7,7 @@ import RunMacro from './js/RunMacro.jsx'
 import Home from './js/Home.jsx'
 import PeerReview from './js/PeerReview.jsx'
 import History from './js/History.jsx'
+import Failures from './js/Failures.jsx'
 
 render((
     <Router history={hashHistory}>
@@ -17,6 +18,7 @@ render((
             <Route path="/runMacro" component={RunMacro}/>
             <Route path="/peerReview" component={PeerReview}/>
             <Route path="/history" component={History}/>
+            <Route path="/failures" component={Failures}/>
         </Route>
     </Router>
 ), document.getElementById('app'))
