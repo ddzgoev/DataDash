@@ -10,7 +10,6 @@ const {Table, Column, Cell} = require('fixed-data-table');
 export default React.createClass({
 
 
-
   render() {
     return (
     <div>
