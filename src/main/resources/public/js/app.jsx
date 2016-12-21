@@ -16,8 +16,8 @@ const navbarInstance = (
             <Nav>
                 <NavItem eventKey={1} href="#"><Link to="/runMacro">Run Macro</Link></NavItem>
                 <NavItem eventKey={2} href="#"><NavLink to="/peerReview">Peer Review</NavLink></NavItem>     
-                <NavItem eventKey={3} href="#"><NavLink to="/home">Macro History</NavLink></NavItem>
-                <NavItem eventKey={4} href="#"><NavLink to="/home">Failures</NavLink></NavItem>
+                <NavItem eventKey={3} href="#"><NavLink to="/history">Macro History</NavLink></NavItem>
+                <NavItem eventKey={4} href="#"><NavLink to="/failures">Failures</NavLink></NavItem>
                 <NavItem eventKey={5} href="#"><NavLink to="/home">View Run Names</NavLink></NavItem>
                 <NavItem eventKey={6} href="#"><NavLink to="/home">Historical Trending</NavLink></NavItem>
                 <NavItem eventKey={7} href="#"><NavLink to="/home">Dependencies</NavLink></NavItem>
